@@ -14,7 +14,7 @@
 
 .header {
   padding: 1.5rem 0;
-  display: table;
+  display: flex;
   border-bottom: 1px solid #eaeaea;
   align-items: center;
 }
