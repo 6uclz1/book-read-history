@@ -18,15 +18,13 @@ export default function Home() {
       </Head>
 
       <header className={styles.header}>
-      <div style={{ width: '1.5rem', padding: '0.25rem', display: 'flex' }}>
-        <FontAwesomeIcon icon={faBookmark}/>
-      </div>
-      <div style={{ fontSize: '1.5rem', fontWeight: 'bold', padding: '0.25rem', display: 'flex' }}>
-        読書管理
-      </div>
+        <div style={{ width: '1.5rem', padding: '0.25rem', display: 'flex' }}>
+          <FontAwesomeIcon icon={faBookmark}/>
+        </div>
+        <div style={{ fontSize: '1.5rem', fontWeight: 'bold', padding: '0.25rem', display: 'flex' }}>
+          読書管理
+        </div>
       </header>
-
-
 
       <main className={styles.main}>
 

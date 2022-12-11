@@ -16,6 +16,7 @@
   padding: 1.5rem 0;
   display: flex;
   border-bottom: 1px solid #eaeaea;
+  align-items: center;
 }
 
 .footer {
