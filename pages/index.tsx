@@ -18,10 +18,10 @@ export default function Home() {
       </Head>
 
       <header className={styles.header}>
-        <div style={{ width: '1.5rem', padding: '0.25rem', display: 'flex' }}>
+        <div style={{ width: '1.5rem', padding: '0.6em 0.25em 0.25em 0.25rem'}}>
           <FontAwesomeIcon icon={faBookmark}/>
         </div>
-        <div style={{ fontSize: '1.5rem', fontWeight: 'bold', padding: '0.25rem', display: 'flex' }}>
+        <div style={{ fontSize: '1.5rem', fontWeight: 'bold', padding: '0.25em 0.25em 0.25em 0.5rem' }}>
           読書管理
         </div>
       </header>
