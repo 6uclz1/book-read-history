@@ -13,10 +13,19 @@
 }
 
 .header {
-  padding: 1.5rem 0;
+  padding: 1.0rem 0;
+  font-size: 1.5em;
+  font-weight: bold;
   display: flex;
   border-bottom: 1px solid #eaeaea;
   align-items: center;
+}
+
+.header::before {
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	content: "\f02e";
+  margin: 0.75em 0.75em 0.75em 0.75em;
 }
 
 .footer {
@@ -94,8 +103,20 @@
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
   border-color: #0070f3;
+}
+
+/* .card img:hover,
+.card img:focus,
+.card img:active {
+  transform:scale(1.05,1.05);
+  transition:0.5s all;
+} */
+
+.card:hover img {
+  border-radius: 8px;
+  transform:scale(1.05,1.05);
+  transition: transform 0.5s ease;
 }
 
 .card h2 {
@@ -103,19 +124,24 @@
   font-size: 1.0rem;
 }
 
-.card img{
+.card img {
   width: 350px;
   height: 320px;
+  border-radius: 8px;
 
   object-fit: cover;
   object-position: 100% 0%;
 }
 
-.card img:hover,
-.card img:focus,
-.card img:active{
-  transform:scale(1.05,1.05);
-  transition:0.5s all;
+.divineLine {
+  border-bottom: 1px solid #eaeaea;
+  margin: 1.5em 0em 1.5em 0em;
+}
+
+.cardImg {
+  border-radius: 8px;
+  display: flex;
+  overflow: hidden;
 }
 
 .card p {
@@ -127,15 +153,36 @@
 
 .card p span {
   display: inline-block;
-  width:15%;
+  width:20%;
   color: rgba(67, 67, 67, 1);
 }
 
-.cardImg {
-  display: flex;
+.author span::before {
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	content: "\f007";
+  margin: 0.25em 0.5em 0.25em 0.25em;
+}
 
-  overflow: hidden;
-  border-radius: 8px;
+.publisher span::before {
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	content: "\f02e";
+  margin: 0.25em 0.5em 0.25em 0.25em;
+}
+
+.isbn span::before {
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	content: "\f02a";
+  margin: 0.25em 0.5em 0.25em 0.25em;
+}
+
+.readDate span::before {
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	content: "\f133";
+  margin: 0.25em 0.5em 0.25em 0.25em;
 }
 
 .logo {
@@ -155,6 +202,9 @@
   .header,
   .footer {
     border-color: #222;
+  }
+  .divineLine {
+    border-bottom: 1px solid #222;
   }
   .code {
     background: #111;
