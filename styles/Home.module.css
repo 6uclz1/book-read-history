@@ -106,16 +106,25 @@
   border-color: #0070f3;
 }
 
-/* .card img:hover,
-.card img:focus,
-.card img:active {
-  transform:scale(1.05,1.05);
-  transition:0.5s all;
-} */
+.cardImg {
+  border-radius: 8px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.card img {
+  width: 350px;
+  height: 320px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: 100% 0%;
+}
 
 .card:hover img {
   border-radius: 8px;
-  transform:scale(1.05,1.05);
+  transform:scale(1.08,1.08);
   transition: transform 0.5s ease;
 }
 
@@ -124,24 +133,9 @@
   font-size: 1.0rem;
 }
 
-.card img {
-  width: 350px;
-  height: 320px;
-  border-radius: 8px;
-
-  object-fit: cover;
-  object-position: 100% 0%;
-}
-
 .divineLine {
   border-bottom: 1px solid #eaeaea;
   margin: 1.5em 0em 1.5em 0em;
-}
-
-.cardImg {
-  border-radius: 8px;
-  display: flex;
-  overflow: hidden;
 }
 
 .card p {
