@@ -7135,7 +7135,7 @@ export default function Home() {
 
   const loadMore = async () => {
     setItems((prevItems: any[]) => {
-      if (allItems.length == prevItems.length) {
+      if (allItems.length === prevItems.length) {
         return prevItems;
       }
       const newItems = [
