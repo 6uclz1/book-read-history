@@ -72,26 +72,6 @@ export default function Home() {
     );
   };
 
-  const loader = () => {
-    const mock = {
-      title: "",
-      author: "",
-      publisher: "",
-      isbn: "",
-      readDate: "..../../..",
-      thumnailImage: "/200x300.png",
-    };
-    const result = card(mock);
-
-    return (
-      <>
-        {result}
-        {result}
-        {result}
-      </>
-    );
-  };
-
   return (
     <div className={styles.container} onScroll={loadMore}>
       <link
@@ -112,7 +92,6 @@ export default function Home() {
             loadMore={loadMore}
             hasMore={true}
             className={styles.grid}
-            loader={loader()}
           >
             {items.map((value, index) => (
               <div key={index}>{card(value)}</div>
