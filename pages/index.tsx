@@ -7130,17 +7130,17 @@ export default function Home() {
 
   useEffect(() => {
     setAllItems(objects);
-    setItems(objects.slice(0, 50));
+    setItems(objects.slice(0, 48));
   }, []);
 
   const loadMore = async () => {
-    if (allItems.length < 1) {
-      return;
-    }
     setItems((prevItems: any[]) => {
+      if (allItems.length == prevItems.length) {
+        return prevItems;
+      }
       const newItems = [
         ...prevItems,
-        ...allItems.slice(prevItems.length, prevItems.length + 50),
+        ...allItems.slice(prevItems.length, prevItems.length + 48),
       ];
       return newItems;
     });
