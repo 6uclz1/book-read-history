@@ -13,7 +13,7 @@
 }
 
 .header {
-  padding: 1.0rem 0;
+  padding: 1rem 0;
   font-size: 1.5em;
   font-weight: bold;
   display: flex;
@@ -22,9 +22,9 @@
 }
 
 .header::before {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	content: "\f02e";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f02e";
   margin: 0.75em 0.75em 0.75em 0.75em;
 }
 
@@ -86,6 +86,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  transition: transform 3.5s all;
 }
 
 .card {
@@ -124,13 +125,13 @@
 
 .card:hover img {
   border-radius: 8px;
-  transform:scale(1.08,1.08);
+  transform: scale(1.08, 1.08);
   transition: transform 0.5s ease;
 }
 
 .card h2 {
   margin: 0 0 1rem 0;
-  font-size: 1.0rem;
+  font-size: 1rem;
 }
 
 .divineLine {
@@ -147,35 +148,35 @@
 
 .card p span {
   display: inline-block;
-  width:20%;
+  width: 20%;
   color: rgba(67, 67, 67, 1);
 }
 
 .author span::before {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	content: "\f007";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f007";
   margin: 0.25em 0.5em 0.25em 0.25em;
 }
 
 .publisher span::before {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	content: "\f02e";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f02e";
   margin: 0.25em 0.5em 0.25em 0.25em;
 }
 
 .isbn span::before {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	content: "\f02a";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f02a";
   margin: 0.25em 0.5em 0.25em 0.25em;
 }
 
 .readDate span::before {
-	font-family: "Font Awesome 5 Free";
-	font-weight: 900;
-	content: "\f133";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f133";
   margin: 0.25em 0.5em 0.25em 0.25em;
 }
 
@@ -209,7 +210,7 @@
   .logo img {
     filter: invert(1);
   }
-  .card img{
+  .card img {
     filter: brightness(90%);
   }
 }
