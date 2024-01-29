@@ -12,7 +12,7 @@ const formattedData = d.map((row) => {
         publisher: row.publisher,
         isbn: row.isbn,
         readDate: row.readDate,
-        thumnailImage: row.thumnailImage,
+        thumnailImage: row.thumnailImage.replace(/\?.*$/,"")
     }
 })
 
