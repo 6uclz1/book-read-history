@@ -1,4 +1,4 @@
-export const books = [
+[
   {
     "id": "eba03b21-a597-4b69-9ab0-cc0ab76f0005",
     "title": "西洋音楽の正体 調と和声の不思議を探る",

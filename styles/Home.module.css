@@ -214,3 +214,18 @@
     filter: brightness(90%);
   }
 }
+
+.isbn span::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f02a";
+  margin: 0.25em 0.5em 0.25em 0.25em;
+}
+
+.isbn a {
+  text-decoration: none;
+}
+
+.isbn a:hover {
+  text-decoration: underline;
+}

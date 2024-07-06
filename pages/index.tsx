@@ -5,10 +5,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { books } from "../public/books";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [allItems, setAllItems] = useState<any[]>([]);
   const [items, setItems] = useState<any[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     setAllItems(books);
@@ -28,16 +30,24 @@ export default function Home() {
     });
   };
 
+  const handleCardClick = (id: string) => {
+    router.push(`/items/${id}`);
+  };
+
+  const handleIsbnClick = (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => {
+    e.stopPropagation(); // これにより、カード全体のクリックイベントが発火するのを防ぎます
+  };
+
   const card = (value: any) => {
     return (
-      <div className={styles.card}>
+      <div className={styles.card} onClick={() => handleCardClick(value.id)}>
         <div className={styles.cardImg}>
           <Image
             src={value.thumnailImage}
             alt="img"
             width={200}
             height={300}
-          ></Image>
+          />
         </div>
         <div>
           <p>
@@ -57,9 +67,10 @@ export default function Home() {
         <p className={styles.isbn}>
           <span>ISBN</span>
           <Link
-            href={"https://www.books.or.jp/book-details/" + value.isbn}
-            target={"_blank"}
-            style={{ textDecoration: "underline" }}
+            href={`https://www.books.or.jp/book-details/${value.isbn}`}
+            onClick={(e) => handleIsbnClick(e, value.isbn)}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             {value.isbn}
           </Link>
@@ -74,14 +85,14 @@ export default function Home() {
 
   return (
     <div className={styles.container} onScroll={loadMore}>
-      <link
-        href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
-        rel="stylesheet"
-      ></link>
       <Head>
         <title>読書管理</title>
         <meta name="description" content="読んだ本をリスト化したサイトです。" />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          rel="stylesheet"
+        />
       </Head>
 
       <header className={styles.header}>読書管理</header>
@@ -100,7 +111,9 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className={styles.footer}>Created by {"6uclz1"}.</footer>
+      <footer className={styles.footer}>
+        <p>© 2024 読書管理. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
