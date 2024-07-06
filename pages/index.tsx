@@ -34,7 +34,7 @@ export default function Home() {
     router.push(`/items/${id}`);
   };
 
-  const handleIsbnClick = (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => {
+  const handleIsbnClick = (e: any, isbn: string) => {
     e.stopPropagation(); // これにより、カード全体のクリックイベントが発火するのを防ぎます
   };
 
