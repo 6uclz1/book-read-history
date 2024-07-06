@@ -21,7 +21,7 @@ permissions:
 # Allow one concurrent deployment
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   # Build job
@@ -48,12 +48,12 @@ jobs:
             exit 1
           fi
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v5
         with:
           # Automatically inject basePath in your Next.js configuration file and disable
           # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
@@ -79,7 +79,7 @@ jobs:
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
 
@@ -93,4 +93,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
