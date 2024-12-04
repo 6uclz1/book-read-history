@@ -7,6 +7,7 @@ const data = fs.readFileSync('./public/books.csv')
 const d = parse(data, {columns:true})
 
 const formattedData = d.map((row) => {
+    console.log(row)
     return {
         id: randomUUID(),
         title: row.title,
@@ -18,7 +19,7 @@ const formattedData = d.map((row) => {
     }
 })
 
-console.log(formattedData)
+// console.log(formattedData)
 
 const json = JSON.stringify(formattedData, null, 2);
 
