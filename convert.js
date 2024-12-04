@@ -19,8 +19,6 @@ const formattedData = d.map((row) => {
     }
 })
 
-// console.log(formattedData)
-
 const json = JSON.stringify(formattedData, null, 2);
 
 fs.writeFileSync('export.json', json);
