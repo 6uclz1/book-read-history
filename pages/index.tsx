@@ -9,22 +9,37 @@ import { useRouter } from "next/router";
 
 export default function Home() {
   const [allItems, setAllItems] = useState<any[]>([]);
+  const [filteredItems, setFilteredItems] = useState<any[]>([]);
   const [items, setItems] = useState<any[]>([]);
+  const [selectedYear, setSelectedYear] = useState<string>("All"); // 選択された年
   const router = useRouter();
 
   useEffect(() => {
     setAllItems(books);
+    setFilteredItems(books);
     setItems(books.slice(0, 48));
   }, []);
 
+  useEffect(() => {
+    // Yearによる絞り込みを適用
+    if (selectedYear === "All") {
+      setFilteredItems(allItems);
+    } else {
+      setFilteredItems(
+        allItems.filter((book) => book.readDate.startsWith(selectedYear))
+      );
+    }
+    setItems([]);
+  }, [selectedYear, allItems]);
+
   const loadMore = async () => {
     setItems((prevItems: any[]) => {
-      if (allItems.length === prevItems.length) {
+      if (filteredItems.length === prevItems.length) {
         return prevItems;
       }
       const newItems = [
         ...prevItems,
-        ...allItems.slice(prevItems.length, prevItems.length + 48),
+        ...filteredItems.slice(prevItems.length, prevItems.length + 48),
       ];
       return newItems;
     });
@@ -35,7 +50,7 @@ export default function Home() {
   };
 
   const handleIsbnClick = (e: any, isbn: string) => {
-    e.stopPropagation(); // これにより、カード全体のクリックイベントが発火するのを防ぎます
+    e.stopPropagation(); // カード全体のクリックイベントを防止
   };
 
   const card = (value: any) => {
@@ -83,6 +98,10 @@ export default function Home() {
     );
   };
 
+  const handleYearClick = (year: string) => {
+    setSelectedYear(year);
+  };
+
   return (
     <div className={styles.container} onScroll={loadMore}>
       <Head>
@@ -98,10 +117,26 @@ export default function Home() {
       <header className={styles.header}>読書管理</header>
 
       <main className={styles.main}>
+        <div className={styles.filter}>
+          <div className={styles.yearButtons}>
+            {["All", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015"].map((year) => (
+              <button
+                key={year}
+                onClick={() => handleYearClick(year)}
+                className={
+                  year === selectedYear ? styles.selectedButton : styles.button
+                }
+              >
+                {year === "All" ? "All" : year}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className={styles.grid}>
           <InfiniteScroll
             loadMore={loadMore}
-            hasMore={true}
+            hasMore={items.length < filteredItems.length}
             className={styles.grid}
           >
             {items.map((value, index) => (
