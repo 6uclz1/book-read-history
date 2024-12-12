@@ -2,8 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroller";
+import { useEffect, useState, useRef } from "react";
 import { books } from "../public/books";
 import { useRouter } from "next/router";
 
@@ -11,8 +10,9 @@ export default function Home() {
   const [allItems, setAllItems] = useState<any[]>([]);
   const [filteredItems, setFilteredItems] = useState<any[]>([]);
   const [items, setItems] = useState<any[]>([]);
-  const [selectedYear, setSelectedYear] = useState<string>("All"); // 選択された年
+  const [selectedYear, setSelectedYear] = useState<string>("All");
   const router = useRouter();
+  const observerTarget = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setAllItems(books);
@@ -21,7 +21,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // Yearによる絞り込みを適用
     if (selectedYear === "All") {
       setFilteredItems(allItems);
     } else {
@@ -32,16 +31,36 @@ export default function Home() {
     setItems([]);
   }, [selectedYear, allItems]);
 
-  const loadMore = async () => {
-    setItems((prevItems: any[]) => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => {
+      if (observerTarget.current) {
+        observer.unobserve(observerTarget.current);
+      }
+    };
+  }, [filteredItems]);
+
+  const loadMore = () => {
+    setItems((prevItems) => {
       if (filteredItems.length === prevItems.length) {
         return prevItems;
       }
-      const newItems = [
+      return [
         ...prevItems,
         ...filteredItems.slice(prevItems.length, prevItems.length + 48),
       ];
-      return newItems;
     });
   };
 
@@ -50,7 +69,7 @@ export default function Home() {
   };
 
   const handleIsbnClick = (e: any, isbn: string) => {
-    e.stopPropagation(); // カード全体のクリックイベントを防止
+    e.stopPropagation();
   };
 
   const card = (value: any) => {
@@ -103,7 +122,7 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container} onScroll={loadMore}>
+    <div className={styles.container}>
       <Head>
         <title>読書管理</title>
         <meta name="description" content="読んだ本をリスト化したサイトです。" />
@@ -134,15 +153,10 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
-          <InfiniteScroll
-            loadMore={loadMore}
-            hasMore={items.length < filteredItems.length}
-            className={styles.grid}
-          >
-            {items.map((value, index) => (
-              <div key={index}>{card(value)}</div>
-            ))}
-          </InfiniteScroll>
+          {items.map((value, index) => (
+            <div key={index}>{card(value)}</div>
+          ))}
+          <div ref={observerTarget} className={styles.observerTarget}></div>
         </div>
       </main>
 
