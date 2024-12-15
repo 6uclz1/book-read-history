@@ -2,12 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { books } from "../public/books";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  const [allItems, setAllItems] = useState(books); // 初期値を books に設定
   const [filteredItems, setFilteredItems] = useState(books); // 初期値を books に設定
   const [items, setItems] = useState(books.slice(0, 48)); // 初期表示用に先頭48件をセット
   const [selectedYear, setSelectedYear] = useState<string>("All");
@@ -16,23 +15,29 @@ export default function Home() {
 
   useEffect(() => {
     // 年フィルターが変更されたときにアイテムを更新
-    if (selectedYear === "All") {
-      setFilteredItems(allItems);
-    } else {
-      const filtered = allItems.filter((book) => book.readDate.startsWith(selectedYear));
-      setFilteredItems(filtered);
-    }
-  }, [selectedYear, allItems]);
+    const filtered =
+      selectedYear === "All"
+        ? books
+        : books.filter((book) => book.readDate.startsWith(selectedYear));
+    setFilteredItems(filtered);
+  }, [selectedYear]);
 
   useEffect(() => {
     // フィルター適用後に表示アイテムをリセット
     setItems(filteredItems.slice(0, 48));
   }, [filteredItems]);
 
-  useEffect(() => {
-    // 初回ロード時にすべてのアイテムをロード
-    setItems(filteredItems.slice(0, 48));
-  }, []);
+  const loadMore = useCallback(() => {
+    setItems((prevItems) => {
+      if (filteredItems.length === prevItems.length) {
+        return prevItems;
+      }
+      return [
+        ...prevItems,
+        ...filteredItems.slice(prevItems.length, prevItems.length + 48),
+      ];
+    });
+  }, [filteredItems]);
 
   useEffect(() => {
     // インターセクションオブザーバーをセットアップ
@@ -45,28 +50,17 @@ export default function Home() {
       { threshold: 1.0 }
     );
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    const target = observerTarget.current;
+    if (target) {
+      observer.observe(target);
     }
 
     return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
+      if (target) {
+        observer.unobserve(target);
       }
     };
-  }, [filteredItems]);
-
-  const loadMore = () => {
-    setItems((prevItems) => {
-      if (filteredItems.length === prevItems.length) {
-        return prevItems;
-      }
-      return [
-        ...prevItems,
-        ...filteredItems.slice(prevItems.length, prevItems.length + 48),
-      ];
-    });
-  };
+  }, [loadMore]);
 
   const handleCardClick = (id: string) => {
     router.push(`/items/${id}`);
@@ -142,7 +136,19 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.filter}>
           <div className={styles.yearButtons}>
-            {["All", "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015"].map((year) => (
+            {[
+              "All",
+              "2024",
+              "2023",
+              "2022",
+              "2021",
+              "2020",
+              "2019",
+              "2018",
+              "2017",
+              "2016",
+              "2015",
+            ].map((year) => (
               <button
                 key={year}
                 onClick={() => handleYearClick(year)}
