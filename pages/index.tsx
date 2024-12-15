@@ -7,31 +7,35 @@ import { books } from "../public/books";
 import { useRouter } from "next/router";
 
 export default function Home() {
-  const [allItems, setAllItems] = useState<any[]>([]);
-  const [filteredItems, setFilteredItems] = useState<any[]>([]);
-  const [items, setItems] = useState<any[]>([]);
+  const [allItems, setAllItems] = useState(books); // 初期値を books に設定
+  const [filteredItems, setFilteredItems] = useState(books); // 初期値を books に設定
+  const [items, setItems] = useState(books.slice(0, 48)); // 初期表示用に先頭48件をセット
   const [selectedYear, setSelectedYear] = useState<string>("All");
   const router = useRouter();
   const observerTarget = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    setAllItems(books);
-    setFilteredItems(books);
-    setItems(books.slice(0, 48));
-  }, []);
-
-  useEffect(() => {
+    // 年フィルターが変更されたときにアイテムを更新
     if (selectedYear === "All") {
       setFilteredItems(allItems);
     } else {
-      setFilteredItems(
-        allItems.filter((book) => book.readDate.startsWith(selectedYear))
-      );
+      const filtered = allItems.filter((book) => book.readDate.startsWith(selectedYear));
+      setFilteredItems(filtered);
     }
-    setItems([]);
   }, [selectedYear, allItems]);
 
   useEffect(() => {
+    // フィルター適用後に表示アイテムをリセット
+    setItems(filteredItems.slice(0, 48));
+  }, [filteredItems]);
+
+  useEffect(() => {
+    // 初回ロード時にすべてのアイテムをロード
+    setItems(filteredItems.slice(0, 48));
+  }, []);
+
+  useEffect(() => {
+    // インターセクションオブザーバーをセットアップ
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
