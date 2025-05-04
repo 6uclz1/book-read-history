@@ -10,7 +10,6 @@
     "format": "eslint pages --fix && prettier --write pages"
   },
   "dependencies": {
-    "csv-parse": "^5.3.3",
     "eslint": "^8.30.0",
     "eslint-config-next": "^15.1.0",
     "next": "^15.2.4",
@@ -19,6 +18,8 @@
     "typescript": "4.9.4"
   },
   "devDependencies": {
+    "crypto": "^1.0.1",
+    "csv-parse": "^5.3.3",
     "@types/node": "^18.11.13",
     "@types/react": "19.0.1",
     "eslint-config-prettier": "^8.5.0",
