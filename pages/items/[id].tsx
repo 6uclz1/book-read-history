@@ -24,10 +24,16 @@ function DetailPage() {
           href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
           rel="stylesheet"
         />
+        <meta property="og:type" content="website" />
         <meta property="og:title" content={details.title} />
         <meta property="og:description" content={`著者: ${details.author} 出版社: ${details.publisher} 読了日: ${details.readDate}`} />
         <meta property="og:image" content={details.thumnailImage} />
         <meta property="og:url" content={`/${details.id}`} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={details.title} />
+        <meta name="twitter:description" content={`著者: ${details.author} 出版社: ${details.publisher} 読了日: ${details.readDate}`} />
+        <meta name="twitter:image" content={details.thumnailImage}   />
       </Head>
 
       <header className={styles.header}>
