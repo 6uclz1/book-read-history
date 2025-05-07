@@ -24,6 +24,10 @@ function DetailPage() {
           href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
           rel="stylesheet"
         />
+        <meta property="og:title" content={details.title} />
+        <meta property="og:description" content={`著者: ${details.author} 出版社: ${details.publisher} 読了日: ${details.readDate}`} />
+        <meta property="og:image" content={details.thumnailImage} />
+        <meta property="og:url" content={`/${details.id}`} />
       </Head>
 
       <header className={styles.header}>
