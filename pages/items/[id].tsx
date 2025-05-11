@@ -4,36 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import styles from "../../styles/Detail.module.css";
-import { Metadata } from "next";
-
-
-export async function generateMetadata(): Promise<Metadata> {
-  // read route params
-  const router = useRouter();
-  const { id } = router.query;
-  const details = books.find((row) => row.id === id);
- 
-  if (!details) {
-    return {
-      title: "Book not found",
-      description: "The book you are looking for does not exist.",
-    };
-  }
- 
-  return {
-    title: details.title,
-    description: `タイトル: ${details.title} 著者: ${details.author} 読了日: ${details.readDate}`,
-    openGraph: {
-      title: details.title,
-      description: `タイトル: ${details.title} 著者: ${details.author} 読了日: ${details.readDate}`,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: details.title,
-      description: `タイトル: ${details.title} 著者: ${details.author} 読了日: ${details.readDate}`,
-    },
-  }
-}
 
 function DetailPage() {
   const router = useRouter();
