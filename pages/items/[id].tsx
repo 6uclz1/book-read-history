@@ -5,6 +5,27 @@ import Link from "next/link";
 import Head from "next/head";
 import styles from "../../styles/Detail.module.css";
 
+// --- 追加: generateMetadata 関数 ---
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const details = books.find((row) => row.id === params.id);
+  if (!details) {
+    return {
+      title: "読書管理 | Book not found",
+      description: "指定された本が見つかりませんでした。",
+    };
+  }
+  return {
+    title: `読書管理 | ${details.title}`,
+    description: `${details.title}（著者: ${details.author}）の詳細ページです。`,
+    openGraph: {
+      title: `読書管理 | ${details.title}`,
+      description: `${details.title}（著者: ${details.author}）の詳細ページです。`,
+      images: [details.thumnailImage],
+    },
+  };
+}
+// --- ここまで ---
+
 function DetailPage() {
   const router = useRouter();
   const { id } = router.query;
@@ -17,7 +38,6 @@ function DetailPage() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>読書管理 | {details.title}</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
