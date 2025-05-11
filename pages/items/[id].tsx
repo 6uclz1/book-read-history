@@ -4,6 +4,36 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import styles from "../../styles/Detail.module.css";
+import { Metadata } from "next";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  // read route params
+  const router = useRouter();
+  const { id } = router.query;
+  const details = books.find((row) => row.id === id);
+ 
+  if (!details) {
+    return {
+      title: "Book not found",
+      description: "The book you are looking for does not exist.",
+    };
+  }
+ 
+  return {
+    title: details.title,
+    description: `タイトル: ${details.title} 著者: ${details.author} 読了日: ${details.readDate}`,
+    openGraph: {
+      title: details.title,
+      description: `タイトル: ${details.title} 著者: ${details.author} 読了日: ${details.readDate}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: details.title,
+      description: `タイトル: ${details.title} 著者: ${details.author} 読了日: ${details.readDate}`,
+    },
+  }
+}
 
 function DetailPage() {
   const router = useRouter();
@@ -17,23 +47,12 @@ function DetailPage() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{details.title} | 読書管理</title>
-        <meta name="description" content={`${details.title}の詳細ページです。`} />
+        <title>読書管理 | {details.title}</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
           rel="stylesheet"
         />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={details.title} />
-        <meta property="og:description" content={`著者: ${details.author} 出版社: ${details.publisher} 読了日: ${details.readDate}`} />
-        <meta property="og:image" content={details.thumnailImage} />
-        <meta property="og:url" content={`/${details.id}`} />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={details.title} />
-        <meta name="twitter:description" content={`著者: ${details.author} 出版社: ${details.publisher} 読了日: ${details.readDate}`} />
-        <meta name="twitter:image" content={details.thumnailImage}   />
       </Head>
 
       <header className={styles.header}>
