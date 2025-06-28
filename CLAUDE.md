@@ -12,7 +12,9 @@ This is a Next.js application for managing reading history (読書管理). It di
 - `npm run build` - Build the application for production
 - `npm start` - Start production server
 - `npm run lint` - Run ESLint to check code quality
-- `npm run format` - Format code with ESLint and Prettier
+- `npm run format` - Format code with Prettier (should be run before committing)
+- `npm run test` - Run Jest unit tests
+- `npm run test:e2e` - Run Playwright E2E tests
 
 ## Architecture
 
@@ -67,5 +69,15 @@ To add new books:
 
 - **Adding books**: Follow the data update process above
 - **Testing locally**: Use `npm run dev` and visit http://localhost:3000
-- **Code quality**: Run `npm run lint` before committing
+- **Code quality**: Run `npm run lint` and `npm run format` before committing
+- **Testing**: Run `npm run test` for unit tests, `npm run test:e2e` for E2E tests
 - **Production build**: Use `npm run build` to verify build succeeds
+
+## Code Quality Guidelines
+
+Always run the following commands before committing changes:
+
+1. `npm run format` - Auto-format code with Prettier
+2. `npm run lint` - Check and fix ESLint issues  
+3. `npm run test` - Ensure all tests pass
+4. `npm run build` - Verify production build works
