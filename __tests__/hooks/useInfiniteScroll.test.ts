@@ -139,4 +139,101 @@ describe('useInfiniteScroll', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.displayedBooks).toHaveLength(30);
   });
+
+  it('loadMore関数が呼ばれるとisLoadingがtrueになり、タイムアウト後にfalseになる', () => {
+    const mockBooks = createMockBooks(100);
+    const { result } = renderHook(() => useInfiniteScroll(mockBooks));
+
+    // IntersectionObserverのコールバックを取得
+    const observerCallback = mockIntersectionObserver.mock.calls[0][0];
+
+    act(() => {
+      observerCallback([{ isIntersecting: true }]);
+    });
+
+    expect(result.current.isLoading).toBe(true);
+
+    // タイマーを進める
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.displayedBooks).toHaveLength(96); // 48 + 48
+  });
+
+  it('isLoading中はloadMoreが重複実行されない', () => {
+    const mockBooks = createMockBooks(100);
+    const { result } = renderHook(() => useInfiniteScroll(mockBooks));
+
+    const observerCallback = mockIntersectionObserver.mock.calls[0][0];
+
+    act(() => {
+      observerCallback([{ isIntersecting: true }]);
+      // 2回目の呼び出し（isLoading中）
+      observerCallback([{ isIntersecting: true }]);
+    });
+
+    expect(result.current.isLoading).toBe(true);
+
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    // 一度だけ読み込まれている
+    expect(result.current.displayedBooks).toHaveLength(96);
+  });
+
+  it('すべてのアイテムが表示されている場合はloadMoreしない', () => {
+    const mockBooks = createMockBooks(100);
+    const { result } = renderHook(() => useInfiniteScroll(mockBooks));
+
+    // 初期の48冊表示後、全て表示するまでloadMoreを実行
+    const observerCallback = mockIntersectionObserver.mock.calls[0][0];
+
+    act(() => {
+      observerCallback([{ isIntersecting: true }]);
+    });
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(result.current.displayedBooks).toHaveLength(96);
+
+    // さらにloadMoreを実行
+    act(() => {
+      observerCallback([{ isIntersecting: true }]);
+    });
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(result.current.displayedBooks).toHaveLength(100);
+    expect(result.current.hasMore).toBe(false);
+
+    // 全て表示済みの場合は追加のloadMoreは何もしない
+    act(() => {
+      observerCallback([{ isIntersecting: true }]);
+    });
+    act(() => {
+      jest.advanceTimersByTime(100);
+    });
+
+    expect(result.current.displayedBooks).toHaveLength(100);
+  });
+
+  it('isIntersectingがfalseの場合はloadMoreが呼ばれない', () => {
+    const mockBooks = createMockBooks(100);
+    const { result } = renderHook(() => useInfiniteScroll(mockBooks));
+
+    const observerCallback = mockIntersectionObserver.mock.calls[0][0];
+
+    act(() => {
+      observerCallback([{ isIntersecting: false }]);
+    });
+
+    // ローディング状態にならない
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.displayedBooks).toHaveLength(48); // 初期の48冊のまま
+  });
 });
