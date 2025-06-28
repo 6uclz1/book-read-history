@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 // Mock Next.js router
 jest.mock('next/router', () => ({
@@ -25,18 +25,18 @@ jest.mock('next/router', () => ({
       defaultLocale: 'en',
       domainLocales: [],
       isPreview: false,
-    }
+    };
   },
-}))
+}));
 
 // Mock Next.js Image component
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props) => {
+  default: props => {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} />
+    return <img {...props} />;
   },
-}))
+}));
 
 // Mock Next.js Link component
 jest.mock('next/link', () => ({
@@ -46,9 +46,9 @@ jest.mock('next/link', () => ({
       <a href={href} {...props}>
         {children}
       </a>
-    )
+    );
   },
-}))
+}));
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
@@ -56,4 +56,4 @@ global.IntersectionObserver = class IntersectionObserver {
   disconnect() {}
   observe() {}
   unobserve() {}
-}
+};

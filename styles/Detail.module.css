@@ -23,9 +23,9 @@
 }
 
 .header::before {
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Font Awesome 5 Free';
   font-weight: 900;
-  content: "\f02e";
+  content: '\f02e';
   margin: 0.75em 0.75em 0.75em 0.75em;
 }
 
@@ -110,32 +110,34 @@
 }
 
 .infoItem span::before {
-  font-family: "Font Awesome 5 Free";
+  font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   margin: 0.25em 0.5em 0.25em 0.25em;
 }
 
 .author span::before {
-  content: "\f007";
+  content: '\f007';
 }
 
 .publisher span::before {
-  content: "\f02e";
+  content: '\f02e';
 }
 
 .isbn span::before {
-  content: "\f02a";
+  content: '\f02a';
 }
 
 .readDate span::before {
-  content: "\f133";
+  content: '\f133';
 }
 
-.description, .review {
+.description,
+.review {
   margin-top: 2rem;
 }
 
-.description h3, .review h3 {
+.description h3,
+.review h3 {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
@@ -191,10 +193,12 @@
   font-size: 1rem;
   padding: 8px 48px;
   background: transparent;
-  transition: color 0.15s ease, border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.backButton:hover{
+.backButton:hover {
   border-color: rgba(232, 230, 227, 0.5);
 }
 

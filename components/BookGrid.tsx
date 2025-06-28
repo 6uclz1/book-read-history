@@ -1,7 +1,7 @@
-import { forwardRef } from "react";
-import { Book } from "../types/book";
-import BookCard from "./BookCard";
-import styles from "../styles/Home.module.css";
+import { forwardRef } from 'react';
+import { Book } from '../types/book';
+import BookCard from './BookCard';
+import styles from '../styles/Home.module.css';
 
 interface BookGridProps {
   books: Book[];
@@ -12,10 +12,13 @@ interface BookGridProps {
 }
 
 const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
-  ({ books, onCardClick, onIsbnClick, hasMore = false, isLoading = false }, ref) => {
+  (
+    { books, onCardClick, onIsbnClick, hasMore = false, isLoading = false },
+    ref
+  ) => {
     return (
       <div>
-        <div 
+        <div
           className={styles.grid}
           role="grid"
           aria-label={`${books.length}冊の本を表示中`}
@@ -44,6 +47,6 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
   }
 );
 
-BookGrid.displayName = "BookGrid";
+BookGrid.displayName = 'BookGrid';
 
 export default BookGrid;

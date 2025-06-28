@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Book } from "../types/book";
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Book } from '../types/book';
 
 const ITEMS_PER_PAGE = 48;
 
@@ -10,7 +10,9 @@ interface UseInfiniteScrollReturn {
   isLoading: boolean;
 }
 
-export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollReturn {
+export function useInfiniteScroll(
+  filteredBooks: Book[]
+): UseInfiniteScrollReturn {
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
@@ -30,7 +32,10 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
         }
         const newItems = [
           ...prevItems,
-          ...filteredBooks.slice(prevItems.length, prevItems.length + ITEMS_PER_PAGE),
+          ...filteredBooks.slice(
+            prevItems.length,
+            prevItems.length + ITEMS_PER_PAGE
+          ),
         ];
         setIsLoading(false);
         return newItems;
@@ -40,7 +45,7 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0].isIntersecting) {
           loadMore();
         }
@@ -66,6 +71,6 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
     displayedBooks,
     observerTarget,
     hasMore,
-    isLoading
+    isLoading,
   };
 }

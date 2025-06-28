@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo } from "react";
-import { Book } from "../types/book";
+import { useState, useEffect, useMemo } from 'react';
+import { Book } from '../types/book';
 
 export function useBookFilter(books: Book[]) {
-  const [selectedYear, setSelectedYear] = useState<string>("All");
+  const [selectedYear, setSelectedYear] = useState<string>('All');
   const [filteredBooks, setFilteredBooks] = useState<Book[]>(books);
 
   // 利用可能な年を動的に生成
@@ -16,9 +16,10 @@ export function useBookFilter(books: Book[]) {
   }, [books]);
 
   useEffect(() => {
-    const filtered = selectedYear === "All"
-      ? books
-      : books.filter((book) => book.readDate.startsWith(selectedYear));
+    const filtered =
+      selectedYear === 'All'
+        ? books
+        : books.filter(book => book.readDate.startsWith(selectedYear));
     setFilteredBooks(filtered);
   }, [selectedYear, books]);
 
@@ -26,6 +27,6 @@ export function useBookFilter(books: Book[]) {
     selectedYear,
     setSelectedYear,
     filteredBooks,
-    availableYears
+    availableYears,
   };
 }

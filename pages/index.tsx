@@ -1,24 +1,29 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
-import { books } from "../public/books";
-import { useBookFilter } from "../hooks/useBookFilter";
-import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import YearFilter from "../components/YearFilter";
-import BookGrid from "../components/BookGrid";
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import { useRouter } from 'next/router';
+import { books } from '../public/books';
+import { useBookFilter } from '../hooks/useBookFilter';
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
+import YearFilter from '../components/YearFilter';
+import BookGrid from '../components/BookGrid';
 
 export default function Home() {
   const router = useRouter();
-  
+
   // カスタムフックを使用してビジネスロジックを分離
-  const { selectedYear, setSelectedYear, filteredBooks, availableYears } = useBookFilter(books);
-  const { displayedBooks, observerTarget, hasMore, isLoading } = useInfiniteScroll(filteredBooks);
+  const { selectedYear, setSelectedYear, filteredBooks, availableYears } =
+    useBookFilter(books);
+  const { displayedBooks, observerTarget, hasMore, isLoading } =
+    useInfiniteScroll(filteredBooks);
 
   const handleCardClick = (id: string) => {
     router.push(`/items/${id}`);
   };
 
-  const handleIsbnClick = (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => {
+  const handleIsbnClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    isbn: string
+  ) => {
     e.stopPropagation();
   };
 

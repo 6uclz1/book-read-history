@@ -84,12 +84,12 @@ npm run books:update
 
 ```typescript
 {
-  id: string;           // SHA-256ハッシュ（タイトル+著者から生成）
-  title: string;        // 書籍タイトル
-  author: string;       // 著者名
-  publisher: string;    // 出版社
-  isbn: string;         // ISBN
-  readDate: string;     // 読了日（YYYY/MM/DD形式）
+  id: string; // SHA-256ハッシュ（タイトル+著者から生成）
+  title: string; // 書籍タイトル
+  author: string; // 著者名
+  publisher: string; // 出版社
+  isbn: string; // ISBN
+  readDate: string; // 読了日（YYYY/MM/DD形式）
   thumnailImage: string; // サムネイル画像URL
 }
 ```

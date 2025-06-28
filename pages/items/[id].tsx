@@ -1,18 +1,20 @@
-import { useRouter } from "next/router";
-import { books } from "../../public/books";
-import { Book } from "../../types/book";
-import Image from "next/image";
-import Link from "next/link";
-import Head from "next/head";
-import styles from "../../styles/Detail.module.css";
+import { useRouter } from 'next/router';
+import { books } from '../../public/books';
+import { Book } from '../../types/book';
+import Image from 'next/image';
+import Link from 'next/link';
+import Head from 'next/head';
+import styles from '../../styles/Detail.module.css';
 
 // --- 追加: generateMetadata 関数 ---
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const details: Book | undefined = books.find((book: Book) => book.id === params.id);
+  const details: Book | undefined = books.find(
+    (book: Book) => book.id === params.id
+  );
   if (!details) {
     return {
-      title: "読書管理 | Book not found",
-      description: "指定された本が見つかりませんでした。",
+      title: '読書管理 | Book not found',
+      description: '指定された本が見つかりませんでした。',
     };
   }
   return {

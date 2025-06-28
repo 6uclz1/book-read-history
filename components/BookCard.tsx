@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Book } from "../types/book";
-import styles from "../styles/Home.module.css";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Book } from '../types/book';
+import styles from '../styles/Home.module.css';
 
 interface BookCardProps {
   book: Book;
@@ -9,7 +9,11 @@ interface BookCardProps {
   onIsbnClick: (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => void;
 }
 
-export default function BookCard({ book, onCardClick, onIsbnClick }: BookCardProps) {
+export default function BookCard({
+  book,
+  onCardClick,
+  onIsbnClick,
+}: BookCardProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -18,8 +22,8 @@ export default function BookCard({ book, onCardClick, onIsbnClick }: BookCardPro
   };
 
   return (
-    <div 
-      className={styles.card} 
+    <div
+      className={styles.card}
       onClick={() => onCardClick(book.id)}
       onKeyDown={handleKeyDown}
       tabIndex={0}
@@ -53,7 +57,7 @@ export default function BookCard({ book, onCardClick, onIsbnClick }: BookCardPro
         <span>ISBN</span>
         <Link
           href={`https://www.books.or.jp/book-details/${book.isbn}`}
-          onClick={(e) => {
+          onClick={e => {
             e.stopPropagation();
             onIsbnClick(e, book.isbn);
           }}
