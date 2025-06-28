@@ -78,6 +78,6 @@ To add new books:
 Always run the following commands before committing changes:
 
 1. `npm run format` - Auto-format code with Prettier
-2. `npm run lint` - Check and fix ESLint issues  
+2. `npm run lint` - Check and fix ESLint issues
 3. `npm run test` - Ensure all tests pass
 4. `npm run build` - Verify production build works

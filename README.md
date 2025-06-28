@@ -194,6 +194,7 @@ npm run books:update
 ### CI/CD
 
 GitHub Actionsで自動化：
+
 - コード品質チェック（ESLint, Prettier, TypeScript）
 - 単体テスト + カバレッジレポート
 - E2Eテスト（複数ブラウザ）
