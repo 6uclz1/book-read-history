@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "eslint pages --fix && prettier --write pages"
+    "format": "eslint pages --fix && prettier --write pages",
+    "convert": "node convert.js",
+    "books:update": "node convert.js"
   },
   "dependencies": {
     "eslint": "^8.30.0",

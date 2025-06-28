@@ -8828,4 +8828,4 @@ export const books = [
     "readDate": "2015/01/01",
     "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6781/9784150116781.jpg"
   }
-]
+];

@@ -61,6 +61,11 @@ npm run lint
 
 # ESLint + Prettierでコードを整形
 npm run format
+
+# CSVから本データを自動変換・更新
+npm run convert
+# または
+npm run books:update
 ```
 
 ## データ管理
@@ -68,9 +73,10 @@ npm run format
 ### 本のデータ追加
 
 1. `/public/books.csv` に新しい本の情報を追加
-2. 変換スクリプトを実行: `node convert.js`
-3. 生成された `export.json` の内容を `/public/books.ts` にコピー
-4. 新しい年度が追加された場合は、`/pages/index.tsx` の年フィルターボタンを更新
+2. 自動変換スクリプトを実行: `npm run convert`
+3. 新しい年度が追加された場合は、`/pages/index.tsx` の年フィルターボタンを更新
+
+**自動化により、手動でのコピー作業は不要になりました！**
 
 ### データ形式
 
