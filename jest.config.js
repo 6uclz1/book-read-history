@@ -21,8 +21,8 @@ const customJestConfig = {
     '<rootDir>/node_modules/',
     '<rootDir>/e2e/',
   ],
-  workerIdleMemoryLimit: '512MB',
-  maxWorkers: process.env.CI ? 2 : '50%',
+  workerIdleMemoryLimit: '256MB',
+  maxWorkers: process.env.CI ? 1 : 2,
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',
     'hooks/**/*.{js,jsx,ts,tsx}',
