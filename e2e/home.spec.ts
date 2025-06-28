@@ -97,7 +97,9 @@ test.describe('読書管理アプリ - ホームページ', () => {
     await expect(page).toHaveURL(/\/items\//);
   });
 
-  test.skip('無限スクロールが動作する（本が多数ある場合）', async ({ page }) => {
+  test.skip('無限スクロールが動作する（本が多数ある場合）', async ({
+    page,
+  }) => {
     // 初期表示の本の数を取得
     const initialBookCount = await page.locator('.card').count();
 
