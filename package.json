@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "eslint pages --fix && prettier --write pages",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "convert": "node convert.js",
     "books:update": "node convert.js",
     "test": "jest",
@@ -17,7 +19,9 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:all": "npm run test && npm run test:e2e",
-    "playwright:install": "playwright install"
+    "playwright:install": "playwright install",
+    "quality:check": "npm run lint && npm run format:check && npm run test && npx tsc --noEmit",
+    "quality:fix": "npm run lint:fix && npm run format"
   },
   "dependencies": {
     "eslint": "^9.30.0",

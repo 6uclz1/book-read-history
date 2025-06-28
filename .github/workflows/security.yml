@@ -29,6 +29,9 @@ jobs:
       - name: Run npm audit
         run: npm audit --audit-level moderate
 
+      - name: Run security-focused ESLint rules
+        run: npm run lint
+
       - name: Run CodeQL Analysis
         uses: github/codeql-action/init@v3
         with:
