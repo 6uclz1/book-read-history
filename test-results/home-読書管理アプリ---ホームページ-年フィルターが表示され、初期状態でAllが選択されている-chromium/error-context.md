@@ -1,0 +1,602 @@
+# Page snapshot
+
+```yaml
+- banner:  読書管理
+- main:
+  - region "年度フィルター":
+    - tablist "読了年で絞り込み":
+      - tab "すべての年の本を表示" [selected]: All
+      - tab "2025年の本を表示": "2025"
+      - tab "2024年の本を表示": "2024"
+      - tab "2023年の本を表示": "2023"
+      - tab "2022年の本を表示": "2022"
+      - tab "2021年の本を表示": "2021"
+      - tab "2020年の本を表示": "2020"
+      - tab "2019年の本を表示": "2019"
+      - tab "2018年の本を表示": "2018"
+      - tab "2017年の本を表示": "2017"
+      - tab "2016年の本を表示": "2016"
+      - tab "2015年の本を表示": "2015"
+  - grid "48冊の本を表示中":
+    - 'gridcell "東京の謎(ミステリー) この街をつくった先駆者たちの詳細を表示。著者: 門井 慶喜"':
+      - 'button "東京の謎(ミステリー) この街をつくった先駆者たちの詳細を表示。著者: 門井 慶喜"':
+        - img "東京の謎(ミステリー) この街をつくった先駆者たちの表紙画像"
+        - paragraph
+        - heading "東京の謎(ミステリー) この街をつくった先駆者たち" [level=2]
+        - paragraph: 著者 門井 慶喜
+        - paragraph: 出版社 文藝春秋
+        - paragraph:
+          - text: ISBN
+          - link "9784166613281":
+            - /url: https://www.books.or.jp/book-details/9784166613281
+        - paragraph: 読了日 2025/06/22
+    - 'gridcell "イーロン・マスク 上の詳細を表示。著者: ウォルター・アイザックソン/井口 耕二"':
+      - 'button "イーロン・マスク 上の詳細を表示。著者: ウォルター・アイザックソン/井口 耕二"':
+        - img "イーロン・マスク 上の表紙画像"
+        - paragraph
+        - heading "イーロン・マスク 上" [level=2]
+        - paragraph: 著者 ウォルター・アイザックソン/井口 耕二
+        - paragraph: 出版社 文藝春秋
+        - paragraph:
+          - text: ISBN
+          - link "9784163917306":
+            - /url: https://www.books.or.jp/book-details/9784163917306
+        - paragraph: 読了日 2025/06/20
+    - 'gridcell "ゲームフリーク 遊びの世界標準を塗り替えるクリエイティブ集団の詳細を表示。著者: とみさわ 昭仁"':
+      - 'button "ゲームフリーク 遊びの世界標準を塗り替えるクリエイティブ集団の詳細を表示。著者: とみさわ 昭仁"':
+        - img "ゲームフリーク 遊びの世界標準を塗り替えるクリエイティブ集団の表紙画像"
+        - paragraph
+        - heading "ゲームフリーク 遊びの世界標準を塗り替えるクリエイティブ集団" [level=2]
+        - paragraph: 著者 とみさわ 昭仁
+        - paragraph: 出版社 太田出版
+        - paragraph:
+          - text: ISBN
+          - link "9784778340186":
+            - /url: https://www.books.or.jp/book-details/9784778340186
+        - paragraph: 読了日 2025/06/15
+    - gridcell "生きるのが面倒くさい人 回避性パーソナリティ障害の詳細を表示。著者:":
+      - button "生きるのが面倒くさい人 回避性パーソナリティ障害の詳細を表示。著者:":
+        - img "生きるのが面倒くさい人 回避性パーソナリティ障害の表紙画像"
+        - paragraph
+        - heading "生きるのが面倒くさい人 回避性パーソナリティ障害" [level=2]
+        - paragraph: 著者
+        - paragraph: 出版社 朝日新聞出版
+        - paragraph:
+          - text: ISBN
+          - link "9784022736703":
+            - /url: https://www.books.or.jp/book-details/9784022736703
+        - paragraph: 読了日 2025/06/10
+    - 'gridcell "真っ白な嘘【新訳版】の詳細を表示。著者: フレドリック・ブラウン/越前 敏弥"':
+      - 'button "真っ白な嘘【新訳版】の詳細を表示。著者: フレドリック・ブラウン/越前 敏弥"':
+        - img "真っ白な嘘【新訳版】の表紙画像"
+        - paragraph
+        - heading "真っ白な嘘【新訳版】" [level=2]
+        - paragraph: 著者 フレドリック・ブラウン/越前 敏弥
+        - paragraph: 出版社 東京創元社
+        - paragraph:
+          - text: ISBN
+          - link "9784488146238":
+            - /url: https://www.books.or.jp/book-details/9784488146238
+        - paragraph: 読了日 2025/06/03
+    - 'gridcell "夢も金もない高校生が知ると得する進路ガイドの詳細を表示。著者: 石渡 嶺司"':
+      - 'button "夢も金もない高校生が知ると得する進路ガイドの詳細を表示。著者: 石渡 嶺司"':
+        - img "夢も金もない高校生が知ると得する進路ガイドの表紙画像"
+        - paragraph
+        - heading "夢も金もない高校生が知ると得する進路ガイド" [level=2]
+        - paragraph: 著者 石渡 嶺司
+        - paragraph: 出版社 星海社
+        - paragraph:
+          - text: ISBN
+          - link "9784065363775":
+            - /url: https://www.books.or.jp/book-details/9784065363775
+        - paragraph: 読了日 2025/06/01
+    - 'gridcell "The Indifference Engineの詳細を表示。著者: 伊藤計劃"':
+      - 'button "The Indifference Engineの詳細を表示。著者: 伊藤計劃"':
+        - img "The Indifference Engineの表紙画像"
+        - paragraph
+        - heading "The Indifference Engine" [level=2]
+        - paragraph: 著者 伊藤計劃
+        - paragraph: 出版社 早川書房
+        - paragraph:
+          - text: ISBN
+          - link "9784150310608":
+            - /url: https://www.books.or.jp/book-details/9784150310608
+        - paragraph: 読了日 2025/05/23
+    - 'gridcell "Cinematrixの詳細を表示。著者: 伊藤計劃/未定"':
+      - 'button "Cinematrixの詳細を表示。著者: 伊藤計劃/未定"':
+        - img "Cinematrixの表紙画像"
+        - paragraph
+        - heading "Cinematrix" [level=2]
+        - paragraph: 著者 伊藤計劃/未定
+        - paragraph: 出版社 早川書房
+        - paragraph:
+          - text: ISBN
+          - link "9784150311032":
+            - /url: https://www.books.or.jp/book-details/9784150311032
+        - paragraph: 読了日 2025/05/23
+    - 'gridcell "Running Picturesの詳細を表示。著者: 伊藤計劃"':
+      - 'button "Running Picturesの詳細を表示。著者: 伊藤計劃"':
+        - img "Running Picturesの表紙画像"
+        - paragraph
+        - heading "Running Pictures" [level=2]
+        - paragraph: 著者 伊藤計劃
+        - paragraph: 出版社 早川書房
+        - paragraph:
+          - text: ISBN
+          - link "9784150310912":
+            - /url: https://www.books.or.jp/book-details/9784150310912
+        - paragraph: 読了日 2025/05/23
+    - 'gridcell "現代民俗学入門の詳細を表示。著者: 島村 恭則"':
+      - 'button "現代民俗学入門の詳細を表示。著者: 島村 恭則"':
+        - img "現代民俗学入門の表紙画像"
+        - paragraph
+        - heading "現代民俗学入門" [level=2]
+        - paragraph: 著者 島村 恭則
+        - paragraph: 出版社 創元社
+        - paragraph:
+          - text: ISBN
+          - link "9784422230450":
+            - /url: https://www.books.or.jp/book-details/9784422230450
+        - paragraph: 読了日 2025/05/23
+    - 'gridcell "伊藤計劃記録(2)の詳細を表示。著者: 伊藤計劃"':
+      - 'button "伊藤計劃記録(2)の詳細を表示。著者: 伊藤計劃"':
+        - img "伊藤計劃記録(2)の表紙画像"
+        - paragraph
+        - heading "伊藤計劃記録(2)" [level=2]
+        - paragraph: 著者 伊藤計劃
+        - paragraph: 出版社 早川書房
+        - paragraph:
+          - text: ISBN
+          - link "9784150311872":
+            - /url: https://www.books.or.jp/book-details/9784150311872
+        - paragraph: 読了日 2025/05/22
+    - 'gridcell "伊藤計劃記録(1)の詳細を表示。著者: 伊藤計劃"':
+      - 'button "伊藤計劃記録(1)の詳細を表示。著者: 伊藤計劃"':
+        - img "伊藤計劃記録(1)の表紙画像"
+        - paragraph
+        - heading "伊藤計劃記録(1)" [level=2]
+        - paragraph: 著者 伊藤計劃
+        - paragraph: 出版社 早川書房
+        - paragraph:
+          - text: ISBN
+          - link "9784150311865":
+            - /url: https://www.books.or.jp/book-details/9784150311865
+        - paragraph: 読了日 2025/05/22
+    - 'gridcell "小説という毒を浴びる 桜庭一樹書評集の詳細を表示。著者: 桜庭 一樹"':
+      - 'button "小説という毒を浴びる 桜庭一樹書評集の詳細を表示。著者: 桜庭 一樹"':
+        - img "小説という毒を浴びる 桜庭一樹書評集の表紙画像"
+        - paragraph
+        - heading "小説という毒を浴びる 桜庭一樹書評集" [level=2]
+        - paragraph: 著者 桜庭 一樹
+        - paragraph: 出版社 集英社
+        - paragraph:
+          - text: ISBN
+          - link "9784087711677":
+            - /url: https://www.books.or.jp/book-details/9784087711677
+        - paragraph: 読了日 2025/05/18
+    - 'gridcell "JUST KEEP BUYING 自動的に富が増え続ける｢お金｣と｢時間｣の法則の詳細を表示。著者: ニック・マジューリ/児島 修"':
+      - 'button "JUST KEEP BUYING 自動的に富が増え続ける｢お金｣と｢時間｣の法則の詳細を表示。著者: ニック・マジューリ/児島 修"':
+        - img "JUST KEEP BUYING 自動的に富が増え続ける｢お金｣と｢時間｣の法則の表紙画像"
+        - paragraph
+        - heading "JUST KEEP BUYING 自動的に富が増え続ける｢お金｣と｢時間｣の法則" [level=2]
+        - paragraph: 著者 ニック・マジューリ/児島 修
+        - paragraph: 出版社 ダイヤモンド社
+        - paragraph:
+          - text: ISBN
+          - link "9784478116982":
+            - /url: https://www.books.or.jp/book-details/9784478116982
+        - paragraph: 読了日 2025/05/09
+    - 'gridcell "イノベーション・スキルセットの詳細を表示。著者: 田川 欣哉"':
+      - 'button "イノベーション・スキルセットの詳細を表示。著者: 田川 欣哉"':
+        - img "イノベーション・スキルセットの表紙画像"
+        - paragraph
+        - heading "イノベーション・スキルセット" [level=2]
+        - paragraph: 著者 田川 欣哉
+        - paragraph: 出版社 大和書房
+        - paragraph:
+          - text: ISBN
+          - link "9784479797036":
+            - /url: https://www.books.or.jp/book-details/9784479797036
+        - paragraph: 読了日 2025/05/05
+    - 'gridcell "西洋の敗北 日本と世界に何が起きるのかの詳細を表示。著者: エマニュエル・トッド/大野 舞"':
+      - 'button "西洋の敗北 日本と世界に何が起きるのかの詳細を表示。著者: エマニュエル・トッド/大野 舞"':
+        - img "西洋の敗北 日本と世界に何が起きるのかの表紙画像"
+        - paragraph
+        - heading "西洋の敗北 日本と世界に何が起きるのか" [level=2]
+        - paragraph: 著者 エマニュエル・トッド/大野 舞
+        - paragraph: 出版社 文藝春秋
+        - paragraph:
+          - text: ISBN
+          - link "9784163919096":
+            - /url: https://www.books.or.jp/book-details/9784163919096
+        - paragraph: 読了日 2025/05/01
+    - 'gridcell "つくりながら学ぶ！LLM 自作入門の詳細を表示。著者: Sebastian Raschka/巣籠悠輔/株式会社クイープ"':
+      - 'button "つくりながら学ぶ！LLM 自作入門の詳細を表示。著者: Sebastian Raschka/巣籠悠輔/株式会社クイープ"':
+        - img "つくりながら学ぶ！LLM 自作入門の表紙画像"
+        - paragraph
+        - heading "つくりながら学ぶ！LLM 自作入門" [level=2]
+        - paragraph: 著者 Sebastian Raschka/巣籠悠輔/株式会社クイープ
+        - paragraph: 出版社 マイナビ出版
+        - paragraph:
+          - text: ISBN
+          - link "9784839987800":
+            - /url: https://www.books.or.jp/book-details/9784839987800
+        - paragraph: 読了日 2025/04/30
+    - 'gridcell "なぜ大国は衰退するのかの詳細を表示。著者: R．グレン・ハバード/ティム・ケイン"':
+      - 'button "なぜ大国は衰退するのかの詳細を表示。著者: R．グレン・ハバード/ティム・ケイン"':
+        - img "なぜ大国は衰退するのかの表紙画像"
+        - paragraph
+        - heading "なぜ大国は衰退するのか" [level=2]
+        - paragraph: 著者 R．グレン・ハバード/ティム・ケイン
+        - paragraph: 出版社 日経BPM（日本経済新聞出版本部）
+        - paragraph:
+          - text: ISBN
+          - link "9784532356132":
+            - /url: https://www.books.or.jp/book-details/9784532356132
+        - paragraph: 読了日 2025/04/29
+    - 'gridcell "現代暗号入門 いかにして秘密は守られるのかの詳細を表示。著者: 神永 正博"':
+      - 'button "現代暗号入門 いかにして秘密は守られるのかの詳細を表示。著者: 神永 正博"':
+        - img "現代暗号入門 いかにして秘密は守られるのかの表紙画像"
+        - paragraph
+        - heading "現代暗号入門 いかにして秘密は守られるのか" [level=2]
+        - paragraph: 著者 神永 正博
+        - paragraph: 出版社 講談社
+        - paragraph:
+          - text: ISBN
+          - link "9784065020357":
+            - /url: https://www.books.or.jp/book-details/9784065020357
+        - paragraph: 読了日 2025/04/13
+    - 'gridcell "日立の壁の詳細を表示。著者: 東原 敏昭"':
+      - 'button "日立の壁の詳細を表示。著者: 東原 敏昭"':
+        - img "日立の壁の表紙画像"
+        - paragraph
+        - heading "日立の壁" [level=2]
+        - paragraph: 著者 東原 敏昭
+        - paragraph: 出版社 東洋経済新報社
+        - paragraph:
+          - text: ISBN
+          - link "9784492503409":
+            - /url: https://www.books.or.jp/book-details/9784492503409
+        - paragraph: 読了日 2025/04/12
+    - 'gridcell "何者かになりたいの詳細を表示。著者: 熊代亨"':
+      - 'button "何者かになりたいの詳細を表示。著者: 熊代亨"':
+        - img "何者かになりたいの表紙画像"
+        - paragraph
+        - heading "何者かになりたい" [level=2]
+        - paragraph: 著者 熊代亨
+        - paragraph: 出版社 イースト・プレス
+        - paragraph:
+          - text: ISBN
+          - link "9784781619835":
+            - /url: https://www.books.or.jp/book-details/9784781619835
+        - paragraph: 読了日 2025/03/21
+    - 'gridcell "バブルリゾートの現在地 区分所有という迷宮の詳細を表示。著者: 吉川 祐介"':
+      - 'button "バブルリゾートの現在地 区分所有という迷宮の詳細を表示。著者: 吉川 祐介"':
+        - img "バブルリゾートの現在地 区分所有という迷宮の表紙画像"
+        - paragraph
+        - heading "バブルリゾートの現在地 区分所有という迷宮" [level=2]
+        - paragraph: 著者 吉川 祐介
+        - paragraph: 出版社 KADOKAWA
+        - paragraph:
+          - text: ISBN
+          - link "9784040824994":
+            - /url: https://www.books.or.jp/book-details/9784040824994
+        - paragraph: 読了日 2025/03/17
+    - 'gridcell "キリンを作った男の詳細を表示。著者: 永井 隆"':
+      - 'button "キリンを作った男の詳細を表示。著者: 永井 隆"':
+        - img "キリンを作った男の表紙画像"
+        - paragraph
+        - heading "キリンを作った男" [level=2]
+        - paragraph: 著者 永井 隆
+        - paragraph: 出版社 新潮社
+        - paragraph:
+          - text: ISBN
+          - link "9784101054315":
+            - /url: https://www.books.or.jp/book-details/9784101054315
+        - paragraph: 読了日 2025/03/09
+    - 'gridcell "キャンベル『千の顔をもつ英雄』 7月の詳細を表示。著者: 佐宗 邦威"':
+      - 'button "キャンベル『千の顔をもつ英雄』 7月の詳細を表示。著者: 佐宗 邦威"':
+        - img "キャンベル『千の顔をもつ英雄』 7月の表紙画像"
+        - paragraph
+        - heading "キャンベル『千の顔をもつ英雄』 7月" [level=2]
+        - paragraph: 著者 佐宗 邦威
+        - paragraph: 出版社 NHK出版
+        - paragraph:
+          - text: ISBN
+          - link "9784142231652":
+            - /url: https://www.books.or.jp/book-details/9784142231652
+        - paragraph: 読了日 2025/03/08
+    - 'gridcell "検証 ナチスは｢良いこと｣もしたのか？の詳細を表示。著者: 小野寺 拓也/田野 大輔"':
+      - 'button "検証 ナチスは｢良いこと｣もしたのか？の詳細を表示。著者: 小野寺 拓也/田野 大輔"':
+        - img "検証 ナチスは｢良いこと｣もしたのか？の表紙画像"
+        - paragraph
+        - heading "検証 ナチスは｢良いこと｣もしたのか？" [level=2]
+        - paragraph: 著者 小野寺 拓也/田野 大輔
+        - paragraph: 出版社 岩波書店
+        - paragraph:
+          - text: ISBN
+          - link "9784002710808":
+            - /url: https://www.books.or.jp/book-details/9784002710808
+        - paragraph: 読了日 2025/03/08
+    - 'gridcell "｢具体⇄抽象｣トレーニングの詳細を表示。著者: 細谷 功"':
+      - 'button "｢具体⇄抽象｣トレーニングの詳細を表示。著者: 細谷 功"':
+        - img "｢具体⇄抽象｣トレーニングの表紙画像"
+        - paragraph
+        - heading "｢具体⇄抽象｣トレーニング" [level=2]
+        - paragraph: 著者 細谷 功
+        - paragraph: 出版社 PHP研究所
+        - paragraph:
+          - text: ISBN
+          - link "9784569845999":
+            - /url: https://www.books.or.jp/book-details/9784569845999
+        - paragraph: 読了日 2025/03/08
+    - 'gridcell "旅のラゴスの詳細を表示。著者: 筒井 康隆"':
+      - 'button "旅のラゴスの詳細を表示。著者: 筒井 康隆"':
+        - img "旅のラゴスの表紙画像"
+        - paragraph
+        - heading "旅のラゴス" [level=2]
+        - paragraph: 著者 筒井 康隆
+        - paragraph: 出版社 新潮社
+        - paragraph:
+          - text: ISBN
+          - link "9784101171319":
+            - /url: https://www.books.or.jp/book-details/9784101171319
+        - paragraph: 読了日 2025/03/08
+    - 'gridcell "負けヒロインが多すぎる！ SSSの詳細を表示。著者: 雨森 たきび/いみぎむる"':
+      - 'button "負けヒロインが多すぎる！ SSSの詳細を表示。著者: 雨森 たきび/いみぎむる"':
+        - img "負けヒロインが多すぎる！ SSSの表紙画像"
+        - paragraph
+        - heading "負けヒロインが多すぎる！ SSS" [level=2]
+        - paragraph: 著者 雨森 たきび/いみぎむる
+        - paragraph: 出版社 小学館
+        - paragraph:
+          - text: ISBN
+          - link "9784094532012":
+            - /url: https://www.books.or.jp/book-details/9784094532012
+        - paragraph: 読了日 2025/03/08
+    - 'gridcell "宣伝は差異が全ての詳細を表示。著者: 柳瀬 一樹"':
+      - 'button "宣伝は差異が全ての詳細を表示。著者: 柳瀬 一樹"':
+        - img "宣伝は差異が全ての表紙画像"
+        - paragraph
+        - heading "宣伝は差異が全て" [level=2]
+        - paragraph: 著者 柳瀬 一樹
+        - paragraph: 出版社 太田出版
+        - paragraph:
+          - text: ISBN
+          - link "9784778319663":
+            - /url: https://www.books.or.jp/book-details/9784778319663
+        - paragraph: 読了日 2025/03/06
+    - 'gridcell "終わるまではすべてが永遠の詳細を表示。著者: 木澤佐登志"':
+      - 'button "終わるまではすべてが永遠の詳細を表示。著者: 木澤佐登志"':
+        - img "終わるまではすべてが永遠の表紙画像"
+        - paragraph
+        - heading "終わるまではすべてが永遠" [level=2]
+        - paragraph: 著者 木澤佐登志
+        - paragraph: 出版社 青土社
+        - paragraph:
+          - text: ISBN
+          - link "9784791776597":
+            - /url: https://www.books.or.jp/book-details/9784791776597
+        - paragraph: 読了日 2025/03/03
+    - 'gridcell "家が買えないの詳細を表示。著者: 牧野 知弘"':
+      - 'button "家が買えないの詳細を表示。著者: 牧野 知弘"':
+        - img "家が買えないの表紙画像"
+        - paragraph
+        - heading "家が買えない" [level=2]
+        - paragraph: 著者 牧野 知弘
+        - paragraph: 出版社 早川書房
+        - paragraph:
+          - text: ISBN
+          - link "9784153400375":
+            - /url: https://www.books.or.jp/book-details/9784153400375
+        - paragraph: 読了日 2025/02/25
+    - 'gridcell "VRoid Studioの表現を広げる 3Dアバターメイキング講座の詳細を表示。著者: LUCAS"':
+      - 'button "VRoid Studioの表現を広げる 3Dアバターメイキング講座の詳細を表示。著者: LUCAS"':
+        - img "VRoid Studioの表現を広げる 3Dアバターメイキング講座の表紙画像"
+        - paragraph
+        - heading "VRoid Studioの表現を広げる 3Dアバターメイキング講座" [level=2]
+        - paragraph: 著者 LUCAS
+        - paragraph: 出版社 技術評論社
+        - paragraph:
+          - text: ISBN
+          - link "9784297143299":
+            - /url: https://www.books.or.jp/book-details/9784297143299
+        - paragraph: 読了日 2025/02/13
+    - 'gridcell "あの国の本当の思惑を見抜く 地政学の詳細を表示。著者: 社會部部長"':
+      - 'button "あの国の本当の思惑を見抜く 地政学の詳細を表示。著者: 社會部部長"':
+        - img "あの国の本当の思惑を見抜く 地政学の表紙画像"
+        - paragraph
+        - heading "あの国の本当の思惑を見抜く 地政学" [level=2]
+        - paragraph: 著者 社會部部長
+        - paragraph: 出版社 サンマーク出版
+        - paragraph:
+          - text: ISBN
+          - link "9784763141880":
+            - /url: https://www.books.or.jp/book-details/9784763141880
+        - paragraph: 読了日 2025/02/08
+    - 'gridcell "ナムコはいかにして世界を変えたのか──ゲーム音楽の誕生の詳細を表示。著者: 鴫原盛之"':
+      - 'button "ナムコはいかにして世界を変えたのか──ゲーム音楽の誕生の詳細を表示。著者: 鴫原盛之"':
+        - img "ナムコはいかにして世界を変えたのか──ゲーム音楽の誕生の表紙画像"
+        - paragraph
+        - heading "ナムコはいかにして世界を変えたのか──ゲーム音楽の誕生" [level=2]
+        - paragraph: 著者 鴫原盛之
+        - paragraph: 出版社 Pヴァイン
+        - paragraph:
+          - text: ISBN
+          - link "9784910511559":
+            - /url: https://www.books.or.jp/book-details/9784910511559
+        - paragraph: 読了日 2025/02/01
+    - 'gridcell "消費社会の神話と構造新装版の詳細を表示。著者: ジャン・ボードリヤール/今村仁司"':
+      - 'button "消費社会の神話と構造新装版の詳細を表示。著者: ジャン・ボードリヤール/今村仁司"':
+        - img "消費社会の神話と構造新装版の表紙画像"
+        - paragraph
+        - heading "消費社会の神話と構造新装版" [level=2]
+        - paragraph: 著者 ジャン・ボードリヤール/今村仁司
+        - paragraph: 出版社 紀伊國屋書店
+        - paragraph:
+          - text: ISBN
+          - link "9784314011167":
+            - /url: https://www.books.or.jp/book-details/9784314011167
+        - paragraph: 読了日 2025/01/25
+    - 'gridcell "超軽工業への詳細を表示。著者: 渡邊恵太"':
+      - 'button "超軽工業への詳細を表示。著者: 渡邊恵太"':
+        - img "超軽工業への表紙画像"
+        - paragraph
+        - heading "超軽工業へ" [level=2]
+        - paragraph: 著者 渡邊恵太
+        - paragraph: 出版社 ビー・エヌ・エヌ
+        - paragraph:
+          - text: ISBN
+          - link "9784802512046":
+            - /url: https://www.books.or.jp/book-details/9784802512046
+        - paragraph: 読了日 2025/01/24
+    - 'gridcell "負けヒロインが多すぎる！(7)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+      - 'button "負けヒロインが多すぎる！(7)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+        - img "負けヒロインが多すぎる！(7)の表紙画像"
+        - paragraph
+        - heading "負けヒロインが多すぎる！(7)" [level=2]
+        - paragraph: 著者 雨森 たきび/いみぎむる
+        - paragraph: 出版社 小学館
+        - paragraph:
+          - text: ISBN
+          - link "9784094531978":
+            - /url: https://www.books.or.jp/book-details/9784094531978
+        - paragraph: 読了日 2025/01/23
+    - 'gridcell "負けヒロインが多すぎる！(6)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+      - 'button "負けヒロインが多すぎる！(6)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+        - img "負けヒロインが多すぎる！(6)の表紙画像"
+        - paragraph
+        - heading "負けヒロインが多すぎる！(6)" [level=2]
+        - paragraph: 著者 雨森 たきび/いみぎむる
+        - paragraph: 出版社 小学館
+        - paragraph:
+          - text: ISBN
+          - link "9784094531640":
+            - /url: https://www.books.or.jp/book-details/9784094531640
+        - paragraph: 読了日 2025/01/23
+    - 'gridcell "負けヒロインが多すぎる！(5)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+      - 'button "負けヒロインが多すぎる！(5)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+        - img "負けヒロインが多すぎる！(5)の表紙画像"
+        - paragraph
+        - heading "負けヒロインが多すぎる！(5)" [level=2]
+        - paragraph: 著者 雨森 たきび/いみぎむる
+        - paragraph: 出版社 小学館
+        - paragraph:
+          - text: ISBN
+          - link "9784094531183":
+            - /url: https://www.books.or.jp/book-details/9784094531183
+        - paragraph: 読了日 2025/01/19
+    - 'gridcell "負けヒロインが多すぎる！(4)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+      - 'button "負けヒロインが多すぎる！(4)の詳細を表示。著者: 雨森 たきび/いみぎむる"':
+        - img "負けヒロインが多すぎる！(4)の表紙画像"
+        - paragraph
+        - heading "負けヒロインが多すぎる！(4)" [level=2]
+        - paragraph: 著者 雨森 たきび/いみぎむる
+        - paragraph: 出版社 小学館
+        - paragraph:
+          - text: ISBN
+          - link "9784094530940":
+            - /url: https://www.books.or.jp/book-details/9784094530940
+        - paragraph: 読了日 2025/01/19
+    - 'gridcell "こどもふざけ方教室の詳細を表示。著者: オモコロ"':
+      - 'button "こどもふざけ方教室の詳細を表示。著者: オモコロ"':
+        - img "こどもふざけ方教室の表紙画像"
+        - paragraph
+        - heading "こどもふざけ方教室" [level=2]
+        - paragraph: 著者 オモコロ
+        - paragraph: 出版社 小学館
+        - paragraph:
+          - text: ISBN
+          - link "9784093891837":
+            - /url: https://www.books.or.jp/book-details/9784093891837
+        - paragraph: 読了日 2025/01/18
+    - 'gridcell "正しいものを正しくつくるの詳細を表示。著者: 市谷聡啓"':
+      - 'button "正しいものを正しくつくるの詳細を表示。著者: 市谷聡啓"':
+        - img "正しいものを正しくつくるの表紙画像"
+        - paragraph
+        - heading "正しいものを正しくつくる" [level=2]
+        - paragraph: 著者 市谷聡啓
+        - paragraph: 出版社 ビー・エヌ・エヌ新社
+        - paragraph:
+          - text: ISBN
+          - link "9784802511193":
+            - /url: https://www.books.or.jp/book-details/9784802511193
+        - paragraph: 読了日 2025/01/05
+    - 'gridcell "｢好き｣を言語化する技術の詳細を表示。著者: 三宅香帆"':
+      - 'button "｢好き｣を言語化する技術の詳細を表示。著者: 三宅香帆"':
+        - img "｢好き｣を言語化する技術の表紙画像"
+        - paragraph
+        - heading "｢好き｣を言語化する技術" [level=2]
+        - paragraph: 著者 三宅香帆
+        - paragraph: 出版社 ディスカヴァー・トゥエンティワン
+        - paragraph:
+          - text: ISBN
+          - link "9784799330838":
+            - /url: https://www.books.or.jp/book-details/9784799330838
+        - paragraph: 読了日 2025/01/03
+    - 'gridcell "Tidy First?の詳細を表示。著者: Kent Beck/吉羽 龍太郎/永瀬 美穂/細澤 あゆみ"':
+      - 'button "Tidy First?の詳細を表示。著者: Kent Beck/吉羽 龍太郎/永瀬 美穂/細澤 あゆみ"':
+        - img "Tidy First?の表紙画像"
+        - paragraph
+        - heading "Tidy First?" [level=2]
+        - paragraph: 著者 Kent Beck/吉羽 龍太郎/永瀬 美穂/細澤 あゆみ
+        - paragraph: 出版社 オライリー・ジャパン
+        - paragraph:
+          - text: ISBN
+          - link "9784814400911":
+            - /url: https://www.books.or.jp/book-details/9784814400911
+        - paragraph: 読了日 2025/01/03
+    - 'gridcell "漫才過剰考察の詳細を表示。著者: 令和ロマン・高比良くるま"':
+      - 'button "漫才過剰考察の詳細を表示。著者: 令和ロマン・高比良くるま"':
+        - img "漫才過剰考察の表紙画像"
+        - paragraph
+        - heading "漫才過剰考察" [level=2]
+        - paragraph: 著者 令和ロマン・高比良くるま
+        - paragraph: 出版社 辰巳出版
+        - paragraph:
+          - text: ISBN
+          - link "9784777831180":
+            - /url: https://www.books.or.jp/book-details/9784777831180
+        - paragraph: 読了日 2024/12/29
+    - 'gridcell "のっちはゲームがしたい！の本の詳細を表示。著者: のっちと音楽ナタリー編集部"':
+      - 'button "のっちはゲームがしたい！の本の詳細を表示。著者: のっちと音楽ナタリー編集部"':
+        - img "のっちはゲームがしたい！の本の表紙画像"
+        - paragraph
+        - heading "のっちはゲームがしたい！の本" [level=2]
+        - paragraph: 著者 のっちと音楽ナタリー編集部
+        - paragraph: 出版社 KADOKAWA
+        - paragraph:
+          - text: ISBN
+          - link "9784048977609":
+            - /url: https://www.books.or.jp/book-details/9784048977609
+        - paragraph: 読了日 2024/12/07
+    - 'gridcell "働くことの哲学の詳細を表示。著者: ラース・スヴェンセン/小須田健"':
+      - 'button "働くことの哲学の詳細を表示。著者: ラース・スヴェンセン/小須田健"':
+        - img "働くことの哲学の表紙画像"
+        - paragraph
+        - heading "働くことの哲学" [level=2]
+        - paragraph: 著者 ラース・スヴェンセン/小須田健
+        - paragraph: 出版社 紀伊國屋書店
+        - paragraph:
+          - text: ISBN
+          - link "9784314011365":
+            - /url: https://www.books.or.jp/book-details/9784314011365
+        - paragraph: 読了日 2024/12/04
+    - 'gridcell "GE帝国盛衰史の詳細を表示。著者: トーマス・グリタ/テッド マン/御立 英史"':
+      - 'button "GE帝国盛衰史の詳細を表示。著者: トーマス・グリタ/テッド マン/御立 英史"':
+        - img "GE帝国盛衰史の表紙画像"
+        - paragraph
+        - heading "GE帝国盛衰史" [level=2]
+        - paragraph: 著者 トーマス・グリタ/テッド マン/御立 英史
+        - paragraph: 出版社 ダイヤモンド社
+        - paragraph:
+          - text: ISBN
+          - link "9784478115244":
+            - /url: https://www.books.or.jp/book-details/9784478115244
+        - paragraph: 読了日 2024/12/01
+- contentinfo:
+  - paragraph: © 2024 読書管理. All rights reserved.
+- alert
+- button "Open Next.js Dev Tools":
+  - img
+```

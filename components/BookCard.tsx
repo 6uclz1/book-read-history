@@ -53,7 +53,10 @@ export default function BookCard({ book, onCardClick, onIsbnClick }: BookCardPro
         <span>ISBN</span>
         <Link
           href={`https://www.books.or.jp/book-details/${book.isbn}`}
-          onClick={(e) => onIsbnClick(e, book.isbn)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onIsbnClick(e, book.isbn);
+          }}
           target="_blank"
           rel="noopener noreferrer"
         >

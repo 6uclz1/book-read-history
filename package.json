@@ -9,7 +9,15 @@
     "lint": "next lint",
     "format": "eslint pages --fix && prettier --write pages",
     "convert": "node convert.js",
-    "books:update": "node convert.js"
+    "books:update": "node convert.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:all": "npm run test && npm run test:e2e",
+    "playwright:install": "playwright install"
   },
   "dependencies": {
     "eslint": "^9.30.0",
@@ -20,10 +28,17 @@
     "typescript": "5.8.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.53.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.0.7",
     "@types/react": "^19.1.8",
     "csv-parse": "^5.6.0",
     "eslint-config-prettier": "^10.1.5",
+    "jest": "^30.0.3",
+    "jest-environment-jsdom": "^30.0.2",
     "prettier": "^3.6.2"
   }
 }
