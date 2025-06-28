@@ -21,7 +21,7 @@ const mockUnobserve = jest.fn();
 const mockDisconnect = jest.fn();
 
 const mockIntersectionObserver = jest.fn();
-mockIntersectionObserver.mockImplementation((callback) => ({
+mockIntersectionObserver.mockImplementation(callback => ({
   observe: mockObserve,
   unobserve: mockUnobserve,
   disconnect: mockDisconnect,

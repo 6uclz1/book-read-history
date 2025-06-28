@@ -20,7 +20,10 @@ export function useInfiniteScroll(
   const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // filteredBooksの安定化
-  const stableFilteredBooks = useMemo(() => filteredBooks, [JSON.stringify(filteredBooks.map(book => book.id))]);
+  const stableFilteredBooks = useMemo(
+    () => filteredBooks,
+    [JSON.stringify(filteredBooks.map(book => book.id))]
+  );
 
   // フィルターが変更されたときに表示アイテムをリセット
   useEffect(() => {
@@ -29,35 +32,35 @@ export function useInfiniteScroll(
       clearTimeout(loadingTimeoutRef.current);
       loadingTimeoutRef.current = null;
     }
-    
+
     setIsLoading(false);
     setDisplayedBooks(stableFilteredBooks.slice(0, ITEMS_PER_PAGE));
   }, [stableFilteredBooks]);
 
   const loadMore = useCallback(() => {
     if (isLoading) return; // 既にローディング中の場合は何もしない
-    
+
     setIsLoading(true);
-    
+
     // 既存のタイムアウトをクリア
     if (loadingTimeoutRef.current) {
       clearTimeout(loadingTimeoutRef.current);
     }
-    
+
     loadingTimeoutRef.current = setTimeout(() => {
       setDisplayedBooks((prevItems: Book[]) => {
         const currentFilteredBooks = stableFilteredBooks; // 安定化された配列を使用
-        
+
         if (currentFilteredBooks.length <= prevItems.length) {
           setIsLoading(false);
           return prevItems;
         }
-        
+
         const nextLength = Math.min(
           prevItems.length + ITEMS_PER_PAGE,
           currentFilteredBooks.length
         );
-        
+
         const newItems = currentFilteredBooks.slice(0, nextLength);
         setIsLoading(false);
         return newItems;
