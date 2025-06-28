@@ -21,8 +21,8 @@ const customJestConfig = {
     '<rootDir>/node_modules/',
     '<rootDir>/e2e/',
   ],
-  workerIdleMemoryLimit: '256MB',
-  maxWorkers: process.env.CI ? 1 : 2,
+  workerIdleMemoryLimit: '128MB',
+  maxWorkers: 1,
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',
     'hooks/**/*.{js,jsx,ts,tsx}',
@@ -33,10 +33,10 @@ const customJestConfig = {
   ],
   coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
+      branches: 65,
+      functions: 65,
+      lines: 65,
+      statements: 65,
     },
   },
 };

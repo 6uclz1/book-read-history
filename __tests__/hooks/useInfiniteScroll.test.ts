@@ -38,7 +38,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('初期状態では48冊の本が表示される', () => {
-    const mockBooks = createMockBooks(100);
+    const mockBooks = createMockBooks(60);
     const { result } = renderHook(() => useInfiniteScroll(mockBooks));
 
     expect(result.current.displayedBooks).toHaveLength(48);
@@ -56,7 +56,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('フィルターされた本が変更されると表示アイテムがリセットされる', () => {
-    const initialBooks = createMockBooks(100);
+    const initialBooks = createMockBooks(60); // メモリ使用量削減
     const { result, rerender } = renderHook(
       ({ books }) => useInfiniteScroll(books),
       { initialProps: { books: initialBooks } }
@@ -73,7 +73,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('observerTargetのrefが正しく設定される', () => {
-    const mockBooks = createMockBooks(100);
+    const mockBooks = createMockBooks(60);
     const { result } = renderHook(() => useInfiniteScroll(mockBooks));
 
     expect(result.current.observerTarget).toBeDefined();
@@ -81,7 +81,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('IntersectionObserverが正しくセットアップされる', () => {
-    const mockBooks = createMockBooks(100);
+    const mockBooks = createMockBooks(60);
     renderHook(() => useInfiniteScroll(mockBooks));
 
     expect(mockIntersectionObserver).toHaveBeenCalledWith(
@@ -91,7 +91,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('loadMore関数が呼ばれるとisLoadingがtrueになる', () => {
-    const mockBooks = createMockBooks(100);
+    const mockBooks = createMockBooks(60);
     const { result } = renderHook(() => useInfiniteScroll(mockBooks));
 
     // IntersectionObserverのコールバックを取得
@@ -122,7 +122,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('96冊表示後にさらに読み込むと144冊表示される', () => {
-    const mockBooks = createMockBooks(200);
+    const mockBooks = createMockBooks(150);
     const { result } = renderHook(() => useInfiniteScroll(mockBooks));
 
     expect(result.current.displayedBooks).toHaveLength(48);
@@ -178,7 +178,7 @@ describe('useInfiniteScroll', () => {
   });
 
   it('読み込み中に複数回呼ばれても重複して処理されない', () => {
-    const mockBooks = createMockBooks(100);
+    const mockBooks = createMockBooks(60);
     const { result } = renderHook(() => useInfiniteScroll(mockBooks));
 
     const observerCallback = mockIntersectionObserver.mock.calls[0][0];
