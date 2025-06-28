@@ -1,7 +1,142 @@
 export const books = [
   {
-    "id": "84ba57722751f29146b4b8475885212de820bbcf32c7f5bd92fd2bdc5e068606",
-    "title": "﻿西洋の敗北 日本と世界に何が起きるのか",
+    "id": "bbe0b85f07d552502b9736ca4080f9417adbb106ca7bceec80ee67a99f172842",
+    "title": "﻿東京の謎(ミステリー) この街をつくった先駆者たち",
+    "author": "門井 慶喜",
+    "publisher": "文藝春秋",
+    "isbn": "9784166613281",
+    "readDate": "2025/06/22",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/3281/9784166613281_1_5.jpg"
+  },
+  {
+    "id": "336533bc93cff496e81ce9e519c68fc5fa6f96420e40d04b42ed96e4eec2fc30",
+    "title": "イーロン・マスク 上",
+    "author": "ウォルター・アイザックソン/井口 耕二",
+    "publisher": "文藝春秋",
+    "isbn": "9784163917306",
+    "readDate": "2025/06/20",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/7306/9784163917306_1_23.jpg"
+  },
+  {
+    "id": "2cb88a84ba5b04f538aa6b7f362941496645d0737b6517c87a244ac2967caa69",
+    "title": "ゲームフリーク 遊びの世界標準を塗り替えるクリエイティブ集団",
+    "author": "とみさわ 昭仁",
+    "publisher": "太田出版",
+    "isbn": "9784778340186",
+    "readDate": "2025/06/15",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0186/9784778340186_1_33.jpg"
+  },
+  {
+    "id": "3a3a9b8561144b1eaa8788e0734d80c9038071cc4fa9f01a46bcb78b6ff67ccd",
+    "title": "生きるのが面倒くさい人 回避性パーソナリティ障害",
+    "author": "",
+    "publisher": "朝日新聞出版",
+    "isbn": "9784022736703",
+    "readDate": "2025/06/10",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6703/9784022736703_1_2.jpg"
+  },
+  {
+    "id": "c70c7c2b4df900ff289d01363f22468a85265ef9670cd7eae6534ec20f9f6565",
+    "title": "真っ白な嘘【新訳版】",
+    "author": "フレドリック・ブラウン/越前 敏弥",
+    "publisher": "東京創元社",
+    "isbn": "9784488146238",
+    "readDate": "2025/06/03",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6238/9784488146238.jpg"
+  },
+  {
+    "id": "dfb324bc200a5194c36945d09f7e99788b1f7b645054998e84e61a77a5788b5c",
+    "title": "夢も金もない高校生が知ると得する進路ガイド",
+    "author": "石渡 嶺司",
+    "publisher": "星海社",
+    "isbn": "9784065363775",
+    "readDate": "2025/06/01",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/3775/9784065363775_1_2.jpg"
+  },
+  {
+    "id": "ed0cf9f4cdb622fd134135b651845f8d6882d5de0a499105ac0c79234967bcce",
+    "title": "The Indifference Engine",
+    "author": "伊藤計劃",
+    "publisher": "早川書房",
+    "isbn": "9784150310608",
+    "readDate": "2025/05/23",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0608/9784150310608_1_2.jpg"
+  },
+  {
+    "id": "994aa609560bb4b98867550642f882c46858a01c25f25eac475bcf5b201b9d22",
+    "title": "Cinematrix",
+    "author": "伊藤計劃/未定",
+    "publisher": "早川書房",
+    "isbn": "9784150311032",
+    "readDate": "2025/05/23",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1032/9784150311032.jpg"
+  },
+  {
+    "id": "3e899ce3f9f36a3fb7757ad191f883fdbaffc2d11f5d31cbfbb5f1decf53fa91",
+    "title": "Running Pictures",
+    "author": "伊藤計劃",
+    "publisher": "早川書房",
+    "isbn": "9784150310912",
+    "readDate": "2025/05/23",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0912/9784150310912.jpg"
+  },
+  {
+    "id": "17437adde7c1f1509fdbbf5a2414b02cc4156cd87061630ada056f2315964cff",
+    "title": "現代民俗学入門",
+    "author": "島村 恭則",
+    "publisher": "創元社",
+    "isbn": "9784422230450",
+    "readDate": "2025/05/23",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/0450/9784422230450_1_3.jpg"
+  },
+  {
+    "id": "bca0b74457850eb4bcb39424e514ae9feb6c721e7afb4140f273093ebe7de876",
+    "title": "伊藤計劃記録(2)",
+    "author": "伊藤計劃",
+    "publisher": "早川書房",
+    "isbn": "9784150311872",
+    "readDate": "2025/05/22",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1872/9784150311872.jpg"
+  },
+  {
+    "id": "ccaf100c0bb8dfb2b37acb3080bde970e5dd3239cffe39f498cb88ef6dcf25d5",
+    "title": "伊藤計劃記録(1)",
+    "author": "伊藤計劃",
+    "publisher": "早川書房",
+    "isbn": "9784150311865",
+    "readDate": "2025/05/22",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1865/9784150311865.jpg"
+  },
+  {
+    "id": "ce0856d6163c32e0afeb1d97a3b49979f823d12b3df8759c4a21116078545b3a",
+    "title": "小説という毒を浴びる 桜庭一樹書評集",
+    "author": "桜庭 一樹",
+    "publisher": "集英社",
+    "isbn": "9784087711677",
+    "readDate": "2025/05/18",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/1677/9784087711677.jpg"
+  },
+  {
+    "id": "5cc0399b596222bc899d3f6f6d16234506cfd623767c2c08b658f8f35c691050",
+    "title": "JUST KEEP BUYING 自動的に富が増え続ける｢お金｣と｢時間｣の法則",
+    "author": "ニック・マジューリ/児島　修",
+    "publisher": "ダイヤモンド社",
+    "isbn": "9784478116982",
+    "readDate": "2025/05/09",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/6982/9784478116982_1_8.jpg"
+  },
+  {
+    "id": "b291e8fe8542b7b896e2dd414b3eda95d4ae1fd4fd0263bbe21bc19dceb40810",
+    "title": "イノベーション・スキルセット",
+    "author": "田川　欣哉",
+    "publisher": "大和書房",
+    "isbn": "9784479797036",
+    "readDate": "2025/05/05",
+    "thumnailImage": "https://thumbnail.image.rakuten.co.jp/@0_mall/book/cabinet/7036/9784479797036.jpg"
+  },
+  {
+    "id": "aad36525c8e86bbe1c014c4c30d0fab802803acabbdb47709f99957da0c64657",
+    "title": "西洋の敗北 日本と世界に何が起きるのか",
     "author": "エマニュエル・トッド/大野 舞",
     "publisher": "文藝春秋",
     "isbn": "9784163919096",
