@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Book } from '../types/book';
 
 const ITEMS_PER_PAGE = 48;
@@ -16,37 +16,67 @@ export function useInfiniteScroll(
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // filteredBooksの安定化
+  const stableFilteredBooks = useMemo(() => filteredBooks, [JSON.stringify(filteredBooks.map(book => book.id))]);
 
   // フィルターが変更されたときに表示アイテムをリセット
   useEffect(() => {
-    setDisplayedBooks(filteredBooks.slice(0, ITEMS_PER_PAGE));
-  }, [filteredBooks]);
+    // ローディング中のタイムアウトをクリア
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+      loadingTimeoutRef.current = null;
+    }
+    
+    setIsLoading(false);
+    setDisplayedBooks(stableFilteredBooks.slice(0, ITEMS_PER_PAGE));
+  }, [stableFilteredBooks]);
 
   const loadMore = useCallback(() => {
+    if (isLoading) return; // 既にローディング中の場合は何もしない
+    
     setIsLoading(true);
-    setTimeout(() => {
+    
+    // 既存のタイムアウトをクリア
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
+    
+    loadingTimeoutRef.current = setTimeout(() => {
       setDisplayedBooks((prevItems: Book[]) => {
-        if (filteredBooks.length === prevItems.length) {
+        const currentFilteredBooks = stableFilteredBooks; // 安定化された配列を使用
+        
+        if (currentFilteredBooks.length <= prevItems.length) {
           setIsLoading(false);
           return prevItems;
         }
-        const newItems = [
-          ...prevItems,
-          ...filteredBooks.slice(
-            prevItems.length,
-            prevItems.length + ITEMS_PER_PAGE
-          ),
-        ];
+        
+        const nextLength = Math.min(
+          prevItems.length + ITEMS_PER_PAGE,
+          currentFilteredBooks.length
+        );
+        
+        const newItems = currentFilteredBooks.slice(0, nextLength);
         setIsLoading(false);
         return newItems;
       });
-    }, 100); // スムーズな読み込み体験のための軽微な遅延
-  }, [filteredBooks]);
+      loadingTimeoutRef.current = null;
+    }, 100);
+  }, [stableFilteredBooks, isLoading]);
 
+  // IntersectionObserver のセットアップ（フィルター変更とは独立）
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // 既存のObserverをクリーンアップ
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current = null;
+    }
+
+    observerRef.current = new IntersectionObserver(
       entries => {
-        if (entries[0].isIntersecting) {
+        if (entries[0]?.isIntersecting && !isLoading) {
           loadMore();
         }
       },
@@ -54,18 +84,32 @@ export function useInfiniteScroll(
     );
 
     const target = observerTarget.current;
-    if (target) {
-      observer.observe(target);
+    if (target && observerRef.current) {
+      observerRef.current.observe(target);
     }
 
     return () => {
-      if (target) {
-        observer.unobserve(target);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+        loadingTimeoutRef.current = null;
       }
     };
-  }, [loadMore]);
+  }, []); // 依存配列を空にして一度だけ実行
 
-  const hasMore = displayedBooks.length < filteredBooks.length;
+  // targetが変更された時のObserver再接続
+  useEffect(() => {
+    const target = observerTarget.current;
+    if (target && observerRef.current) {
+      observerRef.current.disconnect();
+      observerRef.current.observe(target);
+    }
+  }, [observerTarget.current]);
+
+  const hasMore = displayedBooks.length < stableFilteredBooks.length;
 
   return {
     displayedBooks,
