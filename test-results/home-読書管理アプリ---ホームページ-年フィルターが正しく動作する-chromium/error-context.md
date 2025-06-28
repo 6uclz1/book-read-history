@@ -597,6 +597,4 @@
 - contentinfo:
   - paragraph: © 2024 読書管理. All rights reserved.
 - alert
-- button "Open Next.js Dev Tools":
-  - img
 ```
