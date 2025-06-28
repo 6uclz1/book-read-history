@@ -12,10 +12,12 @@
 
 ## 技術スタック
 
-- **フレームワーク**: Next.js 15.2.4
-- **言語**: TypeScript 4.9.4
+- **フレームワーク**: Next.js 15.3.4
+- **言語**: TypeScript 5.8.3
 - **スタイリング**: CSS Modules
 - **リンター**: ESLint + Prettier
+- **テスト**: Jest + React Testing Library + Playwright
+- **CI/CD**: GitHub Actions
 - **画像最適化**: Next.js Image コンポーネント
 
 ## セットアップ
@@ -46,6 +48,8 @@ npm run dev
 
 ## 利用可能なコマンド
 
+### 開発コマンド
+
 ```bash
 # 開発サーバーを起動
 npm run dev
@@ -55,13 +59,42 @@ npm run build
 
 # 本番サーバーを起動
 npm start
+```
 
+### コード品質・テスト
+
+```bash
 # ESLintでコードをチェック
 npm run lint
 
-# ESLint + Prettierでコードを整形
+# Prettierでコードを自動整形（コミット前必須）
 npm run format
 
+# 単体テスト（Jest + React Testing Library）
+npm run test
+
+# テスト（ウォッチモード）
+npm run test:watch
+
+# カバレッジ付きテスト
+npm run test:coverage
+
+# E2Eテスト（Playwright）
+npm run test:e2e
+
+# E2Eテスト（UIモード）
+npm run test:e2e:ui
+
+# Playwrightブラウザをインストール
+npm run playwright:install
+
+# 総合品質チェック（lint + format + test + tsc）
+npm run quality:check
+```
+
+### データ管理
+
+```bash
 # CSVから本データを自動変換・更新
 npm run convert
 # または
@@ -97,21 +130,40 @@ npm run books:update
 ## プロジェクト構造
 
 ```
+├── .github/workflows/     # GitHub Actions CI/CD設定
+│   ├── ci.yml            # CI パイプライン
+│   ├── nextjs.yml        # デプロイメント
+│   └── security.yml      # セキュリティ監査
+├── __tests__/            # テストファイル
+│   ├── components/       # コンポーネントのテスト
+│   ├── hooks/            # カスタムフックのテスト
+│   └── pages/            # ページのテスト
+├── e2e/                  # E2Eテスト（Playwright）
+├── components/           # Reactコンポーネント
+│   ├── BookCard.tsx      # 本のカードコンポーネント
+│   ├── BookGrid.tsx      # 本のグリッドコンポーネント
+│   └── YearFilter.tsx    # 年別フィルターコンポーネント
+├── hooks/                # カスタムフック
+│   ├── useBookFilter.ts  # 本のフィルタリング
+│   └── useInfiniteScroll.ts # 無限スクロール
 ├── pages/
-│   ├── index.tsx          # メインページ（本の一覧）
-│   ├── items/[id].tsx     # 本の詳細ページ
-│   └── _app.tsx           # Next.jsアプリのルート
+│   ├── index.tsx         # メインページ（本の一覧）
+│   ├── items/[id].tsx    # 本の詳細ページ
+│   └── _app.tsx          # Next.jsアプリのルート
 ├── public/
-│   ├── books.csv          # 本のデータ（CSV形式）
-│   ├── books.ts           # 本のデータ（TypeScript）
+│   ├── books.csv         # 本のデータ（CSV形式）
+│   ├── books.ts          # 本のデータ（TypeScript）
 │   └── favicon.ico
 ├── styles/
-│   ├── Home.module.css    # メインページのスタイル
-│   ├── Detail.module.css  # 詳細ページのスタイル
-│   └── globals.css        # グローバルスタイル
-├── convert.js             # CSV→JSON変換スクリプト
-├── next.config.js         # Next.js設定
-└── tsconfig.json          # TypeScript設定
+│   ├── Home.module.css   # メインページのスタイル
+│   ├── Detail.module.css # 詳細ページのスタイル
+│   └── globals.css       # グローバルスタイル
+├── types/                # TypeScript型定義
+├── convert.js            # CSV→JSON変換スクリプト
+├── jest.config.js        # Jest設定
+├── playwright.config.ts  # Playwright設定
+├── next.config.js        # Next.js設定
+└── tsconfig.json         # TypeScript設定
 ```
 
 ## デプロイ
@@ -122,12 +174,70 @@ npm run books:update
 
 詳細は [Next.js deployment documentation](https://nextjs.org/docs/deployment) をご確認ください。
 
+## テスト
+
+このプロジェクトは包括的なテスト戦略を採用しています：
+
+### 単体テスト（Jest + React Testing Library）
+
+- **コンポーネントテスト**: BookCard, BookGrid, YearFilter
+- **カスタムフックテスト**: useBookFilter, useInfiniteScroll
+- **ページテスト**: index.tsx
+- **カバレッジ**: 78% statements, 78% branches
+
+### E2Eテスト（Playwright）
+
+- **ブラウザ横断テスト**: Chrome, Firefox, Safari
+- **ユーザーシナリオ**: フィルタリング、無限スクロール、ナビゲーション
+- **アクセシビリティ**: キーボードナビゲーション、ARIA属性
+
+### CI/CD
+
+GitHub Actionsで自動化：
+- コード品質チェック（ESLint, Prettier, TypeScript）
+- 単体テスト + カバレッジレポート
+- E2Eテスト（複数ブラウザ）
+- セキュリティ監査
+- 自動デプロイ
+
 ## 開発ガイドライン
 
-- コミット前には必ず `npm run lint` を実行してコード品質を確認
-- 新機能追加時は既存のコードスタイルに従う
-- 画像最適化のため、Next.js Imageコンポーネントを使用
-- CSS ModulesまたはグローバルCSSでスタイリング
+### コミット前の必須チェック
+
+**以下のコマンドを順番に実行してください：**
+
+```bash
+# 1. コードの自動整形
+npm run format
+
+# 2. リント検査
+npm run lint
+
+# 3. 型チェック
+npx tsc --noEmit
+
+# 4. テスト実行
+npm run test
+
+# 5. ビルド確認
+npm run build
+```
+
+または一括実行：
+
+```bash
+npm run quality:check
+```
+
+### コーディング規約
+
+- TypeScriptを使用し、厳密な型定義を心がける
+- ESLint + Prettierの設定に従う
+- コンポーネントは関数コンポーネントで実装
+- カスタムフックでロジックを分離
+- CSS Modulesでスタイルのカプセル化
+- Next.js Imageコンポーネントで画像最適化
+- テストファーストで開発（TDD推奨）
 
 ## ライセンス
 
