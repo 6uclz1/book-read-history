@@ -3,8 +3,16 @@ import { Book } from "../types/book";
 
 const ITEMS_PER_PAGE = 48;
 
-export function useInfiniteScroll(filteredBooks: Book[]) {
+interface UseInfiniteScrollReturn {
+  displayedBooks: Book[];
+  observerTarget: React.RefObject<HTMLDivElement | null>;
+  hasMore: boolean;
+  isLoading: boolean;
+}
+
+export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollReturn {
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
 
   // フィルターが変更されたときに表示アイテムをリセット
@@ -13,15 +21,21 @@ export function useInfiniteScroll(filteredBooks: Book[]) {
   }, [filteredBooks]);
 
   const loadMore = useCallback(() => {
-    setDisplayedBooks((prevItems) => {
-      if (filteredBooks.length === prevItems.length) {
-        return prevItems;
-      }
-      return [
-        ...prevItems,
-        ...filteredBooks.slice(prevItems.length, prevItems.length + ITEMS_PER_PAGE),
-      ];
-    });
+    setIsLoading(true);
+    setTimeout(() => {
+      setDisplayedBooks((prevItems: Book[]) => {
+        if (filteredBooks.length === prevItems.length) {
+          setIsLoading(false);
+          return prevItems;
+        }
+        const newItems = [
+          ...prevItems,
+          ...filteredBooks.slice(prevItems.length, prevItems.length + ITEMS_PER_PAGE),
+        ];
+        setIsLoading(false);
+        return newItems;
+      });
+    }, 100); // スムーズな読み込み体験のための軽微な遅延
   }, [filteredBooks]);
 
   useEffect(() => {
@@ -46,8 +60,12 @@ export function useInfiniteScroll(filteredBooks: Book[]) {
     };
   }, [loadMore]);
 
+  const hasMore = displayedBooks.length < filteredBooks.length;
+
   return {
     displayedBooks,
-    observerTarget
+    observerTarget,
+    hasMore,
+    isLoading
   };
 }

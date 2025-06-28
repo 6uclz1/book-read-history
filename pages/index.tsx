@@ -12,7 +12,7 @@ export default function Home() {
   
   // カスタムフックを使用してビジネスロジックを分離
   const { selectedYear, setSelectedYear, filteredBooks, availableYears } = useBookFilter(books);
-  const { displayedBooks, observerTarget } = useInfiniteScroll(filteredBooks);
+  const { displayedBooks, observerTarget, hasMore, isLoading } = useInfiniteScroll(filteredBooks);
 
   const handleCardClick = (id: string) => {
     router.push(`/items/${id}`);
@@ -47,6 +47,8 @@ export default function Home() {
           books={displayedBooks}
           onCardClick={handleCardClick}
           onIsbnClick={handleIsbnClick}
+          hasMore={hasMore}
+          isLoading={isLoading}
           ref={observerTarget}
         />
       </main>
