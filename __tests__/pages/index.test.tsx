@@ -164,10 +164,10 @@ describe('Home Page', () => {
     // 複数回Tabキーを押してブックカードまでフォーカス移動
     await user.tab(); // All button
     await user.tab(); // 2024 button
-    await user.tab(); // 2023 button  
+    await user.tab(); // 2023 button
     await user.tab(); // 2022 button
     await user.tab(); // Book card
-    
+
     expect(bookCard).toHaveFocus();
   });
 
