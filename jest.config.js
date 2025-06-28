@@ -18,7 +18,7 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/', '<rootDir>/e2e/'],
   workerIdleMemoryLimit: '512MB',
-  maxWorkers: 2,
+  maxWorkers: process.env.CI ? 2 : '50%',
   collectCoverageFrom: [
     'components/**/*.{js,jsx,ts,tsx}',
     'hooks/**/*.{js,jsx,ts,tsx}',
