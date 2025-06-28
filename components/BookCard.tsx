@@ -10,8 +10,22 @@ interface BookCardProps {
 }
 
 export default function BookCard({ book, onCardClick, onIsbnClick }: BookCardProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onCardClick(book.id);
+    }
+  };
+
   return (
-    <div className={styles.card} onClick={() => onCardClick(book.id)}>
+    <div 
+      className={styles.card} 
+      onClick={() => onCardClick(book.id)}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`${book.title}の詳細を表示。著者: ${book.author}`}
+    >
       <div className={styles.cardImg}>
         <Image
           src={book.thumnailImage}
