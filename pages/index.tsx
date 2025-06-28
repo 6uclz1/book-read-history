@@ -1,122 +1,25 @@
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Link from "next/link";
-import { useEffect, useState, useRef, useCallback } from "react";
-import { books } from "../public/books";
 import { useRouter } from "next/router";
+import { books } from "../public/books";
+import { useBookFilter } from "../hooks/useBookFilter";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+import YearFilter from "../components/YearFilter";
+import BookGrid from "../components/BookGrid";
 
 export default function Home() {
-  const [filteredItems, setFilteredItems] = useState(books); // 初期値を books に設定
-  const [items, setItems] = useState(books.slice(0, 48)); // 初期表示用に先頭48件をセット
-  const [selectedYear, setSelectedYear] = useState<string>("All");
   const router = useRouter();
-  const observerTarget = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    // 年フィルターが変更されたときにアイテムを更新
-    const filtered =
-      selectedYear === "All"
-        ? books
-        : books.filter((book) => book.readDate.startsWith(selectedYear));
-    setFilteredItems(filtered);
-  }, [selectedYear]);
-
-  useEffect(() => {
-    // フィルター適用後に表示アイテムをリセット
-    setItems(filteredItems.slice(0, 48));
-  }, [filteredItems]);
-
-  const loadMore = useCallback(() => {
-    setItems((prevItems) => {
-      if (filteredItems.length === prevItems.length) {
-        return prevItems;
-      }
-      return [
-        ...prevItems,
-        ...filteredItems.slice(prevItems.length, prevItems.length + 48),
-      ];
-    });
-  }, [filteredItems]);
-
-  useEffect(() => {
-    // インターセクションオブザーバーをセットアップ
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          loadMore();
-        }
-      },
-      { threshold: 1.0 }
-    );
-
-    const target = observerTarget.current;
-    if (target) {
-      observer.observe(target);
-    }
-
-    return () => {
-      if (target) {
-        observer.unobserve(target);
-      }
-    };
-  }, [loadMore]);
+  
+  // カスタムフックを使用してビジネスロジックを分離
+  const { selectedYear, setSelectedYear, filteredBooks, availableYears } = useBookFilter(books);
+  const { displayedBooks, observerTarget } = useInfiniteScroll(filteredBooks);
 
   const handleCardClick = (id: string) => {
     router.push(`/items/${id}`);
   };
 
-  const handleIsbnClick = (e: any, isbn: string) => {
+  const handleIsbnClick = (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => {
     e.stopPropagation();
-  };
-
-  const card = (value: any) => {
-    return (
-      <div className={styles.card} onClick={() => handleCardClick(value.id)}>
-        <div className={styles.cardImg}>
-          <Image
-            src={value.thumnailImage}
-            alt="img"
-            width={200}
-            height={300}
-          />
-        </div>
-        <div>
-          <p>
-            <span></span>
-          </p>
-          <h2>{value.title}</h2>
-          <div className={styles.divineLine}></div>
-        </div>
-        <p className={styles.author}>
-          <span>著者</span>
-          {value.author}
-        </p>
-        <p className={styles.publisher}>
-          <span>出版社</span>
-          {value.publisher}
-        </p>
-        <p className={styles.isbn}>
-          <span>ISBN</span>
-          <Link
-            href={`https://www.books.or.jp/book-details/${value.isbn}`}
-            onClick={(e) => handleIsbnClick(e, value.isbn)}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {value.isbn}
-          </Link>
-        </p>
-        <p className={styles.readDate}>
-          <span>読了日</span>
-          {value.readDate}
-        </p>
-      </div>
-    );
-  };
-
-  const handleYearClick = (year: string) => {
-    setSelectedYear(year);
   };
 
   return (
@@ -134,40 +37,18 @@ export default function Home() {
       <header className={styles.header}>読書管理</header>
 
       <main className={styles.main}>
-        <div className={styles.filter}>
-          <div className={styles.yearButtons}>
-            {[
-              "All",
-              "2024",
-              "2023",
-              "2022",
-              "2021",
-              "2020",
-              "2019",
-              "2018",
-              "2017",
-              "2016",
-              "2015",
-            ].map((year) => (
-              <button
-                key={year}
-                onClick={() => handleYearClick(year)}
-                className={
-                  year === selectedYear ? styles.selectedButton : styles.button
-                }
-              >
-                {year === "All" ? "All" : year}
-              </button>
-            ))}
-          </div>
-        </div>
+        <YearFilter
+          selectedYear={selectedYear}
+          onYearChange={setSelectedYear}
+          availableYears={availableYears}
+        />
 
-        <div className={styles.grid}>
-          {items.map((value, index) => (
-            <div key={index}>{card(value)}</div>
-          ))}
-          <div ref={observerTarget} className={styles.observerTarget}></div>
-        </div>
+        <BookGrid
+          books={displayedBooks}
+          onCardClick={handleCardClick}
+          onIsbnClick={handleIsbnClick}
+          ref={observerTarget}
+        />
       </main>
 
       <footer className={styles.footer}>
