@@ -38,12 +38,15 @@ test.describe('読書管理アプリ - ホームページ', () => {
   test('年フィルターが正しく動作する', async ({ page }) => {
     // ページの完全な読み込みを待つ
     await page.waitForLoadState('networkidle');
-    
+
     // 本のカードが表示されるまで待機
-    await page.waitForFunction(() => {
-      return document.querySelectorAll('[class*="card"]').length > 0;
-    }, { timeout: 10000 });
-    
+    await page.waitForFunction(
+      () => {
+        return document.querySelectorAll('[class*="card"]').length > 0;
+      },
+      { timeout: 10000 }
+    );
+
     // 初期状態で複数の本が表示されていることを確認
     const initialBookCount = await page.locator('[class*="card"]').count();
     expect(initialBookCount).toBeGreaterThan(0);
@@ -53,11 +56,14 @@ test.describe('読書管理アプリ - ホームページ', () => {
     await page.getByRole('tab', { name: '2024年の本を表示' }).click();
 
     // フィルター処理の完了を待つ
-    await page.waitForFunction(() => {
-      const cards = document.querySelectorAll('.card');
-      return cards.length > 0; // カードが表示されるまで待機
-    }, { timeout: 3000 });
-    
+    await page.waitForFunction(
+      () => {
+        const cards = document.querySelectorAll('.card');
+        return cards.length > 0; // カードが表示されるまで待機
+      },
+      { timeout: 3000 }
+    );
+
     const filteredBookCount = await page.locator('[class*="card"]').count();
     console.log(`2024年フィルター後の本数: ${filteredBookCount}`);
 
@@ -65,21 +71,29 @@ test.describe('読書管理アプリ - ホームページ', () => {
     await expect(
       page.getByRole('tab', { name: '2024年の本を表示' })
     ).toHaveAttribute('aria-selected', 'true');
-    
+
     // フィルターされた本の読了日が2024年であることを確認
     if (filteredBookCount > 0) {
-      const firstBookReadDate = await page.locator('[class*="card"]').first().locator('[class*="readDate"]').textContent();
+      const firstBookReadDate = await page
+        .locator('[class*="card"]')
+        .first()
+        .locator('[class*="readDate"]')
+        .textContent();
       expect(firstBookReadDate).toContain('2024');
     }
 
     // Allボタンをクリックして元に戻す
     await page.getByRole('tab', { name: 'すべての年の本を表示' }).click();
-    
+
     // Allフィルターの処理完了を待つ
-    await page.waitForFunction((initial) => {
-      const cards = document.querySelectorAll('.card');
-      return cards.length >= initial; // 初期状態以上のカード数に戻るまで待機
-    }, initialBookCount, { timeout: 3000 });
+    await page.waitForFunction(
+      initial => {
+        const cards = document.querySelectorAll('.card');
+        return cards.length >= initial; // 初期状態以上のカード数に戻るまで待機
+      },
+      initialBookCount,
+      { timeout: 3000 }
+    );
 
     // すべての本が再表示されることを確認
     const allBooksCount = await page.locator('[class*="card"]').count();
@@ -93,41 +107,45 @@ test.describe('読書管理アプリ - ホームページ', () => {
     const yearLabels = await Promise.all(
       yearButtons.map(button => button.getAttribute('aria-label'))
     );
-    
+
     console.log(`利用可能な年フィルター: ${yearLabels.join(', ')}`);
-    
+
     // 各年フィルターをテスト
     for (const yearLabel of yearLabels) {
       if (yearLabel && yearLabel !== 'すべての年の本を表示') {
         console.log(`テスト中: ${yearLabel}`);
-        
+
         await page.getByRole('tab', { name: yearLabel }).click();
-        
+
         // フィルター処理の完了を待つ
         await page.waitForTimeout(300);
-        
+
         // ボタンが選択状態になっていることを確認
         await expect(
           page.getByRole('tab', { name: yearLabel })
         ).toHaveAttribute('aria-selected', 'true');
-        
+
         // フィルターされた本が表示されることを確認
         const filteredCount = await page.locator('[class*="card"]').count();
         if (filteredCount > 0) {
           // 最初の本の読了日が正しい年であることを確認
           const year = yearLabel.match(/(\d{4})/)?.[1];
           if (year) {
-            const firstBookReadDate = await page.locator('[class*="card"]').first().locator('[class*="readDate"]').textContent();
+            const firstBookReadDate = await page
+              .locator('[class*="card"]')
+              .first()
+              .locator('[class*="readDate"]')
+              .textContent();
             expect(firstBookReadDate).toContain(year);
           }
         }
       }
     }
-    
+
     // 最後にAllフィルターに戻す
     await page.getByRole('tab', { name: 'すべての年の本を表示' }).click();
     await page.waitForTimeout(300);
-    
+
     await expect(
       page.getByRole('tab', { name: 'すべての年の本を表示' })
     ).toHaveAttribute('aria-selected', 'true');
@@ -136,36 +154,36 @@ test.describe('読書管理アプリ - ホームページ', () => {
   test('フィルター変更時の無限スクロール状態リセット', async ({ page }) => {
     // 初期状態でスクロールして本を多く表示
     const initialCount = await page.locator('[class*="card"]').count();
-    
+
     // スクロールしてさらに本を読み込み
     await page.locator('[class*="card"]').last().scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
     const afterScrollCount = await page.locator('[class*="card"]').count();
-    
+
     console.log(`スクロール後の本数: ${afterScrollCount}`);
-    
+
     // フィルターを変更
     await page.getByRole('tab', { name: '2024年の本を表示' }).click();
     await page.waitForTimeout(300);
-    
+
     // フィルター後の本数を確認（スクロール状態はリセットされるべき）
     const filteredCount = await page.locator('[class*="card"]').count();
     console.log(`フィルター後の本数: ${filteredCount}`);
-    
+
     // フィルターされた結果に基づいて初期表示数（48冊）または全件数であることを確認
     if (filteredCount > 48) {
       // 48冊を超える場合は初期表示数にリセットされているべきではない。
       // ただし、フィルター結果が48冊以下の場合は全件表示される。
       expect(filteredCount).toBeLessThanOrEqual(48);
     }
-    
+
     // Allフィルターに戻して初期状態に戻る
     await page.getByRole('tab', { name: 'すべての年の本を表示' }).click();
     await page.waitForTimeout(300);
-    
+
     const backToAllCount = await page.locator('[class*="card"]').count();
     console.log(`Allフィルターに戻した後の本数: ${backToAllCount}`);
-    
+
     // 初期表示数（48冊）にリセットされていることを確認
     expect(backToAllCount).toBe(Math.min(48, initialCount));
   });
@@ -213,22 +231,27 @@ test.describe('読書管理アプリ - ホームページ', () => {
 
     // 最後の本のカードまでスクロール
     await page.locator('[class*="card"]').last().scrollIntoViewIfNeeded();
-    
+
     // ローディング状態を確認
     await page.waitForTimeout(200); // スクロール検出の待機
-    
+
     // 新しい本が読み込まれるまで待機（最大5秒）
-    await page.waitForFunction(
-      (initial) => {
-        const currentCount = document.querySelectorAll('[class*="card"]').length;
-        return currentCount > initial;
-      },
-      initialBookCount,
-      { timeout: 5000 }
-    ).catch(() => {
-      // タイムアウトした場合は、すべての本が既に表示済みの可能性
-      console.log('無限スクロールのタイムアウト - すべての本が表示済みの可能性');
-    });
+    await page
+      .waitForFunction(
+        initial => {
+          const currentCount =
+            document.querySelectorAll('[class*="card"]').length;
+          return currentCount > initial;
+        },
+        initialBookCount,
+        { timeout: 5000 }
+      )
+      .catch(() => {
+        // タイムアウトした場合は、すべての本が既に表示済みの可能性
+        console.log(
+          '無限スクロールのタイムアウト - すべての本が表示済みの可能性'
+        );
+      });
 
     const afterScrollBookCount = await page.locator('[class*="card"]').count();
     console.log(`スクロール後の本の数: ${afterScrollBookCount}`);
@@ -237,28 +260,30 @@ test.describe('読書管理アプリ - ホームページ', () => {
     expect(afterScrollBookCount).toBeGreaterThanOrEqual(initialBookCount);
   });
 
-  test('無限スクロール - 複数回のスクロールが正しく動作する', async ({ page }) => {
+  test('無限スクロール - 複数回のスクロールが正しく動作する', async ({
+    page,
+  }) => {
     let currentBookCount = await page.locator('[class*="card"]').count();
     const scrollAttempts = 3; // 最大3回スクロールを試行
-    
+
     for (let i = 0; i < scrollAttempts; i++) {
       console.log(`スクロール試行 ${i + 1}: 現在の本の数 ${currentBookCount}`);
-      
+
       // 最後の本のカードまでスクロール
       await page.locator('[class*="card"]').last().scrollIntoViewIfNeeded();
-      
+
       // 新しい本が読み込まれるまで待機
       const previousCount = currentBookCount;
       await page.waitForTimeout(500);
-      
+
       currentBookCount = await page.locator('[class*="card"]').count();
-      
+
       // 新しい本が読み込まれなかった場合は終了（すべて表示済み）
       if (currentBookCount === previousCount) {
         console.log('すべての本が表示済みです');
         break;
       }
-      
+
       // 本の数が増加していることを確認
       expect(currentBookCount).toBeGreaterThan(previousCount);
     }
@@ -268,26 +293,26 @@ test.describe('読書管理アプリ - ホームページ', () => {
     // 特定の年でフィルター
     await page.getByRole('tab', { name: '2024年の本を表示' }).click();
     await page.waitForTimeout(300);
-    
+
     const filteredInitialCount = await page.locator('[class*="card"]').count();
     console.log(`2024年フィルター後の初期本数: ${filteredInitialCount}`);
-    
+
     // スクロールを実行
     if (filteredInitialCount > 0) {
       await page.locator('[class*="card"]').last().scrollIntoViewIfNeeded();
       await page.waitForTimeout(500);
-      
+
       const afterScrollCount = await page.locator('[class*="card"]').count();
       console.log(`スクロール後の本数: ${afterScrollCount}`);
-      
+
       // フィルター後でも無限スクロールが動作することを確認
       expect(afterScrollCount).toBeGreaterThanOrEqual(filteredInitialCount);
     }
-    
+
     // Allフィルターに戻す
     await page.getByRole('tab', { name: 'すべての年の本を表示' }).click();
     await page.waitForTimeout(300);
-    
+
     // 元の状態に戻ることを確認
     const backToAllCount = await page.locator('[class*="card"]').count();
     expect(backToAllCount).toBeGreaterThanOrEqual(filteredInitialCount);
@@ -307,27 +332,29 @@ test.describe('読書管理アプリ - ホームページ', () => {
     // デスクトップサイズで確認
     await page.setViewportSize({ width: 1200, height: 800 });
     await expect(page.locator('[class*="grid"]')).toBeVisible();
-    
+
     // デスクトップサイズでの無限スクロール確認
     const desktopInitialCount = await page.locator('[class*="card"]').count();
     await page.locator('[class*="card"]').last().scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
-    
+
     // モバイルサイズに変更
     await page.setViewportSize({ width: 375, height: 667 });
     await expect(page.locator('[class*="grid"]')).toBeVisible();
-    
+
     // 年フィルターが表示されることを確認
     await expect(
       page.getByRole('tab', { name: 'すべての年の本を表示' })
     ).toBeVisible();
-    
+
     // モバイルサイズでの無限スクロール確認
     const mobileInitialCount = await page.locator('[class*="card"]').count();
     await page.locator('[class*="card"]').last().scrollIntoViewIfNeeded();
     await page.waitForTimeout(500);
-    const mobileAfterScrollCount = await page.locator('[class*="card"]').count();
-    
+    const mobileAfterScrollCount = await page
+      .locator('[class*="card"]')
+      .count();
+
     // モバイルでも無限スクロールが動作することを確認
     expect(mobileAfterScrollCount).toBeGreaterThanOrEqual(mobileInitialCount);
   });
