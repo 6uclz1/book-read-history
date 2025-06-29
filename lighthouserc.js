@@ -4,7 +4,7 @@ module.exports = {
       startServerCommand: 'npm start',
       url: ['http://localhost:3000'],
       numberOfRuns: process.env.CI ? 1 : 3,
-      startServerReadyPattern: 'Ready on',
+      startServerReadyPattern: 'Ready in',
       startServerReadyTimeout: 30000,
     },
     assert: {
