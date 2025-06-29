@@ -139,7 +139,7 @@ jobs:
       run: npm audit --audit-level high
 
     - name: Run dependency check
-      run: npx depcheck
+      run: npm run depcheck
 
   performance:
     runs-on: ubuntu-latest
