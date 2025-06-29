@@ -8,7 +8,7 @@ test.describe('Year Filtering Functionality', () => {
 
   test('should show all books by default', async ({ page }) => {
     // "All" button should be selected by default
-    await expect(page.getByRole('button', { name: 'すべての年の本を表示' })).toHaveAttribute('aria-selected', 'true')
+    await expect(page.getByRole('tab', { name: 'すべての年の本を表示' })).toHaveAttribute('aria-selected', 'true')
 
     // Get initial book count
     const initialBookCount = await page.locator('[role="gridcell"]').count()
@@ -22,7 +22,7 @@ test.describe('Year Filtering Functionality', () => {
     const initialBookCount = await page.locator('[role="gridcell"]').count()
 
     // Find and click a specific year button
-    const yearButtons = page.getByRole('button', { name: /\d{4}年の本を表示/ })
+    const yearButtons = page.getByRole('tab', { name: /\d{4}年の本を表示/ })
     const firstYearButton = yearButtons.first()
     
     await firstYearButton.click()
@@ -31,7 +31,7 @@ test.describe('Year Filtering Functionality', () => {
     await expect(firstYearButton).toHaveAttribute('aria-selected', 'true')
 
     // "All" button should no longer be selected
-    await expect(page.getByRole('button', { name: 'すべての年の本を表示' })).toHaveAttribute('aria-selected', 'false')
+    await expect(page.getByRole('tab', { name: 'すべての年の本を表示' })).toHaveAttribute('aria-selected', 'false')
 
     // The filtered book count should be different (likely fewer)
     const filteredBookCount = await page.locator('[role="gridcell"]').count()
@@ -47,13 +47,13 @@ test.describe('Year Filtering Functionality', () => {
     const initialBookCount = await page.locator('[role="gridcell"]').count()
 
     // Filter by a specific year
-    const yearButton = page.getByRole('button', { name: /\d{4}年の本を表示/ }).first()
+    const yearButton = page.getByRole('tab', { name: /\d{4}年の本を表示/ }).first()
     await yearButton.click()
 
     const filteredBookCount = await page.locator('[role="gridcell"]').count()
 
     // Click "All" to show all books again
-    const allButton = page.getByRole('button', { name: 'すべての年の本を表示' })
+    const allButton = page.getByRole('tab', { name: 'すべての年の本を表示' })
     await allButton.click()
 
     // "All" should be selected
@@ -70,7 +70,7 @@ test.describe('Year Filtering Functionality', () => {
   })
 
   test('should switch between different years correctly', async ({ page }) => {
-    const yearButtons = page.getByRole('button', { name: /\d{4}年の本を表示/ })
+    const yearButtons = page.getByRole('tab', { name: /\d{4}年の本を表示/ })
     const yearButtonCount = await yearButtons.count()
 
     if (yearButtonCount >= 2) {
@@ -99,7 +99,7 @@ test.describe('Year Filtering Functionality', () => {
 
   test('should maintain filter state when interacting with books', async ({ page }) => {
     // Filter by a specific year
-    const yearButton = page.getByRole('button', { name: /\d{4}年の本を表示/ }).first()
+    const yearButton = page.getByRole('tab', { name: /\d{4}年の本を表示/ }).first()
     await yearButton.click()
 
     // Ensure the filter is applied
@@ -125,7 +125,7 @@ test.describe('Year Filtering Functionality', () => {
   })
 
   test('should handle keyboard navigation between filter buttons', async ({ page }) => {
-    const allButton = page.getByRole('button', { name: 'すべての年の本を表示' })
+    const allButton = page.getByRole('tab', { name: 'すべての年の本を表示' })
     
     // Focus the "All" button
     await allButton.focus()
@@ -149,7 +149,7 @@ test.describe('Year Filtering Functionality', () => {
     const initialURL = page.url()
     
     // Apply a filter
-    const yearButton = page.getByRole('button', { name: /\d{4}年の本を表示/ }).first()
+    const yearButton = page.getByRole('tab', { name: /\d{4}年の本を表示/ }).first()
     await yearButton.click()
     
     // Refresh the page

@@ -11,8 +11,8 @@ test.describe('Home Page', () => {
   })
 
   test('should display year filter buttons', async ({ page }) => {
-    await expect(page.getByRole('button', { name: 'すべての年の本を表示' })).toBeVisible()
-    await expect(page.getByRole('button', { name: /\d{4}年の本を表示/ }).first()).toBeVisible()
+    await expect(page.getByRole('tab', { name: 'すべての年の本を表示' })).toBeVisible()
+    await expect(page.getByRole('tab', { name: /\d{4}年の本を表示/ }).first()).toBeVisible()
   })
 
   test('should display book grid with books', async ({ page }) => {
@@ -26,14 +26,14 @@ test.describe('Home Page', () => {
     expect(initialBookCount).toBeGreaterThan(0)
 
     // Find a specific year button and click it
-    const yearButton = page.getByRole('button', { name: /\d{4}年の本を表示/ }).first()
+    const yearButton = page.getByRole('tab', { name: /\d{4}年の本を表示/ }).first()
     await yearButton.click()
 
     // Check that the filter is applied (aria-selected should be true)
     await expect(yearButton).toHaveAttribute('aria-selected', 'true')
 
     // The "All" button should no longer be selected
-    await expect(page.getByRole('button', { name: 'すべての年の本を表示' })).toHaveAttribute('aria-selected', 'false')
+    await expect(page.getByRole('tab', { name: 'すべての年の本を表示' })).toHaveAttribute('aria-selected', 'false')
   })
 
   test('should navigate to book detail page when book card is clicked', async ({ page }) => {
