@@ -1,9 +1,11 @@
 module.exports = {
   ci: {
     collect: {
-      startServerCommand: 'npm run build && npm start',
+      startServerCommand: 'npm start',
       url: ['http://localhost:3000'],
-      numberOfRuns: 3,
+      numberOfRuns: process.env.CI ? 1 : 3,
+      startServerReadyPattern: 'Ready on',
+      startServerReadyTimeout: 30000,
     },
     assert: {
       assertions: {
