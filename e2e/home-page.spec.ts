@@ -21,6 +21,9 @@ test.describe('Home Page', () => {
   })
 
   test('should filter books by year', async ({ page }) => {
+    // Wait for books to load
+    await page.waitForSelector('[role="gridcell"]', { timeout: 10000 })
+    
     // Get the total number of books initially
     const initialBookCount = await page.locator('[role="gridcell"]').count()
     expect(initialBookCount).toBeGreaterThan(0)
