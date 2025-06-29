@@ -173,7 +173,7 @@ test.describe('無限スクロール - パフォーマンスとメモリリー�
     const initialCount = await page.locator('[class*="card"]').count();
 
     // 最後のカードまでスクロール
-    await page.locator('[class*="card"]').last().scrollIntoView();
+    await page.locator('[class*="card"]').last().scrollIntoViewIfNeeded();
 
     // 新しいデータが読み込まれる場合、ローディング状態が適切に管理されることを確認
     const afterScrollCount = await page.locator('[class*="card"]').count();

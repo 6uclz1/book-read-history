@@ -160,7 +160,7 @@ test.describe('読書管理アプリ - アクセシビリティ', () => {
 
     // スクロールが正常に動作することを確認
     if (cardCount > 5) {
-      await page.locator('[class*="card"]').nth(4).scrollIntoView();
+      await page.locator('[class*="card"]').nth(4).scrollIntoViewIfNeeded();
       await page.waitForTimeout(300);
       await expect(page.locator('[class*="card"]').nth(4)).toBeVisible();
     }
