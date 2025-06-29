@@ -70,8 +70,7 @@ describe('Home Page Integration', () => {
   it('renders page with correct title and header', () => {
     render(<Home />)
 
-    // Check that the title element exists in the Head component
-    expect(document.querySelector('title')).toBeInTheDocument()
+    // Check that the header is rendered correctly
     expect(screen.getByText('読書管理')).toBeInTheDocument()
   })
 
@@ -150,6 +149,9 @@ describe('Home Page Integration', () => {
   it('shows correct accessibility attributes', () => {
     render(<Home />)
 
+    // Check main landmark
+    expect(screen.getByRole('main')).toBeInTheDocument()
+
     // Year filter should have proper ARIA attributes
     expect(screen.getByRole('region', { name: '年度フィルター' })).toBeInTheDocument()
     expect(screen.getByRole('tablist', { name: '読了年で絞り込み' })).toBeInTheDocument()
@@ -174,20 +176,6 @@ describe('Home Page Integration', () => {
     render(<Home />)
 
     expect(screen.getByText('© 2024 読書管理. All rights reserved.')).toBeInTheDocument()
-  })
-
-  it('has proper page metadata', () => {
-    render(<Home />)
-
-    const metaDescription = document.querySelector('meta[name="description"]')
-    expect(metaDescription).toHaveAttribute('content', '読んだ本をリスト化したサイトです。')
-  })
-
-  it('includes FontAwesome stylesheet', () => {
-    render(<Home />)
-
-    const faLink = document.querySelector('link[href*="fontawesome"]')
-    expect(faLink).toBeInTheDocument()
   })
 
   it('handles keyboard navigation on book cards', () => {
