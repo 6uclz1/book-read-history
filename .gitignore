@@ -7,6 +7,14 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/.nyc_output
+*.lcov
+
+# lighthouse
+.lighthouseci/
 
 # next.js
 /.next/

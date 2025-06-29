@@ -1,0 +1,17 @@
+{
+  "ignores": [
+    "@testing-library/user-event",
+    "@types/jest",
+    "@types/node",
+    "jest-environment-jsdom",
+    "depcheck"
+  ],
+  "skip-missing": true,
+  "ignore-bin-package": false,
+  "ignore-matches": [
+    "@types/*",
+    "**/test/**",
+    "**/__tests__/**",
+    "**/e2e/**"
+  ]
+}
