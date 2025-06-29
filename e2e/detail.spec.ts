@@ -4,7 +4,7 @@ test.describe('読書管理アプリ - 詳細ページ', () => {
   test.beforeEach(async ({ page }) => {
     // ホームページから最初の本をクリックして詳細ページに移動
     await page.goto('/');
-    await page.locator('.card').first().click();
+    await page.locator('[class*="card"]').first().click();
   });
 
   test('詳細ページが正しく表示される', async ({ page }) => {
@@ -12,30 +12,30 @@ test.describe('読書管理アプリ - 詳細ページ', () => {
     await expect(page).toHaveURL(/\/items\//);
 
     // 詳細ページの主要な要素が表示されることを確認
-    await expect(page.locator('.bookDetail')).toBeVisible();
-    await expect(page.locator('.imageContainer')).toBeVisible();
-    await expect(page.locator('.infoContainer')).toBeVisible();
+    await expect(page.locator('[class*="bookDetail"]')).toBeVisible();
+    await expect(page.locator('[class*="imageContainer"]')).toBeVisible();
+    await expect(page.locator('[class*="infoContainer"]')).toBeVisible();
   });
 
   test('本の情報が正しく表示される', async ({ page }) => {
     // 本のタイトルが表示されることを確認
-    await expect(page.locator('.title')).toBeVisible();
+    await expect(page.locator('[class*="title"]')).toBeVisible();
 
     // 本の詳細情報が表示されることを確認
-    await expect(page.locator('.author')).toBeVisible();
-    await expect(page.locator('.publisher')).toBeVisible();
-    await expect(page.locator('.isbn')).toBeVisible();
-    await expect(page.locator('.readDate')).toBeVisible();
+    await expect(page.locator('[class*="author"]')).toBeVisible();
+    await expect(page.locator('[class*="publisher"]')).toBeVisible();
+    await expect(page.locator('[class*="isbn"]')).toBeVisible();
+    await expect(page.locator('[class*="readDate"]')).toBeVisible();
 
     // 各情報にラベルが含まれていることを確認
-    await expect(page.locator('.author')).toContainText('著者');
-    await expect(page.locator('.publisher')).toContainText('出版社');
-    await expect(page.locator('.isbn')).toContainText('ISBN');
-    await expect(page.locator('.readDate')).toContainText('読了日');
+    await expect(page.locator('[class*="author"]')).toContainText('著者');
+    await expect(page.locator('[class*="publisher"]')).toContainText('出版社');
+    await expect(page.locator('[class*="isbn"]')).toContainText('ISBN');
+    await expect(page.locator('[class*="readDate"]')).toContainText('読了日');
   });
 
   test('本の画像が正しく表示される', async ({ page }) => {
-    const bookImage = page.locator('.bookImage');
+    const bookImage = page.locator('[class*="bookImage"]');
     await expect(bookImage).toBeVisible();
 
     // 画像のalt属性が設定されていることを確認
@@ -61,7 +61,7 @@ test.describe('読書管理アプリ - 詳細ページ', () => {
 
     // ホームページに戻ることを確認
     await expect(page).toHaveURL('/');
-    await expect(page.locator('.grid')).toBeVisible();
+    await expect(page.locator('[class*="grid"]')).toBeVisible();
   });
 
   test('ヘッダーが表示される', async ({ page }) => {
@@ -79,12 +79,12 @@ test.describe('読書管理アプリ - 詳細ページ', () => {
   test('レスポンシブデザインが正しく動作する', async ({ page }) => {
     // デスクトップサイズで確認
     await page.setViewportSize({ width: 1200, height: 800 });
-    await expect(page.locator('.bookDetail')).toBeVisible();
+    await expect(page.locator('[class*="bookDetail"]')).toBeVisible();
 
     // モバイルサイズに変更
     await page.setViewportSize({ width: 375, height: 667 });
-    await expect(page.locator('.bookDetail')).toBeVisible();
-    await expect(page.locator('.backButton')).toBeVisible();
+    await expect(page.locator('[class*="bookDetail"]')).toBeVisible();
+    await expect(page.locator('[class*="backButton"]')).toBeVisible();
   });
 
   test('存在しない本IDの場合、エラーメッセージが表示される', async ({
@@ -130,21 +130,21 @@ test.describe('読書管理アプリ - 詳細ページ', () => {
       .first()
       .locator('h2')
       .textContent();
-    await page.locator('.card').first().click();
+    await page.locator('[class*="card"]').first().click();
     await expect(page).toHaveURL(/\/items\//);
 
     // 戻る
     await page.getByRole('link', { name: '戻る' }).click();
 
     // 2番目の本があれば、それもテスト
-    const cardCount = await page.locator('.card').count();
+    const cardCount = await page.locator('[class*="card"]').count();
     if (cardCount > 1) {
       const secondBookTitle = await page
         .locator('.card')
         .nth(1)
         .locator('h2')
         .textContent();
-      await page.locator('.card').nth(1).click();
+      await page.locator('[class*="card"]').nth(1).click();
       await expect(page).toHaveURL(/\/items\//);
 
       // 異なる本の詳細ページであることを確認
