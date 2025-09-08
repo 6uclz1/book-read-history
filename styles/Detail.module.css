@@ -203,3 +203,40 @@
   justify-content: center;
   padding: 0px 0px 32px 0px;
 }
+
+.highlightsSection {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid #222;
+  border-radius: 10px;
+  color: rgb(17, 17, 17);
+}
+
+.highlightsTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(220, 220, 220);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #222;;
+  display: flex;
+  align-items: center;
+}
+
+.highlightsList {
+  list-style: none;
+  padding: 0;
+}
+
+.highlightItem {
+  padding: 1rem 0;
+  border-bottom: 1px solid #222;
+  line-height: 1.6;
+  color: rgb(200, 200, 200);
+}
+
+.highlightItem:last-child {
+  border-bottom: none;
+}

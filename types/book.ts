@@ -6,4 +6,5 @@ export interface Book {
   isbn: string;
   readDate: string;
   thumnailImage: string;
+  highlights: string[];
 }

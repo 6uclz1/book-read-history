@@ -67,6 +67,19 @@ function DetailPage() {
             </p>
           </div>
         </div>
+
+        {details.highlights && details.highlights.length > 0 && (
+          <div className={styles.highlightsSection}>
+            <h3 className={styles.highlightsTitle}>ハイライト</h3>
+            <ul className={styles.highlightsList}>
+              {details.highlights.map((highlight, index) => (
+                <li key={index} className={styles.highlightItem}>
+                  {highlight}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </main>
 
       <div className={styles.backButtonContainer}>
