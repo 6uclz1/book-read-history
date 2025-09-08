@@ -19,7 +19,6 @@ test.describe('Year Filtering Functionality', () => {
   })
 
   test('should filter books when a specific year is selected', async ({ page }) => {
-    const initialBookCount = await page.locator('[role="gridcell"]').count()
 
     // Find and click a specific year button
     const yearButtons = page.getByRole('tab', { name: /\d{4}年の本を表示/ })
@@ -52,7 +51,6 @@ test.describe('Year Filtering Functionality', () => {
 
     // Wait for filtering to complete
     await page.waitForTimeout(500)
-    const filteredBookCount = await page.locator('[role="gridcell"]').count()
 
     // Click "All" to show all books again
     const allButton = page.getByRole('tab', { name: 'すべての年の本を表示' })
@@ -87,7 +85,6 @@ test.describe('Year Filtering Functionality', () => {
 
       // Wait for filtering to complete
       await page.waitForTimeout(500)
-      const firstYearBookCount = await page.locator('[role="gridcell"]').count()
 
       // Click second year
       const secondYearButton = yearButtons.nth(1)
@@ -156,10 +153,7 @@ test.describe('Year Filtering Functionality', () => {
     await expect(allButton).toHaveAttribute('aria-selected', 'false')
   })
 
-  test('should update URL or maintain state appropriately', async ({ page }) => {
-    // This test checks that the app handles routing correctly with filters
-    const initialURL = page.url()
-    
+  test('should update URL or maintain state appropriately', async ({ page }) => {    
     // Apply a filter
     const yearButton = page.getByRole('tab', { name: /\d{4}年の本を表示/ }).first()
     await yearButton.click()

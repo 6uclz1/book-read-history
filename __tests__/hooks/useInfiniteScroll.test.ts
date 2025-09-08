@@ -1,5 +1,4 @@
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll'
-import { Book } from '../../types/book'
 
 // Mock IntersectionObserver
 const mockIntersectionObserver = jest.fn()

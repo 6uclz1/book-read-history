@@ -1,8 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import Home from '../../pages/index'
-import { useRouter } from 'next/router'
-import { books } from '../../public/books'
 
 // Mock Next.js router
 const mockPush = jest.fn()
