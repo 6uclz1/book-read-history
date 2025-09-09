@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import { useRouter } from "next/router";
 import { Book } from "../types/book";
 
@@ -17,11 +17,12 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
   const observerTarget = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
 
-  // フィルターが変更されたとき、または初回読み込み時に表示アイテムを設定
-  useEffect(() => {
+  // フィルター変更時 or 初回読み込み時に表示アイテムを設定
+  useLayoutEffect(() => {
     const savedCount = sessionStorage.getItem(`itemCount:${router.asPath}`);
     const initialCount = savedCount ? parseInt(savedCount, 10) : ITEMS_PER_PAGE;
     setDisplayedBooks(filteredBooks.slice(0, initialCount));
+    window.dispatchEvent(new Event("books-rendered"));
   }, [filteredBooks, router.asPath]);
 
   // 表示されているアイテム数を保存
