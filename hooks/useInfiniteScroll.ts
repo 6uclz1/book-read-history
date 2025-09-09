@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/router";
 import { Book } from "../types/book";
 
 const ITEMS_PER_PAGE = 48;
@@ -14,11 +15,27 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
-  // フィルターが変更されたときに表示アイテムをリセット
+  // フィルターが変更されたとき、または初回読み込み時に表示アイテムを設定
   useEffect(() => {
-    setDisplayedBooks(filteredBooks.slice(0, ITEMS_PER_PAGE));
-  }, [filteredBooks]);
+    const savedCount = sessionStorage.getItem(`itemCount:${router.asPath}`);
+    const initialCount = savedCount ? parseInt(savedCount, 10) : ITEMS_PER_PAGE;
+    setDisplayedBooks(filteredBooks.slice(0, initialCount));
+  }, [filteredBooks, router.asPath]);
+
+  // 表示されているアイテム数を保存
+  useEffect(() => {
+    const handleRouteChangeStart = () => {
+      sessionStorage.setItem(`itemCount:${router.asPath}`, String(displayedBooks.length));
+    };
+
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+    };
+  }, [router.asPath, router.events, displayedBooks.length]);
 
   const loadMore = useCallback(() => {
     setIsLoading(true);
@@ -41,7 +58,7 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !isLoading) {
           loadMore();
         }
       },
@@ -58,7 +75,7 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
         observer.unobserve(target);
       }
     };
-  }, [loadMore]);
+  }, [loadMore, isLoading]);
 
   const hasMore = displayedBooks.length < filteredBooks.length;
 
@@ -66,6 +83,6 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
     displayedBooks,
     observerTarget,
     hasMore,
-    isLoading
+    isLoading,
   };
 }
