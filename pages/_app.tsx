@@ -7,23 +7,21 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    // ルート変更開始時にスクロール位置を保存
+    // ページを離れる際にスクロール位置を保存
     const handleRouteChangeStart = () => {
       sessionStorage.setItem(`scrollPos:${router.asPath}`, window.scrollY.toString());
     };
+    router.events.on("routeChangeStart", handleRouteChangeStart);
 
-    // ルート変更完了後、スクロール位置を復元
-    const handleRouteChangeComplete = (url: string) => {
-      const scrollPos = sessionStorage.getItem(`scrollPos:${url}`);
-      if (!scrollPos) return;
-
+    // ページが表示されるたびにスクロール位置の復元を試みる
+    const scrollPos = sessionStorage.getItem(`scrollPos:${router.asPath}`);
+    if (scrollPos) {
       let restored = false;
 
       const restoreScroll = () => {
-        if (!restored) {
-          window.scrollTo(0, parseInt(scrollPos, 10));
-          restored = true;
-        }
+        if (restored) return;
+        window.scrollTo(0, parseInt(scrollPos, 10));
+        restored = true;
       };
 
       // 無限スクロールページからのカスタムイベントを待つ
@@ -39,15 +37,11 @@ export default function App({ Component, pageProps }: AppProps) {
       const fallbackTimeout = setTimeout(() => {
         window.removeEventListener("books-rendered", handleBooksRendered);
         restoreScroll();
-      }, 300); // 少し長めのタイムアウト
-    };
-
-    router.events.on("routeChangeStart", handleRouteChangeStart);
-    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+      }, 300);
+    }
 
     return () => {
       router.events.off("routeChangeStart", handleRouteChangeStart);
-      router.events.off("routeChangeComplete", handleRouteChangeComplete);
     };
   }, [router.asPath, router.events]);
 
