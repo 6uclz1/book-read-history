@@ -54,7 +54,7 @@ try {
             acc[isbn] = []
         }
         if (isbn) {
-            acc[isbn].push(highlight.Highlight)
+            acc[isbn].push({ text: highlight.Highlight, location: highlight.Location })
         }
         return acc
     }, {})
@@ -65,7 +65,7 @@ try {
             acc[title] = []
         }
         if (title) {
-            acc[title].push(highlight.Highlight)
+            acc[title].push({ text: highlight.Highlight, location: highlight.Location })
         }
         return acc
     }, {})
@@ -108,6 +108,7 @@ try {
             author: row.author,
             publisher: row.publisher,
             isbn: row.isbn,
+            asin: asin,
             readDate: row.readDate,
             thumnailImage: row.thumnailImage.replace(/\?.*$/,""),
             highlights: highlights

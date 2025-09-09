@@ -233,9 +233,27 @@
 .highlightItem {
   padding: 1rem 0;
   border-bottom: 1px solid #222;
-  line-height: 1.6;
+  line-height: 1.2;
   color: rgb(200, 200, 200);
 }
+
+.highlightLink {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  text-decoration: none; 
+  text-align: right;
+  display: block;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.highlightLink:hover,
+.highlightLink:focus,
+.highlightLink:active {
+  text-decoration: underline;
+  border-color: rgba(232, 230, 227, 0.5);
+}
+
 
 .highlightItem:last-child {
   border-bottom: none;

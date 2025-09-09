@@ -74,7 +74,18 @@ function DetailPage() {
             <ul className={styles.highlightsList}>
               {details.highlights.map((highlight, index) => (
                 <li key={index} className={styles.highlightItem}>
-                  {highlight}
+                  <p>{highlight.text}</p>
+                  {details.asin && (
+                    <a
+                      href={`kindle://book?action=open&asin=${details.asin}&location=${highlight.location}`}
+                      className={styles.highlightLink}
+                    >
+                      Location. {highlight.location} 
+                      <span style={{ marginLeft: "6px" }}>
+                      <i className="fas fa-external-link-alt"></i>
+                      </span>
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
