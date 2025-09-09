@@ -6,7 +6,6 @@ import Link from "next/link";
 import Head from "next/head";
 import styles from "../../styles/Detail.module.css";
 
-
 function DetailPage() {
   const router = useRouter();
   const { id } = router.query;
@@ -19,8 +18,19 @@ function DetailPage() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{details ? `読書管理 | ${details.title}` : '読書管理 | Book not found'}</title>
-        <meta name="description" content={details ? `${details.title}（著者: ${details.author}）の詳細ページです。` : "指定された本が見つかりませんでした。"} />
+        <title>
+          {details
+            ? `読書管理 | ${details.title}`
+            : "読書管理 | Book not found"}
+        </title>
+        <meta
+          name="description"
+          content={
+            details
+              ? `${details.title}（著者: ${details.author}）の詳細ページです。`
+              : "指定された本が見つかりませんでした。"
+          }
+        />
         <link rel="icon" href="/favicon.ico" />
         <link
           href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
@@ -80,9 +90,9 @@ function DetailPage() {
                       href={`kindle://book?action=open&asin=${details.asin}&location=${highlight.location}`}
                       className={styles.highlightLink}
                     >
-                      Location. {highlight.location} 
+                      Location. {highlight.location}
                       <span style={{ marginLeft: "6px" }}>
-                      <i className="fas fa-external-link-alt"></i>
+                        <i className="fas fa-external-link-alt"></i>
                       </span>
                     </a>
                   )}

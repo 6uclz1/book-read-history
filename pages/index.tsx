@@ -9,16 +9,21 @@ import BookGrid from "../components/BookGrid";
 
 export default function Home() {
   const router = useRouter();
-  
+
   // カスタムフックを使用してビジネスロジックを分離
-  const { selectedYear, setSelectedYear, filteredBooks, availableYears } = useBookFilter(books);
-  const { displayedBooks, observerTarget, hasMore, isLoading } = useInfiniteScroll(filteredBooks);
+  const { selectedYear, setSelectedYear, filteredBooks, availableYears } =
+    useBookFilter(books);
+  const { displayedBooks, observerTarget, hasMore, isLoading } =
+    useInfiniteScroll(filteredBooks);
 
   const handleCardClick = (id: string) => {
     router.push(`/items/${id}`);
   };
 
-  const handleIsbnClick = (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => {
+  const handleIsbnClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    isbn: string,
+  ) => {
     e.stopPropagation();
   };
 

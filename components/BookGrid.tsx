@@ -12,10 +12,13 @@ interface BookGridProps {
 }
 
 const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
-  ({ books, onCardClick, onIsbnClick, hasMore = false, isLoading = false }, ref) => {
+  (
+    { books, onCardClick, onIsbnClick, hasMore = false, isLoading = false },
+    ref,
+  ) => {
     return (
       <div>
-        <div 
+        <div
           className={styles.grid}
           role="grid"
           aria-label={`${books.length}冊の本を表示中`}
@@ -41,7 +44,7 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
 BookGrid.displayName = "BookGrid";

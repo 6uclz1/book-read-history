@@ -1,4 +1,10 @@
-import { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import { useRouter } from "next/router";
 import { Book } from "../types/book";
 
@@ -11,7 +17,9 @@ interface UseInfiniteScrollReturn {
   isLoading: boolean;
 }
 
-export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollReturn {
+export function useInfiniteScroll(
+  filteredBooks: Book[],
+): UseInfiniteScrollReturn {
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
@@ -28,7 +36,10 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
   // 表示されているアイテム数を保存
   useEffect(() => {
     const handleRouteChangeStart = () => {
-      sessionStorage.setItem(`itemCount:${router.asPath}`, String(displayedBooks.length));
+      sessionStorage.setItem(
+        `itemCount:${router.asPath}`,
+        String(displayedBooks.length),
+      );
     };
 
     router.events.on("routeChangeStart", handleRouteChangeStart);
@@ -48,7 +59,10 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
         }
         const newItems = [
           ...prevItems,
-          ...filteredBooks.slice(prevItems.length, prevItems.length + ITEMS_PER_PAGE),
+          ...filteredBooks.slice(
+            prevItems.length,
+            prevItems.length + ITEMS_PER_PAGE,
+          ),
         ];
         setIsLoading(false);
         return newItems;
@@ -63,7 +77,7 @@ export function useInfiniteScroll(filteredBooks: Book[]): UseInfiniteScrollRetur
           loadMore();
         }
       },
-      { threshold: 1.0 }
+      { threshold: 1.0 },
     );
 
     const target = observerTarget.current;

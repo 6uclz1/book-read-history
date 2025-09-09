@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "convert": "node convert.js",
-    "books:update": "node convert.js"
+    "books:update": "node convert.js",
+    "lint": "biome lint",
+    "lint:fix": "biome check --write",
+    "format": "biome format"
   },
   "dependencies": {
     "next": "^15.5.2",
@@ -16,6 +19,7 @@
     "typescript": "5.9.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.3",
     "@types/node": "^24.3.1",
     "@types/react": "^19.1.12",
     "csv-parse": "^6.1.0"

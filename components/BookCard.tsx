@@ -9,17 +9,21 @@ interface BookCardProps {
   onIsbnClick: (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => void;
 }
 
-export default function BookCard({ book, onCardClick, onIsbnClick }: BookCardProps) {
+export default function BookCard({
+  book,
+  onCardClick,
+  onIsbnClick,
+}: BookCardProps) {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       onCardClick(book.id);
     }
   };
 
   return (
-    <div 
-      className={styles.card} 
+    <div
+      className={styles.card}
       onClick={() => onCardClick(book.id)}
       onKeyDown={handleKeyDown}
       tabIndex={0}

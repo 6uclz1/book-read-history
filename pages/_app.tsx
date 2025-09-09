@@ -9,7 +9,10 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     // ページを離れる際にスクロール位置を保存
     const handleRouteChangeStart = () => {
-      sessionStorage.setItem(`scrollPos:${router.asPath}`, window.scrollY.toString());
+      sessionStorage.setItem(
+        `scrollPos:${router.asPath}`,
+        window.scrollY.toString(),
+      );
     };
     router.events.on("routeChangeStart", handleRouteChangeStart);
 
@@ -31,7 +34,9 @@ export default function App({ Component, pageProps }: AppProps) {
         clearTimeout(fallbackTimeout);
       };
 
-      window.addEventListener("books-rendered", handleBooksRendered, { once: true });
+      window.addEventListener("books-rendered", handleBooksRendered, {
+        once: true,
+      });
 
       // フォールバック: イベントが発生しないページのためにタイムアウトを設定
       const fallbackTimeout = setTimeout(() => {
