@@ -44,7 +44,7 @@ function DetailPage() {
         <div className="my-8 flex w-full max-w-[1200px] flex-col rounded-[10px] border border-[#222] p-6 md:flex-row">
           <div className="mb-8 flex-shrink-0 md:mr-8 md:mb-0 md:basis-[350px]">
             <Image
-              src={details.thumnailImage}
+              src={details.thumbnailImage}
               alt={details.title}
               width={350}
               height={500}

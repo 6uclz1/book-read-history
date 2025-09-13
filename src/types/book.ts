@@ -11,6 +11,6 @@ export interface Book {
   isbn: string;
   asin: string | null;
   readDate: string;
-  thumnailImage: string;
+  thumbnailImage: string;
   highlights: Highlight[];
 }

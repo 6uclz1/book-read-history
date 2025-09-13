@@ -39,7 +39,7 @@ try {
 
   // 先頭にヘッダー行を追加
   const booksHeader =
-    "title,_0,author,_,publisher,isbn,readDate,_1,_2,thumnailImage,_3,_4,_5,_6\n";
+    "title,_0,author,_,publisher,isbn,readDate,_1,_2,thumbnailImage,_3,_4,_5,_6\n";
   const booksDataWithHeader = booksHeader + booksData;
 
   // CSVをパース
@@ -125,7 +125,7 @@ try {
       isbn: row.isbn,
       asin: asin,
       readDate: row.readDate,
-      thumnailImage: row.thumnailImage.replace(/\?.*$/, ""),
+      thumbnailImage: row.thumbnailImage.replace(/\?.*$/, ""),
       highlights: highlights,
     };
   });

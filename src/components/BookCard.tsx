@@ -10,6 +10,9 @@ interface BookCardProps {
   onIsbnClick: (e: React.MouseEvent<HTMLAnchorElement>, isbn: string) => void;
 }
 
+const cardClassName =
+  "group m-4 w-[400px] cursor-pointer rounded-[10px] border border-[#222] p-6 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-[#0070f3] focus:border-[#0070f3] active:border-[#0070f3]";
+
 export default function BookCard({
   book,
   onCardClick,
@@ -24,7 +27,7 @@ export default function BookCard({
 
   return (
     <div
-      className="group m-4 w-[400px] cursor-pointer rounded-[10px] border border-[#222] p-6 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-[#0070f3] focus:border-[#0070f3] active:border-[#0070f3]"
+      className={cardClassName}
       onClick={() => onCardClick(book.id)}
       onKeyDown={handleKeyDown}
       tabIndex={0}
@@ -33,7 +36,7 @@ export default function BookCard({
     >
       <div className="relative z-10 flex overflow-hidden rounded-lg">
         <Image
-          src={book.thumnailImage}
+          src={book.thumbnailImage}
           alt={`${book.title}の表紙画像`}
           width={200}
           height={300}

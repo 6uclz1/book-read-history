@@ -4,16 +4,17 @@ interface YearFilterProps {
   availableYears: string[];
 }
 
+const buttonBaseClasses =
+  "flex text-xs h-12 w-24 cursor-pointer items-center justify-center rounded-[5px] duration-300";
+const unselectedClasses =
+  "border border-[#222] bg-black hover:border-[#0070f3]";
+const selectedClasses = "border border-[#0070f3] bg-black";
+
 export default function YearFilter({
   selectedYear,
   onYearChange,
   availableYears,
 }: YearFilterProps) {
-  const buttonBaseClasses =
-    "flex text-xs h-12 w-24 cursor-pointer items-center justify-center rounded-[5px] duration-300";
-  const unselectedClasses =
-    "border border-[#222] bg-black hover:border-[#0070f3]";
-  const selectedClasses = "border border-[#0070f3] bg-black";
 
   return (
     <div className="flex flex-1" role="region" aria-label="年度フィルター">
