@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark, faUser, faBarcode, faCalendarAlt, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { books } from "../../../public/books";
 import { Book } from "@/types/book";
 import Image from "next/image";
@@ -31,14 +33,10 @@ function DetailPage() {
           }
         />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://use.fontawesome.com/releases/v7.0.1/css/all.css"
-          rel="stylesheet"
-        />
       </Head>
 
       <header className="flex w-full items-center border-b border-[#222] py-4 text-2xl font-bold">
-        <i className="fas fa-bookmark mr-[1.125rem] font-black"></i>
+        <FontAwesomeIcon icon={faBookmark} className="mr-[1.125rem]" />
         <span>読書管理</span>
       </header>
 
@@ -60,19 +58,19 @@ function DetailPage() {
             <div className="my-6 border-b border-[#222]"></div>
             <p className="my-1 flex items-center text-[0.9rem] leading-[1.5]">
               <span className="inline-block w-1/5 font-bold text-gray-700 dark:text-gray-400">
-                <i className="fas fa-user mr-[0.45rem] font-black"></i>著者
+                <FontAwesomeIcon icon={faUser} className="mr-[0.45rem]" />著者
               </span>
               {details.author}
             </p>
             <p className="my-1 flex items-center text-[0.9rem] leading-[1.5]">
               <span className="inline-block w-1/5 font-bold text-gray-700 dark:text-gray-400">
-                <i className="fas fa-bookmark mr-[0.45rem] font-black"></i>出版社
+                <FontAwesomeIcon icon={faBookmark} className="mr-[0.45rem]" />出版社
               </span>
               {details.publisher}
             </p>
             <p className="my-1 flex items-center text-[0.9rem] leading-[1.5]">
               <span className="inline-block w-1/5 font-bold text-gray-700 dark:text-gray-400">
-                <i className="fas fa-barcode mr-[0.45rem] font-black"></i>ISBN
+                <FontAwesomeIcon icon={faBarcode} className="mr-[0.45rem]" />ISBN
               </span>
               <Link
                 href={`https://www.books.or.jp/book-details/${details.isbn}`}
@@ -85,7 +83,7 @@ function DetailPage() {
             </p>
             <p className="my-1 flex items-center text-[0.9rem] leading-[1.5]">
               <span className="inline-block w-1/5 font-bold text-gray-700 dark:text-gray-400">
-                <i className="fas fa-calendar-alt mr-[0.45rem] font-black"></i>読了日
+                <FontAwesomeIcon icon={faCalendarAlt} className="mr-[0.45rem]" />読了日
               </span>
               {details.readDate}
             </p>
@@ -111,8 +109,8 @@ function DetailPage() {
                       style={{ display: "block", textAlign: "right" }}
                     >
                       Location. {highlight.location}
-                      <span style={{ marginLeft: "6px" }}>
-                        <i className="fas fa-external-link-alt"></i>
+                       <span style={{ marginLeft: "6px" }}>
+                        <FontAwesomeIcon icon={faExternalLinkAlt} />
                       </span>
                     </a>
                   )}

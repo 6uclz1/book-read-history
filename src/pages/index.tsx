@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 import { books } from "../../public/books";
 import { useBookFilter } from "@/hooks/useBookFilter";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
@@ -32,14 +34,10 @@ export default function Home() {
         <title>読書管理</title>
         <meta name="description" content="読んだ本をリスト化したサイトです。" />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          href="https://use.fontawesome.com/releases/v7.0.1/css/all.css"
-          rel="stylesheet"
-        />
       </Head>
 
       <header className="flex items-center border-b border-[#222] py-4 text-2xl font-bold">
-        <i className="fas fa-bookmark mr-[1.125rem] font-black"></i>読書管理
+        <FontAwesomeIcon icon={faBookmark} className="mr-[1.125rem]" />読書管理
       </header>
 
       <main className="flex min-h-screen flex-col items-center justify-center py-8">
