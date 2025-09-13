@@ -1,7 +1,6 @@
 import { forwardRef } from "react";
 import { Book } from "../types/book";
 import BookCard from "./BookCard";
-import styles from "../styles/Home.module.css";
 
 interface BookGridProps {
   books: Book[];
@@ -19,11 +18,11 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
     return (
       <div>
         <div
-          className={styles.grid}
+          className="flex flex-wrap items-center justify-center transition-transform duration-[3500ms]"
           role="grid"
           aria-label={`${books.length}冊の本を表示中`}
         >
-          {books.map((book, index) => (
+          {books.map((book) => (
             <div key={book.id} role="gridcell">
               <BookCard
                 book={book}
@@ -34,7 +33,7 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
           ))}
         </div>
         {hasMore && (
-          <div ref={ref} className={styles.observerTarget}>
+          <div ref={ref}>
             {isLoading && (
               <div aria-live="polite" aria-label="更に本を読み込み中">
                 読み込み中...

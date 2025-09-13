@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import { books } from "../../public/books";
 import { useBookFilter } from "@/hooks/useBookFilter";
@@ -28,20 +27,22 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="px-8">
       <Head>
         <title>読書管理</title>
         <meta name="description" content="読んだ本をリスト化したサイトです。" />
         <link rel="icon" href="/favicon.ico" />
         <link
-          href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"
+          href="https://use.fontawesome.com/releases/v7.0.1/css/all.css"
           rel="stylesheet"
         />
       </Head>
 
-      <header className={styles.header}>読書管理</header>
+      <header className="flex items-center border-b border-[#222] py-4 text-2xl font-bold">
+        <i className="fas fa-bookmark mr-[1.125rem] font-black"></i>読書管理
+      </header>
 
-      <main className={styles.main}>
+      <main className="flex min-h-screen flex-col items-center justify-center py-8">
         <YearFilter
           selectedYear={selectedYear}
           onYearChange={setSelectedYear}
@@ -58,7 +59,7 @@ export default function Home() {
         />
       </main>
 
-      <footer className={styles.footer}>
+      <footer className="flex flex-1 items-center justify-center border-t border-[#222] py-8">
         <p>© 2024 読書管理. All rights reserved.</p>
       </footer>
     </div>

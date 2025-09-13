@@ -1,5 +1,3 @@
-import styles from "../styles/Home.module.css";
-
 interface YearFilterProps {
   selectedYear: string;
   onYearChange: (year: string) => void;
@@ -11,10 +9,16 @@ export default function YearFilter({
   onYearChange,
   availableYears,
 }: YearFilterProps) {
+  const buttonBaseClasses =
+    "flex text-xs h-12 w-24 cursor-pointer items-center justify-center rounded-[5px] duration-300";
+  const unselectedClasses =
+    "border border-[#222] bg-black hover:border-[#0070f3]";
+  const selectedClasses = "border border-[#0070f3] bg-black";
+
   return (
-    <div className={styles.filter} role="region" aria-label="年度フィルター">
+    <div className="flex flex-1" role="region" aria-label="年度フィルター">
       <div
-        className={styles.yearButtons}
+        className="mb-2 flex flex-wrap justify-center gap-4"
         role="tablist"
         aria-label="読了年で絞り込み"
       >
@@ -22,9 +26,9 @@ export default function YearFilter({
           <button
             key={year}
             onClick={() => onYearChange(year)}
-            className={
-              year === selectedYear ? styles.selectedButton : styles.button
-            }
+            className={`${buttonBaseClasses} ${
+              year === selectedYear ? selectedClasses : unselectedClasses
+            }`}
             role="tab"
             aria-selected={year === selectedYear}
             aria-label={
