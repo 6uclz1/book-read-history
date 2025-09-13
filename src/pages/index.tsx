@@ -1,11 +1,11 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
-import { books } from "../public/books";
-import { useBookFilter } from "../hooks/useBookFilter";
-import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
-import YearFilter from "../components/YearFilter";
-import BookGrid from "../components/BookGrid";
+import { books } from "../../public/books";
+import { useBookFilter } from "@/hooks/useBookFilter";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import YearFilter from "@/components/YearFilter";
+import BookGrid from "@/components/BookGrid";
 
 export default function Home() {
   const router = useRouter();

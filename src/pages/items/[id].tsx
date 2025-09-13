@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import { books } from "../../public/books";
-import { Book } from "../../types/book";
+import { books } from "../../../public/books";
+import { Book } from "@/types/book";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import styles from "../../styles/Detail.module.css";
+import styles from "@/styles/Detail.module.css";
 
 function DetailPage() {
   const router = useRouter();
