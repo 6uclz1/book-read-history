@@ -1,23 +1,25 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-Source code lives in `src/`, with routing under `src/pages`, shared UI in `src/components`, hooks in `src/hooks`, and TypeScript contracts in `src/types`. Tailwind-first styling is extended through modules in `src/styles`. Public assets, favicons, and Open Graph images belong in `public/`. CSV exports tracked in `export.json` feed the conversion scripts at the repo root (`convert.js`, `npm run books:update`) to regenerate typed data.
+Source lives in `src/`: routing under `src/pages`, shared UI in `src/components`, hooks in `src/hooks`, domain types in `src/types`, and Tailwind helpers in `src/styles`. Data access goes through `src/data`, which re-exports the generated modules in `public/`. Static assets, favicons, and Open Graph images stay in `public/`. End-to-end specs reside in `tests/e2e`, while supporting utilities sit in `tests/utils`. Keep CSV exports in the repo root (`export.json`); regenerate `public/books.ts` with `npm run convert` (alias: `npm run books:update`).
 
 ## Build, Test, and Development Commands
-- `npm run dev`: Start the Next.js dev server on http://localhost:3000 with hot reload.
-- `npm run build`: Produce the production bundle; keep it passing before PR merge.
-- `npm run lint`: Run Biome lint rules for formatting and quality checks.
-- `npm run format`: Apply Biome formatting; use `npm run lint:fix` for autofixes.
-- `npm run convert` / `npm run books:update`: Rebuild TypeScript data from the CSV exports.
+- `npm run dev` — Start the Next.js dev server at `http://127.0.0.1:3000` with hot reload.
+- `npm run build` — Produce the production bundle; keep this passing before merging.
+- `npm run start` — Serve the built app; useful for validating production output.
+- `npm run lint` / `npm run lint:fix` — Run Biome lint checks, optionally applying safe fixes.
+- `npm run format` — Enforce the repository formatting profile.
+- `npm run test` — Execute Vitest unit suites.
+- `npm run test:e2e` — Launch Playwright tests; the config auto-starts the dev server.
 
 ## Coding Style & Naming Conventions
-TypeScript strict mode is enabled; define explicit prop interfaces and prefer functional components. Imports use the `@/` alias, ordered with external packages before internal modules. Components and types use PascalCase, hooks use `use`-prefixed camelCase, and utilities stay camelCase. Indent with two spaces and avoid trailing whitespace. Compose layouts with Tailwind classes, adding module overrides only when the utility palette falls short.
+TypeScript strict mode is enabled. Use functional React components with explicit prop interfaces. Order imports with external modules first, then `@/` aliases, then relative paths. Components, templates, and types use PascalCase; hooks are `use`-prefixed camelCase; utilities stay camelCase. Indent with two spaces, avoid trailing whitespace, and rely on Tailwind utility classes before adding bespoke styles. Run `npm run format` before committing.
 
 ## Testing Guidelines
-Playwright is available for e2e coverage. Place specs under `tests/e2e` and name them `<feature>.spec.ts`. Run suites with `npx playwright test` and document any fixtures or auth steps in the PR description. When tests are absent, verify `npm run lint` and `npm run build` locally before opening a PR.
+Vitest lives in `tests/utils` today; place new unit specs alongside features or in that folder. End-to-end flows belong in `tests/e2e/<feature>.spec.ts`, using Playwright’s `@playwright/test`. Target critical paths: year filtering, infinite scroll, detail navigation, and ISBN links. Always run `npm run lint`, `npm run build`, and `npm run test:e2e` (or document why not) prior to review. Capture failing repro steps in PR discussions.
 
 ## Commit & Pull Request Guidelines
-Follow Conventional Commits (`feat:`, `fix:`, `chore:`) with concise imperatives. PRs should describe the change, link relevant issues, and include before/after screenshots for UI updates. Mention data regeneration commands (e.g., `npm run books:update`) so reviewers can confirm generated diffs. Keep branches up to date with `main` and ensure lint/build checks succeed before requesting review.
+Follow Conventional Commits (`feat:`, `fix:`, `chore:`, etc.). Each PR should summarize scope, link relevant issues, and include before/after screenshots for UI changes. Note any data regeneration commands executed (`npm run books:update`). Keep branches rebased on `main`, ensure lint/build/test suites are green, and flag known gaps or TODOs in the description.
 
-## Environment & Tooling Notes
-Node.js 18+ keeps parity with the Next.js toolchain. Configure editor integrations for Tailwind IntelliSense and Biome to catch style issues early. ENV secrets belong in `.env.local` (never commit). Restart the dev server after updating conversion outputs to ensure hot data reloads.
+## Environment & Configuration
+Use Node.js 18+ to match Next.js expectations. Store secrets in `.env.local` only. Restart the dev server after running conversion scripts so regenerated book data loads. When debugging Playwright locally, export `PLAYWRIGHT_BASE_URL` to point at an existing server to skip auto-start.
