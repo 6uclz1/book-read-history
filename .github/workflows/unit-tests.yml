@@ -26,7 +26,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run unit tests with coverage comment
+      - name: Run unit tests with coverage
+        run: npm run test -- --coverage
+
+      - name: Post coverage comment
         uses: davelosert/vitest-coverage-report-action@v2
         with:
-          vitestCommand: npm run test -- --coverage
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          json-summary-path: coverage/coverage-summary.json
+          json-final-path: coverage/coverage-final.json
