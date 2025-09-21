@@ -1,133 +1,102 @@
 # 読書管理アプリ
 
-読んだ本を記録・管理するためのWebアプリケーションです。[Next.js](https://nextjs.org/)を使用して構築されています。
+読んだ本を記録・管理するNext.js製のWebアプリケーションです。モバイル/デスクトップ双方で快適に利用でき、Tailwind CSSによる柔軟なUIカスタマイズにも対応しています。
 
-## 機能
+## 主な機能
 
 - **本の一覧表示**: 読了した本をグリッド形式で表示
-- **年別フィルタリング**: 読了年（2015年〜2024年）で本を絞り込み
-- **無限スクロール**: 48冊ずつ段階的に本を読み込み
-- **詳細ページ**: 各本の詳細情報（著者、出版社、ISBN、読了日など）を表示
-- **レスポンシブデザイン**: PC・スマートフォン両対応
+- **年別フィルタリング**: 読了年（2015年〜2024年）で絞り込み
+- **無限スクロール**: 48冊ずつ段階的に読み込み
+- **詳細ページ**: 著者・出版社・ISBN・読了日などを表示
+- **アクセシビリティ**: キーボード操作とARIA属性に対応
 
 ## 技術スタック
 
-- **フレームワーク**: Next.js 15.2.4
-- **言語**: TypeScript 4.9.4
-- **スタイリング**: CSS Modules
-- **リンター**: ESLint + Prettier
-- **画像最適化**: Next.js Image コンポーネント
+- **フレームワーク**: Next.js 15.x (App Router未使用のPages構成)
+- **言語**: TypeScript 5.9（strictモード）
+- **スタイリング**: Tailwind CSS + カスタムクラス
+- **リンター/フォーマッター**: Biome (lint / format)
+- **データ加工**: Node.jsスクリプト `convert.js`
 
 ## セットアップ
 
 ### 前提条件
-
 - Node.js 18以上
-- npm または yarn
+- npm
 
-### インストール
-
+### インストールと開発開始
 ```bash
-# リポジトリをクローン
 git clone <repository-url>
 cd book-read-history
-
-# 依存関係をインストール
 npm install
-```
-
-### 開発環境の起動
-
-```bash
 npm run dev
 ```
-
-ブラウザで [http://localhost:3000](http://localhost:3000) を開いてアプリケーションを確認できます。
+http://localhost:3000 でアプリを確認できます。
 
 ## 利用可能なコマンド
 
 ```bash
-# 開発サーバーを起動
-npm run dev
-
-# 本番用ビルドを作成
-npm run build
-
-# 本番サーバーを起動
-npm start
-
-# ESLintでコードをチェック
-npm run lint
-
-# ESLint + Prettierでコードを整形
-npm run format
-
-# CSVから本データを自動変換・更新
-npm run convert
-# または
-npm run books:update
+npm run dev          # 開発サーバー起動
+npm run build        # 本番ビルド生成
+npm start            # 本番ビルドを起動
+npm run lint         # BiomeでLintチェック
+npm run lint:fix     # Lint違反の自動修正
+npm run format       # Biomeで整形のみ実行
+npm run convert      # CSV→TypeScriptデータ変換
+npm run books:update # convertと同じ処理（エイリアス）
 ```
 
 ## データ管理
 
-### 本のデータ追加
+1. `public/books.csv` に新しい本の情報を追記
+2. 必要なら `public/highlights.csv` も更新
+3. `npm run convert` で `public/books.ts` などの型付きデータを再生成
+4. 年の追加がある場合は `src/pages/index.tsx` のフィルターリストを更新
 
-1. `/public/books.csv` に新しい本の情報を追加
-2. 自動変換スクリプトを実行: `npm run convert`
-3. 新しい年度が追加された場合は、`/pages/index.tsx` の年フィルターボタンを更新
-
-**自動化により、手動でのコピー作業は不要になりました！**
-
-### データ形式
-
-各本のデータには以下の情報が含まれます：
+TypeScriptで扱う本データは `src/types/book.ts` に定義されています。
 
 ```typescript
-{
-  id: string;           // SHA-256ハッシュ（タイトル+著者から生成）
-  title: string;        // 書籍タイトル
-  author: string;       // 著者名
-  publisher: string;    // 出版社
-  isbn: string;         // ISBN
-  readDate: string;     // 読了日（YYYY/MM/DD形式）
-  thumnailImage: string; // サムネイル画像URL
+export interface Highlight {
+  text: string;
+  location: string;
+}
+
+export interface Book {
+  id: string;
+  title: string;
+  author: string;
+  publisher: string;
+  isbn: string;
+  asin: string | null;
+  readDate: string;
+  thumbnailImage: string;
+  highlights: Highlight[];
 }
 ```
 
 ## プロジェクト構造
 
 ```
-├── pages/
-│   ├── index.tsx          # メインページ（本の一覧）
-│   ├── items/[id].tsx     # 本の詳細ページ
-│   └── _app.tsx           # Next.jsアプリのルート
-├── public/
-│   ├── books.csv          # 本のデータ（CSV形式）
-│   ├── books.ts           # 本のデータ（TypeScript）
-│   └── favicon.ico
-├── styles/
-│   ├── Home.module.css    # メインページのスタイル
-│   ├── Detail.module.css  # 詳細ページのスタイル
-│   └── globals.css        # グローバルスタイル
-├── convert.js             # CSV→JSON変換スクリプト
-├── next.config.js         # Next.js設定
-└── tsconfig.json          # TypeScript設定
+├── src/
+│   ├── pages/           # Next.jsページ（ルーティング）
+│   ├── components/      # UIコンポーネント
+│   ├── hooks/           # カスタムフック
+│   ├── styles/          # グローバルスタイル
+│   └── types/           # 型定義
+├── public/              # 画像・データCSV/TS
+├── convert.js           # データ変換スクリプト
+├── export.json          # CSVエクスポート設定
+├── AGENTS.md            # コントリビューター向けガイドライン
+└── package.json
 ```
+
+## コントリビューションガイド
+
+開発方針・コーディング規約・レビュー手順については [AGENTS.md](./AGENTS.md) を参照してください。コミット前に `npm run lint` と `npm run build` の完走を確認するとスムーズです。
 
 ## デプロイ
 
-### Vercelでのデプロイ
-
-最も簡単なデプロイ方法は [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) を使用することです。
-
-詳細は [Next.js deployment documentation](https://nextjs.org/docs/deployment) をご確認ください。
-
-## 開発ガイドライン
-
-- コミット前には必ず `npm run lint` を実行してコード品質を確認
-- 新機能追加時は既存のコードスタイルに従う
-- 画像最適化のため、Next.js Imageコンポーネントを使用
-- CSS ModulesまたはグローバルCSSでスタイリング
+[Vercel](https://vercel.com/) へのデプロイを推奨しています。GitHubリポジトリを接続すると自動ビルド・プレビューが利用できます。詳細は [Next.js deployment documentation](https://nextjs.org/docs/deployment) を参照してください。
 
 ## ライセンス
 

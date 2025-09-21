@@ -1,3 +1,5 @@
+import { ALL_YEARS_LABEL } from "@/constants/books";
+
 interface YearFilterProps {
   selectedYear: string;
   onYearChange: (year: string) => void;
@@ -15,7 +17,6 @@ export default function YearFilter({
   onYearChange,
   availableYears,
 }: YearFilterProps) {
-
   return (
     <div className="flex flex-1" role="region" aria-label="年度フィルター">
       <div
@@ -23,22 +24,26 @@ export default function YearFilter({
         role="tablist"
         aria-label="読了年で絞り込み"
       >
-        {availableYears.map((year) => (
-          <button
-            key={year}
-            onClick={() => onYearChange(year)}
-            className={`${buttonBaseClasses} ${
-              year === selectedYear ? selectedClasses : unselectedClasses
-            }`}
-            role="tab"
-            aria-selected={year === selectedYear}
-            aria-label={
-              year === "All" ? "すべての年の本を表示" : `${year}年の本を表示`
-            }
-          >
-            {year === "All" ? "All" : year}
-          </button>
-        ))}
+        {availableYears.map((year) => {
+          const isSelected = year === selectedYear;
+          const label =
+            year === ALL_YEARS_LABEL ? "すべての年の本を表示" : `${year}年の本を表示`;
+
+          return (
+            <button
+              key={year}
+              onClick={() => onYearChange(year)}
+              className={`${buttonBaseClasses} ${
+                isSelected ? selectedClasses : unselectedClasses
+              }`}
+              role="tab"
+              aria-selected={isSelected}
+              aria-label={label}
+            >
+              {year === ALL_YEARS_LABEL ? ALL_YEARS_LABEL : year}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
