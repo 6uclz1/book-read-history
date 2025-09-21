@@ -1,7 +1,6 @@
 import { ALL_YEARS_LABEL } from "@/constants/books";
 import { Book } from "@/types/book";
 
-const YEAR_INDEX = 0;
 const DATE_DELIMITER = "/";
 
 export function deriveAvailableYears(books: Book[]): string[] {
