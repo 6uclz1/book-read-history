@@ -12,20 +12,29 @@ interface MainLayoutProps {
 
 const BASE_TITLE = "読書管理";
 const DEFAULT_DESCRIPTION = "読んだ本をリスト化したサイトです。";
+const CONTAINER_BASE_CLASS = "flex min-h-screen flex-col";
+const MAIN_BASE_CLASS = "flex flex-1 flex-col";
+
+const combineClasses = (
+  ...classes: Array<string | undefined>
+) => classes.filter((klass): klass is string => Boolean(klass)).join(" ");
 
 export default function MainLayout({
   children,
   pageTitle,
   pageDescription,
-  mainClassName = "flex min-h-screen flex-col items-center justify-center py-8",
+  mainClassName = "items-center justify-center py-8",
   containerClassName = "px-8",
 }: MainLayoutProps) {
   const computedTitle = pageTitle && pageTitle !== BASE_TITLE
     ? `${BASE_TITLE} | ${pageTitle}`
     : BASE_TITLE;
 
+  const containerClasses = combineClasses(CONTAINER_BASE_CLASS, containerClassName);
+  const mainClasses = combineClasses(MAIN_BASE_CLASS, mainClassName);
+
   return (
-    <div className={containerClassName}>
+    <div className={containerClasses}>
       <Head>
         <title>{computedTitle}</title>
         <meta
@@ -37,9 +46,9 @@ export default function MainLayout({
 
       <SiteHeader title={BASE_TITLE} />
 
-      <main className={mainClassName}>{children}</main>
+      <main className={mainClasses}>{children}</main>
 
-      <SiteFooter />
+      <SiteFooter className="mt-auto" />
     </div>
   );
 }

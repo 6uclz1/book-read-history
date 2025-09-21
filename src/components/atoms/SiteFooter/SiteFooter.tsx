@@ -1,7 +1,18 @@
-export default function SiteFooter() {
+const FOOTER_BASE_CLASS =
+  "flex w-full items-center justify-center border-t border-[#222] py-8 text-gray-700 dark:text-gray-400";
+
+interface SiteFooterProps {
+  className?: string;
+}
+
+export default function SiteFooter({ className }: SiteFooterProps) {
+  const footerClasses = [FOOTER_BASE_CLASS, className]
+    .filter((value): value is string => Boolean(value))
+    .join(" ");
+
   return (
-    <footer className="flex w-full flex-1 items-center justify-center border-t border-[#222] py-8">
-      <p>© 2024 読書管理. All rights reserved.</p>
+    <footer className={footerClasses}>
+      <p> 📕 読書管理 </p>
     </footer>
   );
 }
