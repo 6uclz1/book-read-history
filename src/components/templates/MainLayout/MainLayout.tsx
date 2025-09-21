@@ -1,7 +1,6 @@
 import { type ReactNode } from "react";
 import Head from "next/head";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { SiteFooter, SiteHeader } from "@/components/atoms";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -36,16 +35,11 @@ export default function MainLayout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="flex w-full items-center border-b border-[#222] py-4 text-2xl font-bold">
-        <FontAwesomeIcon icon={faBookmark} className="mr-[1.125rem]" />
-        {BASE_TITLE}
-      </header>
+      <SiteHeader title={BASE_TITLE} />
 
       <main className={mainClassName}>{children}</main>
 
-      <footer className="flex w-full flex-1 items-center justify-center border-t border-[#222] py-8">
-        <p>© 2024 読書管理. All rights reserved.</p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
