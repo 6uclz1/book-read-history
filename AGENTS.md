@@ -1,51 +1,23 @@
-# Agent Guidelines for Book Read History
+# Repository Guidelines
 
-## Build/Lint/Test Commands
-- **Build**: `npm run build` (Next.js production build)
-- **Dev server**: `npm run dev` (starts on localhost:3000)
-- **Lint**: `npm run lint` (Biome linter)
-- **Format**: `npm run format` (Biome formatter) or `npm run lint:fix` (Biome auto-fix)
-- **Data conversion**: `npm run convert` or `npm run books:update` (CSV to TypeScript)
-- **Test**: No test runner configured (Playwright available in dependencies but no test scripts)
+## Project Structure & Module Organization
+Source code lives in `src/`, with routing under `src/pages`, shared UI in `src/components`, hooks in `src/hooks`, and TypeScript contracts in `src/types`. Tailwind-first styling is extended through modules in `src/styles`. Public assets, favicons, and Open Graph images belong in `public/`. CSV exports tracked in `export.json` feed the conversion scripts at the repo root (`convert.js`, `npm run books:update`) to regenerate typed data.
 
-## Code Style Guidelines
+## Build, Test, and Development Commands
+- `npm run dev`: Start the Next.js dev server on http://localhost:3000 with hot reload.
+- `npm run build`: Produce the production bundle; keep it passing before PR merge.
+- `npm run lint`: Run Biome lint rules for formatting and quality checks.
+- `npm run format`: Apply Biome formatting; use `npm run lint:fix` for autofixes.
+- `npm run convert` / `npm run books:update`: Rebuild TypeScript data from the CSV exports.
 
-### TypeScript & React
-- Use TypeScript with strict mode enabled
-- Define interfaces for component props
-- Use functional components with hooks
-- Follow PascalCase for component names and types
-- Use camelCase for variables, functions, and properties
+## Coding Style & Naming Conventions
+TypeScript strict mode is enabled; define explicit prop interfaces and prefer functional components. Imports use the `@/` alias, ordered with external packages before internal modules. Components and types use PascalCase, hooks use `use`-prefixed camelCase, and utilities stay camelCase. Indent with two spaces and avoid trailing whitespace. Compose layouts with Tailwind classes, adding module overrides only when the utility palette falls short.
 
-### Imports & Paths
-- Use absolute imports with path aliases: `@/components/*`, `@/hooks/*`, `@/styles/*`, `@/types/*`
-- Group imports: external packages first, then internal modules
-- Use relative imports only for files in the same directory
+## Testing Guidelines
+Playwright is available for e2e coverage. Place specs under `tests/e2e` and name them `<feature>.spec.ts`. Run suites with `npx playwright test` and document any fixtures or auth steps in the PR description. When tests are absent, verify `npm run lint` and `npm run build` locally before opening a PR.
 
-### Formatting & Linting
-- 2-space indentation (Biome configuration)
-- Use Biome for consistent formatting and linting
-- Include TypeScript files (*.ts, *.tsx) only, exclude node_modules
+## Commit & Pull Request Guidelines
+Follow Conventional Commits (`feat:`, `fix:`, `chore:`) with concise imperatives. PRs should describe the change, link relevant issues, and include before/after screenshots for UI updates. Mention data regeneration commands (e.g., `npm run books:update`) so reviewers can confirm generated diffs. Keep branches up to date with `main` and ensure lint/build checks succeed before requesting review.
 
-### Naming Conventions
-- Components: PascalCase (e.g., `BookCard`, `YearFilter`)
-- Hooks: camelCase with `use` prefix (e.g., `useBookFilter`)
-- Types/Interfaces: PascalCase (e.g., `Book`, `Highlight`)
-- Files: PascalCase for components, camelCase for utilities
-
-### Error Handling
-- Leverage TypeScript strict mode for compile-time error prevention
-- Use optional chaining (`?.`) and nullish coalescing (`??`)
-- Handle async operations with proper error boundaries where needed
-
-### Styling
-- Use Tailwind CSS classes for styling
-- Follow responsive design patterns
-- Use CSS Modules for component-specific styles when needed
-- Include accessibility attributes (aria-label, role, tabIndex)
-
-### Best Practices
-- Use Next.js Image component for optimized images
-- Implement proper keyboard navigation and ARIA labels
-- Store user preferences in sessionStorage with SSR-safe checks
-- Follow Japanese language conventions for UI text and comments
+## Environment & Tooling Notes
+Node.js 18+ keeps parity with the Next.js toolchain. Configure editor integrations for Tailwind IntelliSense and Biome to catch style issues early. ENV secrets belong in `.env.local` (never commit). Restart the dev server after updating conversion outputs to ensure hot data reloads.

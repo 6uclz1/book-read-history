@@ -1,14 +1,22 @@
 import {
-  useState,
-  useEffect,
-  useRef,
   useCallback,
+  useEffect,
   useLayoutEffect,
+  useRef,
+  useState,
 } from "react";
 import { useRouter } from "next/router";
-import { Book } from "../types/book";
-
-const ITEMS_PER_PAGE = 48;
+import {
+  BOOKS_RENDERED_EVENT,
+  ITEMS_PER_PAGE,
+  STORAGE_KEYS,
+} from "@/constants/books";
+import { Book } from "@/types/book";
+import {
+  buildStorageKey,
+  readSessionStorage,
+  writeSessionStorage,
+} from "@/utils/storage";
 
 interface UseInfiniteScrollReturn {
   displayedBooks: Book[];
@@ -17,67 +25,71 @@ interface UseInfiniteScrollReturn {
   isLoading: boolean;
 }
 
+const LOAD_DELAY_MS = 100;
+const OBSERVER_THRESHOLD = 1.0;
+
 export function useInfiniteScroll(
   filteredBooks: Book[],
 ): UseInfiniteScrollReturn {
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
+  const loadTimeoutRef = useRef<number | undefined>(undefined);
   const router = useRouter();
 
-  // フィルター変更時 or 初回読み込み時に表示アイテムを設定
-  useLayoutEffect(() => {
-    const savedCount = sessionStorage.getItem(`itemCount:${router.asPath}`);
-    const initialCount = savedCount ? parseInt(savedCount, 10) : ITEMS_PER_PAGE;
-    setDisplayedBooks(filteredBooks.slice(0, initialCount));
-    window.dispatchEvent(new Event("books-rendered"));
-  }, [filteredBooks, router.asPath]);
-
-  // 表示されているアイテム数を保存
-  useEffect(() => {
-    const handleRouteChangeStart = () => {
-      sessionStorage.setItem(
-        `itemCount:${router.asPath}`,
-        String(displayedBooks.length),
-      );
-    };
-
-    router.events.on("routeChangeStart", handleRouteChangeStart);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChangeStart);
-    };
-  }, [router.asPath, router.events, displayedBooks.length]);
+  const itemCountStorageKey = buildStorageKey(
+    STORAGE_KEYS.itemCountPrefix,
+    router.asPath || "/",
+  );
 
   const loadMore = useCallback(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
     setIsLoading(true);
-    setTimeout(() => {
-      setDisplayedBooks((prevItems: Book[]) => {
-        if (filteredBooks.length === prevItems.length) {
-          setIsLoading(false);
+
+    loadTimeoutRef.current = window.setTimeout(() => {
+      setDisplayedBooks((prevItems) => {
+        if (prevItems.length >= filteredBooks.length) {
           return prevItems;
         }
-        const newItems = [
-          ...prevItems,
-          ...filteredBooks.slice(
-            prevItems.length,
-            prevItems.length + ITEMS_PER_PAGE,
-          ),
-        ];
-        setIsLoading(false);
-        return newItems;
+
+        const nextSlice = filteredBooks.slice(
+          prevItems.length,
+          prevItems.length + ITEMS_PER_PAGE,
+        );
+
+        return [...prevItems, ...nextSlice];
       });
-    }, 100); // スムーズな読み込み体験のための軽微な遅延
+      setIsLoading(false);
+    }, LOAD_DELAY_MS);
   }, [filteredBooks]);
 
+  useLayoutEffect(() => {
+    const savedCountRaw = readSessionStorage(itemCountStorageKey);
+    const savedCount =
+      savedCountRaw !== null ? Number.parseInt(savedCountRaw, 10) : Number.NaN;
+    const initialCount =
+      Number.isFinite(savedCount) && savedCount > 0
+        ? savedCount
+        : ITEMS_PER_PAGE;
+
+    setDisplayedBooks(filteredBooks.slice(0, initialCount));
+  }, [filteredBooks, itemCountStorageKey]);
+
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !isLoading) {
+        if (entries[0]?.isIntersecting && !isLoading) {
           loadMore();
         }
       },
-      { threshold: 1.0 },
+      { threshold: OBSERVER_THRESHOLD },
     );
 
     const target = observerTarget.current;
@@ -89,8 +101,27 @@ export function useInfiniteScroll(
       if (target) {
         observer.unobserve(target);
       }
+      observer.disconnect();
     };
-  }, [loadMore, isLoading]);
+  }, [isLoading, loadMore]);
+
+  useEffect(() => {
+    return () => {
+      if (loadTimeoutRef.current !== undefined) {
+        window.clearTimeout(loadTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    writeSessionStorage(itemCountStorageKey, String(displayedBooks.length));
+  }, [displayedBooks.length, itemCountStorageKey]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event(BOOKS_RENDERED_EVENT));
+    }
+  }, [displayedBooks.length]);
 
   const hasMore = displayedBooks.length < filteredBooks.length;
 
