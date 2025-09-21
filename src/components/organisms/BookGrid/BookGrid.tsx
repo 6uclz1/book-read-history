@@ -1,5 +1,5 @@
 import { type MouseEvent, forwardRef } from "react";
-import BookCard from "@/components/BookCard";
+import { BookCard } from "@/components";
 import type { Book } from "@/types/book";
 
 interface BookGridProps {

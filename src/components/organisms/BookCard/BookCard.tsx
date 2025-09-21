@@ -1,13 +1,13 @@
 import { type KeyboardEvent, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBarcode,
   faBookmark,
   faCalendarAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { DetailProperty } from "@/components";
 import type { Book } from "@/types/book";
 
 interface BookCardProps {
@@ -18,11 +18,6 @@ interface BookCardProps {
 
 const cardClassName =
   "group m-4 w-[400px] cursor-pointer rounded-[10px] border border-[#222] p-6 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-[#0070f3] focus:border-[#0070f3] active:border-[#0070f3]";
-
-const labelClassName =
-  "inline-block w-1/5 text-gray-700 dark:text-gray-400";
-
-const detailTextClassName = "my-1 block text-xs leading-[1.5]";
 
 export default function BookCard({
   book,
@@ -62,22 +57,25 @@ export default function BookCard({
         <div className="my-4 w-full items-center">{book.title}</div>
         <div className="my-6 border-b border-[#222]" />
       </div>
-      <p className={detailTextClassName}>
-        <span className={labelClassName}>
-          <FontAwesomeIcon icon={faUser} className="mr-[0.375rem]" />著者
-        </span>
+      <DetailProperty
+        icon={faUser}
+        label="著者"
+        className="my-1 flex items-center text-xs leading-[1.5]"
+      >
         {book.author}
-      </p>
-      <p className={detailTextClassName}>
-        <span className={labelClassName}>
-          <FontAwesomeIcon icon={faBookmark} className="mr-[0.375rem]" />出版社
-        </span>
+      </DetailProperty>
+      <DetailProperty
+        icon={faBookmark}
+        label="出版社"
+        className="my-1 flex items-center text-xs leading-[1.5]"
+      >
         {book.publisher}
-      </p>
-      <p className={detailTextClassName}>
-        <span className={labelClassName}>
-          <FontAwesomeIcon icon={faBarcode} className="mr-[0.375rem]" />ISBN
-        </span>
+      </DetailProperty>
+      <DetailProperty
+        icon={faBarcode}
+        label="ISBN"
+        className="my-1 flex items-center text-xs leading-[1.5]"
+      >
         <Link
           href={`https://www.books.or.jp/book-details/${book.isbn}`}
           onClick={handleIsbnLinkClick}
@@ -87,13 +85,14 @@ export default function BookCard({
         >
           {book.isbn}
         </Link>
-      </p>
-      <p className={detailTextClassName}>
-        <span className={labelClassName}>
-          <FontAwesomeIcon icon={faCalendarAlt} className="mr-[0.375rem]" />読了日
-        </span>
+      </DetailProperty>
+      <DetailProperty
+        icon={faCalendarAlt}
+        label="読了日"
+        className="my-1 flex items-center text-xs leading-[1.5]"
+      >
         {book.readDate}
-      </p>
+      </DetailProperty>
     </div>
   );
 }

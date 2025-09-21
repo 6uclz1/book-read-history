@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
-interface LayoutProps {
+interface MainLayoutProps {
   children: ReactNode;
   pageTitle?: string;
   pageDescription?: string;
@@ -14,13 +14,13 @@ interface LayoutProps {
 const BASE_TITLE = "読書管理";
 const DEFAULT_DESCRIPTION = "読んだ本をリスト化したサイトです。";
 
-export default function Layout({
+export default function MainLayout({
   children,
   pageTitle,
   pageDescription,
   mainClassName = "flex min-h-screen flex-col items-center justify-center py-8",
   containerClassName = "px-8",
-}: LayoutProps) {
+}: MainLayoutProps) {
   const computedTitle = pageTitle && pageTitle !== BASE_TITLE
     ? `${BASE_TITLE} | ${pageTitle}`
     : BASE_TITLE;

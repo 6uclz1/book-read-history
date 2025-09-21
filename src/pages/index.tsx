@@ -1,8 +1,6 @@
 import { type MouseEvent, useCallback } from "react";
 import { useRouter } from "next/router";
-import Layout from "@/components/Layout";
-import BookGrid from "@/components/BookGrid";
-import YearFilter from "@/components/YearFilter";
+import { BookGrid, MainLayout, YearFilter } from "@/components";
 import { books } from "@/data/books";
 import { useBookFilter } from "@/hooks/useBookFilter";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
@@ -29,7 +27,7 @@ export default function Home() {
   );
 
   return (
-    <Layout>
+    <MainLayout>
       <YearFilter
         selectedYear={selectedYear}
         onYearChange={setSelectedYear}
@@ -44,6 +42,6 @@ export default function Home() {
         isLoading={isLoading}
         ref={observerTarget}
       />
-    </Layout>
+    </MainLayout>
   );
 }

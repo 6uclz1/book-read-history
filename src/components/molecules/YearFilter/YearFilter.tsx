@@ -1,3 +1,4 @@
+import { Button } from "@/components";
 import { ALL_YEARS_LABEL } from "@/constants/books";
 
 interface YearFilterProps {
@@ -5,12 +6,6 @@ interface YearFilterProps {
   onYearChange: (year: string) => void;
   availableYears: string[];
 }
-
-const buttonBaseClasses =
-  "flex text-xs h-12 w-24 cursor-pointer items-center justify-center rounded-[5px] duration-300";
-const unselectedClasses =
-  "border border-[#222] bg-black hover:border-[#0070f3]";
-const selectedClasses = "border border-[#0070f3] bg-black";
 
 export default function YearFilter({
   selectedYear,
@@ -30,18 +25,16 @@ export default function YearFilter({
             year === ALL_YEARS_LABEL ? "すべての年の本を表示" : `${year}年の本を表示`;
 
           return (
-            <button
+            <Button
               key={year}
               onClick={() => onYearChange(year)}
-              className={`${buttonBaseClasses} ${
-                isSelected ? selectedClasses : unselectedClasses
-              }`}
+              isActive={isSelected}
               role="tab"
               aria-selected={isSelected}
               aria-label={label}
             >
               {year === ALL_YEARS_LABEL ? ALL_YEARS_LABEL : year}
-            </button>
+            </Button>
           );
         })}
       </div>
