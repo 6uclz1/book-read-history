@@ -31,10 +31,10 @@ function escapeRegExp(string) {
 }
 
 try {
-  // CSVファイルを読み込み
-  const booksData = fs.readFileSync("./public/books.csv");
+  // CSVファイルを読み込み (UTF-8文字列で取得)
+  const booksData = fs.readFileSync("./public/books.csv", "utf8");
   console.log("✅ books.csv を読み込みました");
-  const highlightsData = fs.readFileSync("./public/highlights.csv");
+  const highlightsData = fs.readFileSync("./public/highlights.csv", "utf8");
   console.log("✅ highlights.csv を読み込みました");
 
   // 先頭にヘッダー行を追加
@@ -43,11 +43,21 @@ try {
   const booksDataWithHeader = booksHeader + booksData;
 
   // CSVをパース
-  const booksD = parse(booksDataWithHeader, { columns: true });
+  // relax_quotes を有効にして未エスケープのクオートに寛容にする
+  const booksD = parse(booksDataWithHeader, {
+    columns: true,
+    skip_empty_lines: true,
+    relax_quotes: true,
+    trim: true,
+  });
   console.log(`📖 ${booksD.length}件の本データを処理中...`);
   const highlightsD = parse(highlightsData, {
     columns: ["Book", "ASIN", "Section", "Location", "Highlight", "Note"],
-    record_delimiter: ["\r\n", "\r"],
+    // 改行はCRLF/CR/LFを受け取れるようにする
+    record_delimiter: ["\r\n", "\r", "\n"],
+    skip_empty_lines: true,
+    relax_quotes: true,
+    trim: true,
   });
   console.log(`📝 ${highlightsD.length}件のハイライトデータを処理中...`);
 
