@@ -33,11 +33,13 @@
     "autoprefixer": "^10.5.0",
     "csv-parse": "^6.2.1",
     "jsdom": "^29.1.1",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.23",
     "tailwindcss": "^4.3.0",
     "vitest": "^4.1.6"
   },
   "overrides": {
-    "postcss": "$postcss"
+    "postcss": "^8.5.23",
+    "vite": "^8.1.5",
+    "sharp": "^0.35.3"
   }
 }
