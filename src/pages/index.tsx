@@ -1,6 +1,4 @@
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import { useRouter } from "next/router";
-import { type MouseEvent, useCallback } from "react";
 import { BookGrid, MainLayout, YearFilter } from "@/components";
 import { books } from "@/data/books";
 import { useBookFilter } from "@/hooks/useBookFilter";
@@ -10,25 +8,10 @@ import type { BookSummary } from "@/types/book";
 export default function Home({
   books: bookSummaries,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter();
   const { selectedYear, setSelectedYear, filteredBooks, availableYears } =
     useBookFilter(bookSummaries);
   const { displayedBooks, observerTarget, hasMore, isLoading } =
     useInfiniteScroll(filteredBooks, selectedYear);
-
-  const handleCardClick = useCallback(
-    (id: string) => {
-      router.push(`/items/${id}`);
-    },
-    [router],
-  );
-
-  const handleIsbnClick = useCallback(
-    (event: MouseEvent<HTMLAnchorElement>, _isbn?: string) => {
-      event.stopPropagation();
-    },
-    [],
-  );
 
   return (
     <MainLayout>
@@ -43,8 +26,6 @@ export default function Home({
 
       <BookGrid
         books={displayedBooks}
-        onCardClick={handleCardClick}
-        onIsbnClick={handleIsbnClick}
         hasMore={hasMore}
         isLoading={isLoading}
         ref={observerTarget}

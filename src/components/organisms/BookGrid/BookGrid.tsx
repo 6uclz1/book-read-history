@@ -1,20 +1,15 @@
-import { forwardRef, type MouseEvent } from "react";
+import { forwardRef } from "react";
 import { BookCard } from "@/components";
 import type { BookSummary } from "@/types/book";
 
 interface BookGridProps {
   books: BookSummary[];
-  onCardClick: (id: string) => void;
-  onIsbnClick: (event: MouseEvent<HTMLAnchorElement>, isbn: string) => void;
   hasMore?: boolean;
   isLoading?: boolean;
 }
 
 const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
-  (
-    { books, onCardClick, onIsbnClick, hasMore = false, isLoading = false },
-    ref,
-  ) => {
+  ({ books, hasMore = false, isLoading = false }, ref) => {
     const totalBooksMessage = `${books.length}冊の本を表示中`;
 
     return (
@@ -25,11 +20,7 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
         >
           {books.map((book) => (
             <li key={book.id} className="w-full max-w-[400px]">
-              <BookCard
-                book={book}
-                onCardClick={onCardClick}
-                onIsbnClick={onIsbnClick}
-              />
+              <BookCard book={book} />
             </li>
           ))}
         </ul>

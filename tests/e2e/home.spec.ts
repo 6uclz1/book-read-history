@@ -33,7 +33,7 @@ test.describe("Home page", () => {
 
     await expect(gridCells).toHaveCount(9, { timeout: 15_000 });
 
-    const targetCard = page.getByRole("button", {
+    const targetCard = page.getByRole("link", {
       name: new RegExp(BOOK_TITLE_2015),
     });
     await expect(targetCard).toBeVisible();
