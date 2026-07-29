@@ -1,5 +1,10 @@
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import { BookGrid, MainLayout, YearFilter } from "@/components";
+import {
+  BackToTopButton,
+  BookGrid,
+  MainLayout,
+  YearFilter,
+} from "@/components";
 import { books } from "@/data/books";
 import { useBookFilter } from "@/hooks/useBookFilter";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
@@ -26,10 +31,13 @@ export default function Home({
 
       <BookGrid
         books={displayedBooks}
+        totalCount={filteredBooks.length}
         hasMore={hasMore}
         isLoading={isLoading}
         ref={observerTarget}
       />
+
+      <BackToTopButton />
     </MainLayout>
   );
 }
