@@ -22,8 +22,7 @@ describe("storage utils", () => {
     const { readSessionStorage, writeSessionStorage, removeSessionStorage } =
       await import("@/utils/storage");
 
-    expect(readSessionStorage("key"))
-      .toBeNull();
+    expect(readSessionStorage("key")).toBeNull();
 
     expect(() => writeSessionStorage("key", "value")).not.toThrow();
     expect(() => removeSessionStorage("key")).not.toThrow();
@@ -78,11 +77,8 @@ describe("storage utils", () => {
 
     vi.stubGlobal("window", { sessionStorage: faultyStorage });
 
-    const {
-      readSessionStorage,
-      writeSessionStorage,
-      removeSessionStorage,
-    } = await import("@/utils/storage");
+    const { readSessionStorage, writeSessionStorage, removeSessionStorage } =
+      await import("@/utils/storage");
 
     expect(readSessionStorage("key")).toBeNull();
     expect(() => writeSessionStorage("key", "value")).not.toThrow();

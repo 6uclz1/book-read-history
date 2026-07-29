@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 import Head from "next/head";
 import { SiteFooter, SiteHeader } from "@/components/atoms";
 
@@ -15,9 +15,8 @@ const DEFAULT_DESCRIPTION = "読んだ本をリスト化したサイトです。
 const CONTAINER_BASE_CLASS = "flex min-h-screen flex-col";
 const MAIN_BASE_CLASS = "flex flex-1 flex-col";
 
-const combineClasses = (
-  ...classes: Array<string | undefined>
-) => classes.filter((klass): klass is string => Boolean(klass)).join(" ");
+const combineClasses = (...classes: Array<string | undefined>) =>
+  classes.filter((klass): klass is string => Boolean(klass)).join(" ");
 
 export default function MainLayout({
   children,
@@ -26,11 +25,15 @@ export default function MainLayout({
   mainClassName = "items-center justify-center py-8",
   containerClassName = "px-8",
 }: MainLayoutProps) {
-  const computedTitle = pageTitle && pageTitle !== BASE_TITLE
-    ? `${BASE_TITLE} | ${pageTitle}`
-    : BASE_TITLE;
+  const computedTitle =
+    pageTitle && pageTitle !== BASE_TITLE
+      ? `${BASE_TITLE} | ${pageTitle}`
+      : BASE_TITLE;
 
-  const containerClasses = combineClasses(CONTAINER_BASE_CLASS, containerClassName);
+  const containerClasses = combineClasses(
+    CONTAINER_BASE_CLASS,
+    containerClassName,
+  );
   const mainClasses = combineClasses(MAIN_BASE_CLASS, mainClassName);
 
   return (

@@ -1,9 +1,9 @@
 import { type MouseEvent, forwardRef } from "react";
 import { BookCard } from "@/components";
-import type { Book } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 
 interface BookGridProps {
-  books: Book[];
+  books: BookSummary[];
   onCardClick: (id: string) => void;
   onIsbnClick: (event: MouseEvent<HTMLAnchorElement>, isbn: string) => void;
   hasMore?: boolean;
@@ -19,30 +19,23 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
 
     return (
       <div>
-        <div
-          className="flex flex-wrap items-center justify-center transition-transform duration-[3500ms]"
-          role="grid"
+        <ul
+          className="mx-auto grid w-full max-w-[1400px] list-none grid-cols-1 justify-items-center gap-6 p-0 sm:grid-cols-2 xl:grid-cols-3"
           aria-label={totalBooksMessage}
         >
           {books.map((book) => (
-            <div key={book.id} role="gridcell">
+            <li key={book.id} className="w-full max-w-[400px]">
               <BookCard
                 book={book}
                 onCardClick={onCardClick}
                 onIsbnClick={onIsbnClick}
               />
-            </div>
+            </li>
           ))}
-        </div>
-        {hasMore && (
-          <div ref={ref} aria-hidden>
-            {isLoading && (
-              <div aria-live="polite" aria-label="更に本を読み込み中">
-                読み込み中...
-              </div>
-            )}
-          </div>
-        )}
+        </ul>
+        {/* 監視用センチネルは支援技術から隠すが、読み込み状態の通知は隠してはいけない */}
+        {hasMore && <div ref={ref} aria-hidden />}
+        <div aria-live="polite">{isLoading ? "読み込み中..." : ""}</div>
       </div>
     );
   },

@@ -25,6 +25,7 @@ export default function BookHighlights({
       <ul className="list-none p-0">
         {highlights.map((highlight, index) => (
           <li
+            // biome-ignore lint/suspicious/noArrayIndexKey: ハイライトはビルド時に確定し並び替えも追加も行われないため添字をキーにしても安全
             key={`${bookId}-highlight-${index}`}
             className="border-b border-[#222] py-4 leading-snug text-gray-400 last:border-b-0"
           >

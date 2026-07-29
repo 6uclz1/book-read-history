@@ -11,15 +11,15 @@ import {
   ITEMS_PER_PAGE,
   STORAGE_KEYS,
 } from "@/constants/books";
-import { Book } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 import {
   buildStorageKey,
   readSessionStorage,
   writeSessionStorage,
 } from "@/utils/storage";
 
-interface UseInfiniteScrollReturn {
-  displayedBooks: Book[];
+interface UseInfiniteScrollReturn<T> {
+  displayedBooks: T[];
   observerTarget: React.RefObject<HTMLDivElement | null>;
   hasMore: boolean;
   isLoading: boolean;
@@ -28,18 +28,21 @@ interface UseInfiniteScrollReturn {
 const LOAD_DELAY_MS = 100;
 const OBSERVER_THRESHOLD = 1.0;
 
-export function useInfiniteScroll(
-  filteredBooks: Book[],
-): UseInfiniteScrollReturn {
-  const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
+export function useInfiniteScroll<T extends BookSummary>(
+  filteredBooks: T[],
+  scope: string = "",
+): UseInfiniteScrollReturn<T> {
+  const [displayedBooks, setDisplayedBooks] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
   const loadTimeoutRef = useRef<number | undefined>(undefined);
   const router = useRouter();
 
+  // 表示件数はフィルタ条件ごとに保持する。
+  // パスだけをキーにすると、年を切り替えた直後に別条件の件数が復元されてしまう。
   const itemCountStorageKey = buildStorageKey(
     STORAGE_KEYS.itemCountPrefix,
-    router.asPath || "/",
+    scope ? `${router.asPath || "/"}:${scope}` : router.asPath || "/",
   );
 
   const loadMore = useCallback(() => {
@@ -117,6 +120,7 @@ export function useInfiniteScroll(
     writeSessionStorage(itemCountStorageKey, String(displayedBooks.length));
   }, [displayedBooks.length, itemCountStorageKey]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 描画済み件数が変わるたびに通知する必要があるため意図的な依存
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event(BOOKS_RENDERED_EVENT));

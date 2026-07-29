@@ -1,9 +1,9 @@
 import { ALL_YEARS_LABEL } from "@/constants/books";
-import { Book } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 
 const DATE_DELIMITER = "/";
 
-export function deriveAvailableYears(books: Book[]): string[] {
+export function deriveAvailableYears(books: BookSummary[]): string[] {
   const years = new Set<string>();
 
   books.forEach((book) => {
@@ -17,7 +17,10 @@ export function deriveAvailableYears(books: Book[]): string[] {
   return [ALL_YEARS_LABEL, ...sortedYears];
 }
 
-export function filterBooksByYear(books: Book[], year: string): Book[] {
+export function filterBooksByYear<T extends BookSummary>(
+  books: T[],
+  year: string,
+): T[] {
   if (year === ALL_YEARS_LABEL) {
     return books;
   }

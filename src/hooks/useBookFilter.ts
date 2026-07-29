@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { ALL_YEARS_LABEL, STORAGE_KEYS } from "@/constants/books";
-import { Book } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 import { deriveAvailableYears, filterBooksByYear } from "@/utils/books";
 import { readSessionStorage, writeSessionStorage } from "@/utils/storage";
 
-export function useBookFilter(books: Book[]) {
+export function useBookFilter<T extends BookSummary>(books: T[]) {
   const [selectedYear, setSelectedYear] = useState<string>(() => {
     return readSessionStorage(STORAGE_KEYS.selectedYear) ?? ALL_YEARS_LABEL;
   });
