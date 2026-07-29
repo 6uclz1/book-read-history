@@ -13,11 +13,20 @@ export default function YearFilter({
   availableYears,
 }: YearFilterProps) {
   return (
-    <section className="flex flex-1" aria-label="年度フィルター">
+    <section className="mb-6 w-full" aria-label="年度フィルター">
+      {/*
+       * 以前は role="tablist" / role="tab" を使っていたが、対応する tabpanel も
+       * 矢印キーによるロービングフォーカスもなく、支援技術に予告した操作方法が
+       * 実際には効かない状態だった。実態は絞り込みトグルなので
+       * group + aria-pressed で表現する。
+       *
+       * モバイルでは 12 年分が縦に積み上がりファーストビューを占有していたため、
+       * 狭い画面では横スクロール 1 行、sm 以上では折り返して中央寄せにする。
+       */}
       <div
-        className="mb-2 flex flex-wrap justify-center gap-4"
-        role="tablist"
+        role="group"
         aria-label="読了年で絞り込み"
+        className="flex snap-x gap-2 overflow-x-auto px-1 py-1 sm:flex-wrap sm:justify-center sm:overflow-x-visible"
       >
         {availableYears.map((year) => {
           const isSelected = year === selectedYear;
@@ -31,9 +40,9 @@ export default function YearFilter({
               key={year}
               onClick={() => onYearChange(year)}
               isActive={isSelected}
-              role="tab"
-              aria-selected={isSelected}
+              aria-pressed={isSelected}
               aria-label={label}
+              className="shrink-0 snap-start"
             >
               {year === ALL_YEARS_LABEL ? ALL_YEARS_LABEL : year}
             </Button>

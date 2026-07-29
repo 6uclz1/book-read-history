@@ -4,8 +4,10 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isActive?: boolean;
 }
 
+// h-12 w-24 固定だと年が増えるほどモバイルの縦領域を食い潰すため、
+// 幅は内容に追従させる。高さはタップターゲットの 44px を下回らないようにする。
 const baseClasses =
-  "flex h-12 w-24 cursor-pointer items-center justify-center rounded-control text-xs transition-colors duration-300";
+  "flex min-h-11 cursor-pointer items-center justify-center rounded-control px-4 py-2 text-sm transition-colors duration-300";
 // 背景色を固定せず、必ず前景色とセットで指定する。
 // 片方だけをハードコードすると、もう一方のカラースキームで文字が消える。
 const inactiveClasses =
