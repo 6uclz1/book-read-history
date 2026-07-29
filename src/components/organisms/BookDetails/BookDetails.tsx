@@ -1,11 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
 import {
   faBarcode,
   faBookmark,
   faCalendarAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+import Link from "next/link";
 import { DetailProperty } from "@/components";
 import type { Book } from "@/types/book";
 
@@ -15,7 +15,7 @@ interface BookDetailsProps {
 
 export default function BookDetails({ book }: BookDetailsProps) {
   return (
-    <div className="my-8 flex w-full max-w-[1200px] flex-col rounded-[10px] border border-[#222] p-6 md:flex-row">
+    <div className="my-8 flex w-full max-w-[1200px] flex-col rounded-card border border-app-border bg-app-surface p-6 md:flex-row">
       <div className="mb-8 flex-shrink-0 md:mr-8 md:mb-0 md:basis-[350px]">
         <Image
           src={book.thumbnailImage}
@@ -29,7 +29,7 @@ export default function BookDetails({ book }: BookDetailsProps) {
         <h2 className="mb-4 text-[2rem] font-bold leading-[1.15]">
           {book.title}
         </h2>
-        <div className="my-6 border-b border-[#222]" />
+        <div className="my-6 border-b border-app-border" />
         <DetailProperty
           icon={faUser}
           label="著者"

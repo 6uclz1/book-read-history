@@ -1,6 +1,6 @@
-import { type MouseEvent, useCallback } from "react";
-import { useRouter } from "next/router";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import { useRouter } from "next/router";
+import { type MouseEvent, useCallback } from "react";
 import { BookGrid, MainLayout, YearFilter } from "@/components";
 import { books } from "@/data/books";
 import { useBookFilter } from "@/hooks/useBookFilter";

@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ReactNode } from "react";
 
 interface DetailPropertyProps {
   icon: IconDefinition;
@@ -11,7 +11,7 @@ interface DetailPropertyProps {
 }
 
 const baseContainerClass = "my-1 flex items-center leading-[1.5]";
-const baseLabelClass = "inline-block w-1/5 text-gray-700 dark:text-gray-400";
+const baseLabelClass = "inline-block w-1/5 text-app-muted";
 
 export default function DetailProperty({
   icon,

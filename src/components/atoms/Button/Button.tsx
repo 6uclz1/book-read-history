@@ -5,9 +5,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseClasses =
-  "flex h-12 w-24 cursor-pointer items-center justify-center rounded-[5px] text-xs duration-300";
-const inactiveClasses = "border border-[#222] bg-black hover:border-[#0070f3]";
-const activeClasses = "border border-[#0070f3] bg-black";
+  "flex h-12 w-24 cursor-pointer items-center justify-center rounded-control text-xs transition-colors duration-300";
+// 背景色を固定せず、必ず前景色とセットで指定する。
+// 片方だけをハードコードすると、もう一方のカラースキームで文字が消える。
+const inactiveClasses =
+  "border border-app-border-strong bg-app-surface text-app-fg hover:border-app-accent hover:text-app-accent";
+const activeClasses =
+  "border border-app-accent bg-app-accent text-app-accent-fg font-bold";
 
 export function Button({
   isActive = false,

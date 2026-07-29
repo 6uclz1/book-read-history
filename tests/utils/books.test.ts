@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ALL_YEARS_LABEL } from "@/constants/books";
-import { deriveAvailableYears, filterBooksByYear } from "@/utils/books";
 import type { Book } from "@/types/book";
+import { deriveAvailableYears, filterBooksByYear } from "@/utils/books";
 
 const baseBooks: Book[] = [
   {

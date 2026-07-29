@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
   useCallback,
   useEffect,
@@ -5,7 +6,6 @@ import {
   useRef,
   useState,
 } from "react";
-import { useRouter } from "next/router";
 import {
   BOOKS_RENDERED_EVENT,
   ITEMS_PER_PAGE,

@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 interface SiteHeaderProps {
   title: string;
@@ -8,7 +8,7 @@ interface SiteHeaderProps {
 
 export default function SiteHeader({ title }: SiteHeaderProps) {
   return (
-    <header className="flex w-full items-center border-b border-[#222] py-4 text-2xl font-bold">
+    <header className="flex w-full items-center border-b border-app-border py-4 text-2xl font-bold">
       <FontAwesomeIcon icon={faBookmark} className="mr-[1.125rem]" />
       <Link
         href="/"

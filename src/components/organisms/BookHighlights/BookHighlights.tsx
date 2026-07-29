@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { Highlight } from "@/types/book";
 
 interface BookHighlightsProps {
@@ -18,8 +18,8 @@ export default function BookHighlights({
   }
 
   return (
-    <div className="my-8 w-full max-w-[1200px] rounded-lg border border-[#222] p-6 text-gray-800">
-      <h3 className="mb-4 flex items-center border-b border-[#222] pb-2 text-base font-bold text-gray-300">
+    <div className="my-8 w-full max-w-[1200px] rounded-card border border-app-border bg-app-surface p-6">
+      <h3 className="mb-4 flex items-center border-b border-app-border pb-2 text-base font-bold text-app-fg">
         ハイライト
       </h3>
       <ul className="list-none p-0">
@@ -27,7 +27,7 @@ export default function BookHighlights({
           <li
             // biome-ignore lint/suspicious/noArrayIndexKey: ハイライトはビルド時に確定し並び替えも追加も行われないため添字をキーにしても安全
             key={`${bookId}-highlight-${index}`}
-            className="border-b border-[#222] py-4 leading-snug text-gray-400 last:border-b-0"
+            className="border-b border-app-border py-4 leading-relaxed text-app-fg last:border-b-0"
           >
             <p>{highlight.text}</p>
             {asin && (

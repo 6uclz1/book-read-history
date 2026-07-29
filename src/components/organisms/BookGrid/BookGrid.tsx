@@ -1,4 +1,4 @@
-import { type MouseEvent, forwardRef } from "react";
+import { forwardRef, type MouseEvent } from "react";
 import { BookCard } from "@/components";
 import type { BookSummary } from "@/types/book";
 

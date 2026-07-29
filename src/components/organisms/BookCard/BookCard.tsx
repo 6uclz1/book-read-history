@@ -1,12 +1,12 @@
-import type { KeyboardEvent, MouseEvent } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import {
   faBarcode,
   faBookmark,
   faCalendarAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+import Link from "next/link";
+import type { KeyboardEvent, MouseEvent } from "react";
 import { DetailProperty } from "@/components";
 import type { BookSummary } from "@/types/book";
 
@@ -17,7 +17,7 @@ interface BookCardProps {
 }
 
 const cardClassName =
-  "group h-full w-full cursor-pointer rounded-[10px] border border-[#222] p-4 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-[#0070f3] focus:border-[#0070f3] active:border-[#0070f3] sm:p-6";
+  "group h-full w-full cursor-pointer rounded-card border border-app-border p-4 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-app-accent focus:border-app-accent active:border-app-accent sm:p-6";
 
 export default function BookCard({
   book,
@@ -57,7 +57,7 @@ export default function BookCard({
       </div>
       <div className="flex">
         <div className="my-4 w-full items-center">{book.title}</div>
-        <div className="my-6 border-b border-[#222]" />
+        <div className="my-6 border-b border-app-border" />
       </div>
       <DetailProperty
         icon={faUser}
