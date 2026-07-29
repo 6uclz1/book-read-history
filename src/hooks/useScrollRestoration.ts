@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { BOOKS_RENDERED_EVENT, STORAGE_KEYS } from "@/constants/books";
 import {
   buildStorageKey,

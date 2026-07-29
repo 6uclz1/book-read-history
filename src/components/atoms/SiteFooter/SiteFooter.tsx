@@ -1,5 +1,5 @@
 const FOOTER_BASE_CLASS =
-  "flex w-full items-center justify-center border-t border-[#222] py-8 text-gray-700 dark:text-gray-400";
+  "flex w-full items-center justify-center border-t border-app-border py-8 text-app-muted";
 
 interface SiteFooterProps {
   className?: string;

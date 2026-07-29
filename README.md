@@ -6,13 +6,13 @@
 - **本棚ビュー**: グリッド表示で書影とメタ情報を一覧し、Intersection Observer による無限スクロールで 48 冊ずつ丁寧に追加ロード。
 - **年別フィルタ & セッション復元**: 選択した読了年は sessionStorage に保存され、年の追加/削除にも自動追従して次回来訪時も同じ条件で閲覧可能。
 - **詳細ページ & Kindle ハイライト連携**: 著者・出版社・ISBN・ASIN などをまとめ、Kindle の `kindle://` deeplink 付きハイライトを閲覧/遷移できます。
-- **アクセシビリティ**: ボタン/カードには ARIA 属性とキーボード操作を実装し、スクリーンリーダーでも読了冊数や操作対象が分かりやすい設計。
+- **アクセシビリティ**: `lang="ja"`・スキップリンク・見出し階層を整備し、カードは素の `<a>`、年フィルタは `aria-pressed` のトグル群として実装。フォーカスリングと `prefers-reduced-motion` はグローバルに保証。
 - **スクロール位置の復元**: 独自イベントと sessionStorage を組み合わせ、一覧↔詳細遷移後も最後に見ていたカード位置まで自動で戻す挙動を実装。
 
 ## 技術スタック
 - **フレームワーク**: Next.js 15.x（Pages Router）
 - **言語**: TypeScript 5.9（strict モード）
-- **UI**: Tailwind CSS（atomic design 構成のコンポーネント群）
+- **UI**: Tailwind CSS v4（CSS ファースト設定。配色は `src/styles/globals.css` の `--app-*` トークンに集約し、`prefers-color-scheme` でライト/ダークを切り替え）
 - **アイコン**: Font Awesome（`src/fontawesome.ts` で全 Solid アイコンを登録）
 - **リンター/フォーマッター**: Biome（`lint` / `lint:fix` / `format`）
 - **データ変換**: Node.js スクリプト `convert.js`（CSV→型安全な TS + JSON 出力）
@@ -84,6 +84,8 @@ npm run books:update # convert のエイリアス（慣用コマンド）
 - 無限スクロールは Intersection Observer + 遅延ロードで負荷を抑え、`books-rendered` イベントでスクロール復元と連携しています。
 - 詳細画面の Kindle リンクは ASIN が生成できる ISBN のみ deeplink を表示し、未対応の本でも一覧からの遷移は阻害しません。
 - Font Awesome の Solid アイコンをグローバル登録し、アイコン読み込みを 1 か所に集約しています。
+- 配色は `--app-*` トークン経由でのみ参照します。`bg-black` や `#222` のような直値を足すと、片方のカラースキームで文字や境界線が消えるため避けてください。
+- カードは stretched link パターン（擬似要素をカード全面に広げる）で全体をクリック可能にしています。カード内に別のリンクを足す場合は `relative z-10` で前面に出してください。
 
 ## コントリビューション
 [AGENTS.md](./AGENTS.md) にコーディング規約・レビュー手順などの詳細があります。Pull Request 作成前に `npm run lint` と `npm run build` を通過させてください。UI 変更がある場合はスクリーンショットの添付も推奨です。

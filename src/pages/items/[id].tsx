@@ -1,9 +1,9 @@
-import Link from "next/link";
 import type {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
 } from "next";
+import Link from "next/link";
 import { BookDetails, BookHighlights, MainLayout } from "@/components";
 import { books } from "@/data/books";
 import type { Book } from "@/types/book";
@@ -28,10 +28,10 @@ export default function DetailPage(
       />
       <div className="flex justify-center py-8">
         <Link
-          className="rounded-md border border-[#222] px-12 py-2 hover:border-[#0070f3]"
+          className="rounded-control border border-app-border-strong px-12 py-2 transition-colors hover:border-app-accent hover:text-app-accent"
           href="/"
         >
-          戻る
+          一覧へ戻る
         </Link>
       </div>
     </MainLayout>

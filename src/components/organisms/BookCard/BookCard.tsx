@@ -1,100 +1,69 @@
-import type { KeyboardEvent, MouseEvent } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import {
   faBarcode,
   faBookmark,
   faCalendarAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { DetailProperty } from "@/components";
+import Link from "next/link";
+import { BookCover, DetailProperty } from "@/components";
 import type { BookSummary } from "@/types/book";
 
 interface BookCardProps {
   book: BookSummary;
-  onCardClick: (id: string) => void;
-  onIsbnClick: (event: MouseEvent<HTMLAnchorElement>, isbn: string) => void;
 }
 
 const cardClassName =
-  "group h-full w-full cursor-pointer rounded-[10px] border border-[#222] p-4 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-[#0070f3] focus:border-[#0070f3] active:border-[#0070f3] sm:p-6";
+  "group relative h-full w-full rounded-card border border-app-border bg-app-surface p-4 transition-colors duration-150 ease-in-out focus-within:border-app-accent hover:border-app-accent sm:p-6";
 
-export default function BookCard({
-  book,
-  onCardClick,
-  onIsbnClick,
-}: BookCardProps) {
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      onCardClick(book.id);
-    }
-  };
+// カード全面をクリック可能にしつつ、内側の ISBN リンクを潰さないための
+// stretched link パターン。擬似要素をカード全面に広げて当たり判定を作る。
+const stretchedLinkClassName =
+  "after:absolute after:inset-0 after:content-[''] hover:underline";
 
-  const handleIsbnLinkClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    onIsbnClick(event, book.isbn);
-  };
-
+export default function BookCard({ book }: BookCardProps) {
   return (
-    // biome-ignore lint/a11y/useSemanticElements: カード全体を <Link> 化する対応（ISBNリンクの入れ子解消を含む）は別途行う
-    <div
-      className={cardClassName}
-      onClick={() => onCardClick(book.id)}
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
-      role="button"
-      aria-label={`${book.title}の詳細を表示。著者: ${book.author}`}
-    >
-      <div className="relative z-10 flex overflow-hidden rounded-lg">
-        <Image
-          src={book.thumbnailImage}
-          alt={`${book.title}の表紙画像`}
-          width={350}
-          height={320}
-          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
-          className="h-[320px] w-full rounded-lg object-cover object-right-top transition-transform duration-500 ease-in-out group-hover:scale-108 dark:brightness-90"
-        />
-      </div>
-      <div className="flex">
-        <div className="my-4 w-full items-center">{book.title}</div>
-        <div className="my-6 border-b border-[#222]" />
-      </div>
-      <DetailProperty
-        icon={faUser}
-        label="著者"
-        className="my-1 flex items-center text-xs leading-[1.5]"
-      >
-        {book.author}
-      </DetailProperty>
-      <DetailProperty
-        icon={faBookmark}
-        label="出版社"
-        className="my-1 flex items-center text-xs leading-[1.5]"
-      >
-        {book.publisher}
-      </DetailProperty>
-      <DetailProperty
-        icon={faBarcode}
-        label="ISBN"
-        className="my-1 flex items-center text-xs leading-[1.5]"
-      >
+    <article className={cardClassName}>
+      <BookCover
+        src={book.thumbnailImage}
+        width={350}
+        height={466}
+        sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
+        frameClassName="h-[280px] sm:h-[340px]"
+        imageClassName="transition-transform duration-500 ease-in-out group-hover:scale-105 motion-reduce:transform-none dark:brightness-90"
+      />
+      {/* タイトルの行数がカードごとに違うとメタ情報の縦位置がずれるため高さを揃える */}
+      <h2 className="my-4 line-clamp-2 min-h-[2.75rem] text-base leading-snug font-bold">
         <Link
-          href={`https://www.books.or.jp/book-details/${book.isbn}`}
-          onClick={handleIsbnLinkClick}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:underline"
+          href={`/items/${book.id}`}
+          aria-label={`${book.title}の詳細を表示`}
+          className={stretchedLinkClassName}
         >
-          {book.isbn}
+          {book.title}
         </Link>
-      </DetailProperty>
-      <DetailProperty
-        icon={faCalendarAlt}
-        label="読了日"
-        className="my-1 flex items-center text-xs leading-[1.5]"
-      >
-        {book.readDate}
-      </DetailProperty>
-    </div>
+      </h2>
+      <dl className="m-0">
+        <DetailProperty icon={faUser} label="著者">
+          {book.author}
+        </DetailProperty>
+        <DetailProperty icon={faBookmark} label="出版社">
+          {book.publisher}
+        </DetailProperty>
+        <DetailProperty icon={faBarcode} label="ISBN">
+          {/* stretched link の擬似要素より前面に出さないとクリックできない */}
+          <Link
+            href={`https://www.books.or.jp/book-details/${book.isbn}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`ISBN ${book.isbn} を books.or.jp で開く（新しいタブ）`}
+            className="relative z-10 text-app-accent hover:underline"
+          >
+            {book.isbn}
+          </Link>
+        </DetailProperty>
+        <DetailProperty icon={faCalendarAlt} label="読了日">
+          {book.readDate}
+        </DetailProperty>
+      </dl>
+    </article>
   );
 }

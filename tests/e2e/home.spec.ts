@@ -17,23 +17,23 @@ test.describe("Home page", () => {
     });
     await expect(filterRegion).toBeVisible();
 
-    const allTab = page.getByRole("tab", { name: ALL_YEARS_LABEL });
-    await expect(allTab).toHaveAttribute("aria-selected", "true");
+    const allFilter = page.getByRole("button", { name: ALL_YEARS_LABEL });
+    await expect(allFilter).toHaveAttribute("aria-pressed", "true");
 
     const gridCells = page.getByRole("listitem");
     await expect(gridCells.first()).toBeVisible();
     const initialCount = await gridCells.count();
     expect(initialCount).toBeGreaterThan(9);
 
-    const year2015Tab = page.getByRole("tab", { name: YEAR_2015_LABEL });
-    await year2015Tab.click();
+    const year2015Filter = page.getByRole("button", { name: YEAR_2015_LABEL });
+    await year2015Filter.click();
 
-    await expect(year2015Tab).toHaveAttribute("aria-selected", "true");
-    await expect(allTab).toHaveAttribute("aria-selected", "false");
+    await expect(year2015Filter).toHaveAttribute("aria-pressed", "true");
+    await expect(allFilter).toHaveAttribute("aria-pressed", "false");
 
     await expect(gridCells).toHaveCount(9, { timeout: 15_000 });
 
-    const targetCard = page.getByRole("button", {
+    const targetCard = page.getByRole("link", {
       name: new RegExp(BOOK_TITLE_2015),
     });
     await expect(targetCard).toBeVisible();
@@ -42,17 +42,17 @@ test.describe("Home page", () => {
 
     await expect(page).toHaveURL(/\/items\//);
     await expect(
-      page.getByRole("heading", { level: 2, name: BOOK_TITLE_2015 }),
+      page.getByRole("heading", { level: 1, name: BOOK_TITLE_2015 }),
     ).toBeVisible();
     await expect(page.getByText(BOOK_2015_READ_DATE)).toBeVisible();
 
-    const backLink = page.getByRole("link", { name: "戻る" });
+    const backLink = page.getByRole("link", { name: "一覧へ戻る" });
     await backLink.click();
 
     await expect(page).toHaveURL(/\/$/);
     await expect(
-      page.getByRole("tab", { name: YEAR_2015_LABEL }),
-    ).toHaveAttribute("aria-selected", "true");
+      page.getByRole("button", { name: YEAR_2015_LABEL }),
+    ).toHaveAttribute("aria-pressed", "true");
     await expect(gridCells).toHaveCount(9, { timeout: 15_000 });
   });
 });

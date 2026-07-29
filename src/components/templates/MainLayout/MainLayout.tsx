@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import Head from "next/head";
+import type { ReactNode } from "react";
 import { SiteFooter, SiteHeader } from "@/components/atoms";
 
 interface MainLayoutProps {
@@ -12,6 +12,7 @@ interface MainLayoutProps {
 
 const BASE_TITLE = "読書管理";
 const DEFAULT_DESCRIPTION = "読んだ本をリスト化したサイトです。";
+const MAIN_CONTENT_ID = "main-content";
 const CONTAINER_BASE_CLASS = "flex min-h-screen flex-col";
 const MAIN_BASE_CLASS = "flex flex-1 flex-col";
 
@@ -47,9 +48,20 @@ export default function MainLayout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {/* キーボード利用者がヘッダーと年フィルタを読み飛ばせるようにする */}
+      <a
+        href={`#${MAIN_CONTENT_ID}`}
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-control focus:border focus:border-app-accent focus:bg-app-surface focus:px-4 focus:py-2"
+      >
+        メインコンテンツへスキップ
+      </a>
+
       <SiteHeader title={BASE_TITLE} />
 
-      <main className={mainClasses}>{children}</main>
+      {/* スキップリンクの遷移先としてプログラム的にフォーカスできる必要がある */}
+      <main id={MAIN_CONTENT_ID} tabIndex={-1} className={mainClasses}>
+        {children}
+      </main>
 
       <SiteFooter className="mt-auto" />
     </div>

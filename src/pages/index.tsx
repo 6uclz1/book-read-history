@@ -1,7 +1,10 @@
-import { type MouseEvent, useCallback } from "react";
-import { useRouter } from "next/router";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import { BookGrid, MainLayout, YearFilter } from "@/components";
+import {
+  BackToTopButton,
+  BookGrid,
+  MainLayout,
+  YearFilter,
+} from "@/components";
 import { books } from "@/data/books";
 import { useBookFilter } from "@/hooks/useBookFilter";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
@@ -10,28 +13,20 @@ import type { BookSummary } from "@/types/book";
 export default function Home({
   books: bookSummaries,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter();
   const { selectedYear, setSelectedYear, filteredBooks, availableYears } =
     useBookFilter(bookSummaries);
   const { displayedBooks, observerTarget, hasMore, isLoading } =
     useInfiniteScroll(filteredBooks, selectedYear);
 
-  const handleCardClick = useCallback(
-    (id: string) => {
-      router.push(`/items/${id}`);
-    },
-    [router],
-  );
-
-  const handleIsbnClick = useCallback(
-    (event: MouseEvent<HTMLAnchorElement>, _isbn?: string) => {
-      event.stopPropagation();
-    },
-    [],
-  );
-
   return (
     <MainLayout>
+      {/*
+       * ヘッダーのサイト名と内容が重複するため視覚的には出さない。
+       * ただし h1 が無いと見出しジャンプの起点が消えるので、
+       * 支援技術には見える sr-only として残す。
+       */}
+      <h1 className="sr-only">読書記録</h1>
+
       <YearFilter
         selectedYear={selectedYear}
         onYearChange={setSelectedYear}
@@ -40,12 +35,13 @@ export default function Home({
 
       <BookGrid
         books={displayedBooks}
-        onCardClick={handleCardClick}
-        onIsbnClick={handleIsbnClick}
+        totalCount={filteredBooks.length}
         hasMore={hasMore}
         isLoading={isLoading}
         ref={observerTarget}
       />
+
+      <BackToTopButton />
     </MainLayout>
   );
 }
