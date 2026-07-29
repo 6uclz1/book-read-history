@@ -20,8 +20,12 @@ export default function Home({
 
   return (
     <MainLayout>
-      {/* ページ内に h1 が存在しないと見出しジャンプの起点がなくなる */}
-      <h1 className="mb-6 text-center text-2xl font-bold">読書記録</h1>
+      {/*
+       * ヘッダーのサイト名と内容が重複するため視覚的には出さない。
+       * ただし h1 が無いと見出しジャンプの起点が消えるので、
+       * 支援技術には見える sr-only として残す。
+       */}
+      <h1 className="sr-only">読書記録</h1>
 
       <YearFilter
         selectedYear={selectedYear}
