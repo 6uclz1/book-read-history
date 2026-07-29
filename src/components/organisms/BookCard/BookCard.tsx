@@ -17,7 +17,7 @@ interface BookCardProps {
 }
 
 const cardClassName =
-  "group m-4 w-[400px] cursor-pointer rounded-[10px] border border-[#222] p-6 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-[#0070f3] focus:border-[#0070f3] active:border-[#0070f3]";
+  "group h-full w-full cursor-pointer rounded-[10px] border border-[#222] p-4 text-left text-inherit no-underline transition-colors duration-150 ease-in-out hover:border-[#0070f3] focus:border-[#0070f3] active:border-[#0070f3] sm:p-6";
 
 export default function BookCard({
   book,
@@ -48,9 +48,10 @@ export default function BookCard({
         <Image
           src={book.thumbnailImage}
           alt={`${book.title}の表紙画像`}
-          width={200}
-          height={300}
-          className="h-[320px] w-[350px] rounded-lg object-cover object-right-top transition-transform duration-500 ease-in-out group-hover:scale-108 dark:brightness-90"
+          width={350}
+          height={320}
+          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
+          className="h-[320px] w-full rounded-lg object-cover object-right-top transition-transform duration-500 ease-in-out group-hover:scale-108 dark:brightness-90"
         />
       </div>
       <div className="flex">

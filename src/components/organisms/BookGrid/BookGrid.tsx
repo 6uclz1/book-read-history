@@ -20,12 +20,12 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
     return (
       <div>
         <div
-          className="flex flex-wrap items-center justify-center transition-transform duration-[3500ms]"
+          className="mx-auto grid w-full max-w-[1400px] grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 xl:grid-cols-3"
           role="grid"
           aria-label={totalBooksMessage}
         >
           {books.map((book) => (
-            <div key={book.id} role="gridcell">
+            <div key={book.id} className="w-full max-w-[400px]" role="gridcell">
               <BookCard
                 book={book}
                 onCardClick={onCardClick}
