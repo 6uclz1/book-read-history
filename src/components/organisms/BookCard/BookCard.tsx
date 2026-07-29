@@ -28,7 +28,6 @@ export default function BookCard({ book }: BookCardProps) {
         width={350}
         height={466}
         sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
-        frameClassName="h-[280px] sm:h-[340px]"
         imageClassName="transition-transform duration-500 ease-in-out group-hover:scale-105 motion-reduce:transform-none dark:brightness-90"
       />
       {/* タイトルの行数がカードごとに違うとメタ情報の縦位置がずれるため高さを揃える */}

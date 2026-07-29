@@ -13,7 +13,7 @@ export default function YearFilter({
   availableYears,
 }: YearFilterProps) {
   return (
-    <section className="mb-6 w-full" aria-label="年度フィルター">
+    <section className="mb-6 w-full min-w-0" aria-label="年度フィルター">
       {/*
        * 以前は role="tablist" / role="tab" を使っていたが、対応する tabpanel も
        * 矢印キーによるロービングフォーカスもなく、支援技術に予告した操作方法が
@@ -23,7 +23,12 @@ export default function YearFilter({
        * モバイルでは 12 年分が縦に積み上がりファーストビューを占有していたため、
        * 狭い画面では横スクロール 1 行、sm 以上では折り返して中央寄せにする。
        */}
-      <fieldset className="m-0 border-0 p-0">
+      {/*
+       * fieldset は UA スタイルの min-inline-size: min-content により
+       * 中身より狭くならない。min-w-0 を外すと横スクロールが
+       * ページ全体に波及してレイアウトが破綻する。
+       */}
+      <fieldset className="m-0 min-w-0 border-0 p-0">
         <legend className="sr-only">読了年で絞り込み</legend>
         <div className="flex snap-x gap-2 overflow-x-auto px-1 py-1 sm:flex-wrap sm:justify-center sm:overflow-x-visible">
           {availableYears.map((year) => {

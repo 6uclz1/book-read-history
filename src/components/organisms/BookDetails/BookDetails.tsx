@@ -20,7 +20,7 @@ export default function BookDetails({ book }: BookDetailsProps) {
           src={book.thumbnailImage}
           width={350}
           height={500}
-          frameClassName="h-[420px] md:h-[500px] md:w-[350px]"
+          frameClassName="md:w-[350px]"
           imageClassName="dark:brightness-90"
         />
       </div>
