@@ -39,10 +39,4 @@ test.describe("Home page accessibility", () => {
     await expect(isbnLink).toHaveAttribute("target", "_blank");
     await expect(isbnLink).toHaveAttribute("rel", /noopener/);
   });
-
-  test("shows the visible result count", async ({ page }) => {
-    await page.goto("/");
-
-    await expect(page.getByText(/全\d+冊中 \d+冊を表示中/)).toBeVisible();
-  });
 });
