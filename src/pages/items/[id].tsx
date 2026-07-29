@@ -31,7 +31,7 @@ export default function DetailPage(
           className="rounded-control border border-app-border-strong px-12 py-2 transition-colors hover:border-app-accent hover:text-app-accent"
           href="/"
         >
-          戻る
+          一覧へ戻る
         </Link>
       </div>
     </MainLayout>

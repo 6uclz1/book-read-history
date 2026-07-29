@@ -18,12 +18,14 @@ const activeClasses =
 export function Button({
   isActive = false,
   className = "",
+  type = "button",
   ...props
 }: ButtonProps) {
   const stateClasses = isActive ? activeClasses : inactiveClasses;
   const combined = `${baseClasses} ${stateClasses} ${className}`.trim();
 
-  return <button className={combined} {...props} />;
+  // type を省略すると submit 扱いになり、フォーム内に置いた際に暴発する
+  return <button type={type} className={combined} {...props} />;
 }
 
 export default Button;

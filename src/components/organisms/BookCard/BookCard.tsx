@@ -61,43 +61,29 @@ export default function BookCard({ book }: BookCardProps) {
           {book.title}
         </Link>
       </h2>
-      <DetailProperty
-        icon={faUser}
-        label="著者"
-        className="my-1 flex items-center text-sm leading-[1.5]"
-      >
-        {book.author}
-      </DetailProperty>
-      <DetailProperty
-        icon={faBookmark}
-        label="出版社"
-        className="my-1 flex items-center text-sm leading-[1.5]"
-      >
-        {book.publisher}
-      </DetailProperty>
-      <DetailProperty
-        icon={faBarcode}
-        label="ISBN"
-        className="my-1 flex items-center text-sm leading-[1.5]"
-      >
-        {/* stretched link の擬似要素より前面に出さないとクリックできない */}
-        <Link
-          href={`https://www.books.or.jp/book-details/${book.isbn}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`ISBN ${book.isbn} を books.or.jp で開く（新しいタブ）`}
-          className="relative z-10 hover:underline"
-        >
-          {book.isbn}
-        </Link>
-      </DetailProperty>
-      <DetailProperty
-        icon={faCalendarAlt}
-        label="読了日"
-        className="my-1 flex items-center text-sm leading-[1.5]"
-      >
-        {book.readDate}
-      </DetailProperty>
+      <dl className="m-0">
+        <DetailProperty icon={faUser} label="著者">
+          {book.author}
+        </DetailProperty>
+        <DetailProperty icon={faBookmark} label="出版社">
+          {book.publisher}
+        </DetailProperty>
+        <DetailProperty icon={faBarcode} label="ISBN">
+          {/* stretched link の擬似要素より前面に出さないとクリックできない */}
+          <Link
+            href={`https://www.books.or.jp/book-details/${book.isbn}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`ISBN ${book.isbn} を books.or.jp で開く（新しいタブ）`}
+            className="relative z-10 hover:underline"
+          >
+            {book.isbn}
+          </Link>
+        </DetailProperty>
+        <DetailProperty icon={faCalendarAlt} label="読了日">
+          {book.readDate}
+        </DetailProperty>
+      </dl>
     </article>
   );
 }

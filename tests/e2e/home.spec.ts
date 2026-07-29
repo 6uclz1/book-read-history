@@ -46,7 +46,7 @@ test.describe("Home page", () => {
     ).toBeVisible();
     await expect(page.getByText(BOOK_2015_READ_DATE)).toBeVisible();
 
-    const backLink = page.getByRole("link", { name: "戻る" });
+    const backLink = page.getByRole("link", { name: "一覧へ戻る" });
     await backLink.click();
 
     await expect(page).toHaveURL(/\/$/);

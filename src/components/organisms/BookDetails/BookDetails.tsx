@@ -31,45 +31,40 @@ export default function BookDetails({ book }: BookDetailsProps) {
           {book.title}
         </h1>
         <div className="my-6 border-b border-app-border" />
-        <DetailProperty
-          icon={faUser}
-          label="著者"
-          className="my-1 flex items-center text-[0.9rem] leading-[1.5]"
-          labelClassName="font-bold"
-        >
-          {book.author}
-        </DetailProperty>
-        <DetailProperty
-          icon={faBookmark}
-          label="出版社"
-          className="my-1 flex items-center text-[0.9rem] leading-[1.5]"
-          labelClassName="font-bold"
-        >
-          {book.publisher}
-        </DetailProperty>
-        <DetailProperty
-          icon={faBarcode}
-          label="ISBN"
-          className="my-1 flex items-center text-[0.9rem] leading-[1.5]"
-          labelClassName="font-bold"
-        >
-          <Link
-            href={`https://www.books.or.jp/book-details/${book.isbn}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline"
+        <dl className="m-0">
+          <DetailProperty icon={faUser} label="著者" labelClassName="font-bold">
+            {book.author}
+          </DetailProperty>
+          <DetailProperty
+            icon={faBookmark}
+            label="出版社"
+            labelClassName="font-bold"
           >
-            {book.isbn}
-          </Link>
-        </DetailProperty>
-        <DetailProperty
-          icon={faCalendarAlt}
-          label="読了日"
-          className="my-1 flex items-center text-[0.9rem] leading-[1.5]"
-          labelClassName="font-bold"
-        >
-          {book.readDate}
-        </DetailProperty>
+            {book.publisher}
+          </DetailProperty>
+          <DetailProperty
+            icon={faBarcode}
+            label="ISBN"
+            labelClassName="font-bold"
+          >
+            <Link
+              href={`https://www.books.or.jp/book-details/${book.isbn}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`ISBN ${book.isbn} を books.or.jp で開く（新しいタブ）`}
+              className="hover:underline"
+            >
+              {book.isbn}
+            </Link>
+          </DetailProperty>
+          <DetailProperty
+            icon={faCalendarAlt}
+            label="読了日"
+            labelClassName="font-bold"
+          >
+            {book.readDate}
+          </DetailProperty>
+        </dl>
       </div>
     </div>
   );

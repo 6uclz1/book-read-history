@@ -33,12 +33,13 @@ export default function BookHighlights({
             {asin && (
               <a
                 href={`kindle://book?action=open&asin=${asin}&location=${highlight.location}`}
-                className="mt-2 inline-block text-sm hover:underline"
-                style={{ display: "block", textAlign: "right" }}
+                // Kindle アプリが起動することはリンク文字列からは伝わらない
+                aria-label={`Kindleアプリで位置No.${highlight.location}を開く`}
+                className="mt-2 block text-right text-sm text-app-muted hover:underline"
               >
                 Location. {highlight.location}
                 <span className="ml-[6px]">
-                  <FontAwesomeIcon icon={faExternalLinkAlt} />
+                  <FontAwesomeIcon icon={faExternalLinkAlt} aria-hidden />
                 </span>
               </a>
             )}
