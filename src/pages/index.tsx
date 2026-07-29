@@ -1,14 +1,18 @@
 import { type MouseEvent, useCallback } from "react";
 import { useRouter } from "next/router";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { BookGrid, MainLayout, YearFilter } from "@/components";
 import { books } from "@/data/books";
 import { useBookFilter } from "@/hooks/useBookFilter";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import type { BookSummary } from "@/types/book";
 
-export default function Home() {
+export default function Home({
+  books: bookSummaries,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
   const { selectedYear, setSelectedYear, filteredBooks, availableYears } =
-    useBookFilter(books);
+    useBookFilter(bookSummaries);
   const { displayedBooks, observerTarget, hasMore, isLoading } =
     useInfiniteScroll(filteredBooks, selectedYear);
 
@@ -45,3 +49,20 @@ export default function Home() {
     </MainLayout>
   );
 }
+
+// 一覧ではハイライト本文を一切使わないため、ビルド時に切り落とす。
+// これを直接importすると全ハイライト（データ全体の約6割）が
+// クライアントバンドルに載ってしまう。
+export const getStaticProps: GetStaticProps<{
+  books: BookSummary[];
+}> = async () => {
+  const summaries = books.map(
+    ({ highlights: _highlights, ...summary }): BookSummary => summary,
+  );
+
+  return {
+    props: {
+      books: summaries,
+    },
+  };
+};

@@ -11,15 +11,15 @@ import {
   ITEMS_PER_PAGE,
   STORAGE_KEYS,
 } from "@/constants/books";
-import { Book } from "@/types/book";
+import { BookSummary } from "@/types/book";
 import {
   buildStorageKey,
   readSessionStorage,
   writeSessionStorage,
 } from "@/utils/storage";
 
-interface UseInfiniteScrollReturn {
-  displayedBooks: Book[];
+interface UseInfiniteScrollReturn<T> {
+  displayedBooks: T[];
   observerTarget: React.RefObject<HTMLDivElement | null>;
   hasMore: boolean;
   isLoading: boolean;
@@ -28,11 +28,11 @@ interface UseInfiniteScrollReturn {
 const LOAD_DELAY_MS = 100;
 const OBSERVER_THRESHOLD = 1.0;
 
-export function useInfiniteScroll(
-  filteredBooks: Book[],
+export function useInfiniteScroll<T extends BookSummary>(
+  filteredBooks: T[],
   scope: string = "",
-): UseInfiniteScrollReturn {
-  const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
+): UseInfiniteScrollReturn<T> {
+  const [displayedBooks, setDisplayedBooks] = useState<T[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
   const loadTimeoutRef = useRef<number | undefined>(undefined);

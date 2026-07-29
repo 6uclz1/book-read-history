@@ -1,9 +1,9 @@
 import { type MouseEvent, forwardRef } from "react";
 import { BookCard } from "@/components";
-import type { Book } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 
 interface BookGridProps {
-  books: Book[];
+  books: BookSummary[];
   onCardClick: (id: string) => void;
   onIsbnClick: (event: MouseEvent<HTMLAnchorElement>, isbn: string) => void;
   hasMore?: boolean;

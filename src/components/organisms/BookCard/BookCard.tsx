@@ -8,10 +8,10 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { DetailProperty } from "@/components";
-import type { Book } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 
 interface BookCardProps {
-  book: Book;
+  book: BookSummary;
   onCardClick: (id: string) => void;
   onIsbnClick: (event: MouseEvent<HTMLAnchorElement>, isbn: string) => void;
 }
