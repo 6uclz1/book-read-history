@@ -4,9 +4,8 @@ import {
   faCalendarAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import Image from "next/image";
 import Link from "next/link";
-import { DetailProperty } from "@/components";
+import { BookCover, DetailProperty } from "@/components";
 import type { Book } from "@/types/book";
 
 interface BookDetailsProps {
@@ -17,13 +16,12 @@ export default function BookDetails({ book }: BookDetailsProps) {
   return (
     <div className="my-8 flex w-full max-w-[1200px] flex-col rounded-card border border-app-border bg-app-surface p-6 md:flex-row">
       <div className="mb-8 flex-shrink-0 md:mr-8 md:mb-0 md:basis-[350px]">
-        <Image
+        <BookCover
           src={book.thumbnailImage}
-          // 書名は隣接する h1 が読み上げるため、表紙画像は装飾扱いにする
-          alt=""
           width={350}
           height={500}
-          className="h-auto w-full rounded-lg bg-app-surface-subtle object-contain object-center md:h-[500px] md:w-[350px] dark:brightness-90"
+          frameClassName="h-[420px] md:h-[500px] md:w-[350px]"
+          imageClassName="dark:brightness-90"
         />
       </div>
       <div className="flex w-full flex-col justify-center">
@@ -52,7 +50,7 @@ export default function BookDetails({ book }: BookDetailsProps) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`ISBN ${book.isbn} を books.or.jp で開く（新しいタブ）`}
-              className="hover:underline"
+              className="text-app-accent hover:underline"
             >
               {book.isbn}
             </Link>
