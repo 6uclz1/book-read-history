@@ -10,7 +10,7 @@ export default function Home() {
   const { selectedYear, setSelectedYear, filteredBooks, availableYears } =
     useBookFilter(books);
   const { displayedBooks, observerTarget, hasMore, isLoading } =
-    useInfiniteScroll(filteredBooks);
+    useInfiniteScroll(filteredBooks, selectedYear);
 
   const handleCardClick = useCallback(
     (id: string) => {

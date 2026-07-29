@@ -30,6 +30,7 @@ const OBSERVER_THRESHOLD = 1.0;
 
 export function useInfiniteScroll(
   filteredBooks: Book[],
+  scope: string = "",
 ): UseInfiniteScrollReturn {
   const [displayedBooks, setDisplayedBooks] = useState<Book[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,9 +38,11 @@ export function useInfiniteScroll(
   const loadTimeoutRef = useRef<number | undefined>(undefined);
   const router = useRouter();
 
+  // 表示件数はフィルタ条件ごとに保持する。
+  // パスだけをキーにすると、年を切り替えた直後に別条件の件数が復元されてしまう。
   const itemCountStorageKey = buildStorageKey(
     STORAGE_KEYS.itemCountPrefix,
-    router.asPath || "/",
+    scope ? `${router.asPath || "/"}:${scope}` : router.asPath || "/",
   );
 
   const loadMore = useCallback(() => {
