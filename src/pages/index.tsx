@@ -32,6 +32,9 @@ export default function Home({
 
   return (
     <MainLayout>
+      {/* ページ内に h1 が存在しないと見出しジャンプの起点がなくなる */}
+      <h1 className="mb-6 text-center text-2xl font-bold">読書記録</h1>
+
       <YearFilter
         selectedYear={selectedYear}
         onYearChange={setSelectedYear}

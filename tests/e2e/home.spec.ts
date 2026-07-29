@@ -42,7 +42,7 @@ test.describe("Home page", () => {
 
     await expect(page).toHaveURL(/\/items\//);
     await expect(
-      page.getByRole("heading", { level: 2, name: BOOK_TITLE_2015 }),
+      page.getByRole("heading", { level: 1, name: BOOK_TITLE_2015 }),
     ).toBeVisible();
     await expect(page.getByText(BOOK_2015_READ_DATE)).toBeVisible();
 
