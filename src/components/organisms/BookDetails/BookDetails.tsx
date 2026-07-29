@@ -19,10 +19,11 @@ export default function BookDetails({ book }: BookDetailsProps) {
       <div className="mb-8 flex-shrink-0 md:mr-8 md:mb-0 md:basis-[350px]">
         <Image
           src={book.thumbnailImage}
-          alt={book.title}
+          // 書名は隣接する h1 が読み上げるため、表紙画像は装飾扱いにする
+          alt=""
           width={350}
           height={500}
-          className="h-auto w-full rounded-lg object-cover object-center dark:brightness-90 md:h-[500px] md:w-[350px]"
+          className="h-auto w-full rounded-lg bg-app-surface-subtle object-contain object-center md:h-[500px] md:w-[350px] dark:brightness-90"
         />
       </div>
       <div className="flex w-full flex-col justify-center">

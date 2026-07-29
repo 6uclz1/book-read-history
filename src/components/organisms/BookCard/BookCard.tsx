@@ -1,11 +1,14 @@
 import {
   faBarcode,
+  faBook,
   faBookmark,
   faCalendarAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { DetailProperty } from "@/components";
 import type { BookSummary } from "@/types/book";
 
@@ -22,20 +25,34 @@ const stretchedLinkClassName =
   "after:absolute after:inset-0 after:content-[''] hover:underline";
 
 export default function BookCard({ book }: BookCardProps) {
+  // 書影のホストは外部サービスのため、404 でも alt テキストが
+  // レイアウトを破壊しないようプレースホルダへ差し替える
+  const [hasImageError, setHasImageError] = useState(false);
+
   return (
     <article className={cardClassName}>
-      <div className="relative flex overflow-hidden rounded-lg">
-        <Image
-          src={book.thumbnailImage}
-          // 書名は直後の見出しで読み上げられるため、表紙画像は装飾扱いにする
-          alt=""
-          width={350}
-          height={320}
-          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
-          className="h-[320px] w-full rounded-lg object-cover object-right-top transition-transform duration-500 ease-in-out group-hover:scale-108 dark:brightness-90"
-        />
+      <div className="relative flex aspect-3/4 w-full items-center justify-center overflow-hidden rounded-lg bg-app-surface-subtle">
+        {hasImageError ? (
+          <span className="flex flex-col items-center gap-2 text-app-muted">
+            <FontAwesomeIcon icon={faBook} size="2x" aria-hidden />
+            <span className="text-xs">表紙画像なし</span>
+          </span>
+        ) : (
+          <Image
+            src={book.thumbnailImage}
+            // 書名は直後の見出しで読み上げられるため、表紙画像は装飾扱いにする
+            alt=""
+            width={350}
+            height={466}
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
+            onError={() => setHasImageError(true)}
+            // 判型が異なる書影を cover で切り抜くと端が欠けるため contain で収める
+            className="h-full w-full object-contain transition-transform duration-500 ease-in-out group-hover:scale-105 motion-reduce:transform-none dark:brightness-90"
+          />
+        )}
       </div>
-      <h2 className="my-4 text-base leading-snug font-bold">
+      {/* タイトルの行数がカードごとに違うとメタ情報の縦位置がずれるため高さを揃える */}
+      <h2 className="my-4 line-clamp-2 min-h-[2.75rem] text-base leading-snug font-bold">
         <Link
           href={`/items/${book.id}`}
           aria-label={`${book.title}の詳細を表示`}
