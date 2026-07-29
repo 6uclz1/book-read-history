@@ -1,5 +1,5 @@
 import { ALL_YEARS_LABEL } from "@/constants/books";
-import { BookSummary } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 
 const DATE_DELIMITER = "/";
 

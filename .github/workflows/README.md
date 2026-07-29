@@ -1,169 +1,63 @@
 # GitHub Actions ワークフロー
 
-このディレクトリには、読書管理アプリのCI/CDパイプラインを定義するGitHub Actionsワークフローが含まれています。
+このディレクトリには、読書管理アプリの CI/CD パイプラインを定義するワークフローが含まれています。
 
-## ワークフロー概要
+## ワークフロー一覧
 
-### 1. CI ワークフロー (`ci.yml`)
+### 1. Quality (`quality.yml`)
 
-**トリガー条件:**
-- `main`, `develop` ブランチへのプッシュ
-- `main`, `develop` ブランチへのプルリクエスト
+**トリガー**: `main` へのプッシュ / すべてのプルリクエスト
 
-**ジョブ構成:**
+`npm run lint`（Biome）、`npm run format`（フォーマット差分チェック）、
+`npm run typecheck`（`tsc --noEmit`）、`npm run build` を順に実行します。
+最後に `npm run convert` を実行し、`public/books.ts` と `export.json` が
+CSV から再生成した内容と一致するか（＝データ再生成の忘れがないか）を検証します。
 
-#### test ジョブ
-- **実行環境**: Ubuntu Latest
-- **Node.js バージョン**: 18.x, 20.x (マトリックス)
-- **実行内容**:
-  - リポジトリのチェックアウト
-  - Node.js のセットアップ
-  - 依存関係のインストール
-  - ESLint実行
-  - TypeScript型チェック
-  - ユニット・統合テスト実行
-  - コードカバレッジのCodecovへのアップロード
+### 2. Unit Tests (`unit-tests.yml`)
 
-#### build ジョブ
-- **依存関係**: test ジョブの成功
-- **実行内容**:
-  - アプリケーションのビルド検証
+**トリガー**: `main` へのプッシュ / すべてのプルリクエスト
 
-#### e2e ジョブ
-- **依存関係**: test ジョブの成功
-- **実行内容**:
-  - Playwrightブラウザのインストール
-  - アプリケーションのビルド
-  - E2Eテストの実行（Playwrightが自動でサーバー起動）
-  - テスト結果・レポートのアーティファクト保存
+Vitest をカバレッジ付きで実行し、結果を PR にコメントします。
+カバレッジ閾値は `vitest.config.ts` で定義しています（対象は `src/utils/**`）。
 
-#### security ジョブ
-- **実行条件**: プルリクエスト時のみ
-- **実行内容**:
-  - セキュリティ監査
-  - 依存関係チェック
+### 3. E2E Tests (`e2e-tests.yml`)
 
-#### performance ジョブ
-- **依存関係**: test ジョブの成功
-- **実行条件**: プルリクエスト時のみ
-- **実行内容**:
-  - アプリケーションのビルド
-  - Lighthouse CIによるパフォーマンス測定（自動でサーバー起動）
+**トリガー**: `main` へのプッシュ / すべてのプルリクエスト
 
-### 2. Deploy ワークフロー (`deploy.yml`)
+Playwright で Chromium / Firefox / WebKit の 3 ブラウザを起動し、
+`tests/e2e` のシナリオを実行します。サーバーは `playwright.config.ts` の
+`webServer` 設定が自動で起動します（CI では本番ビルドを使用）。
 
-**トリガー条件:**
-- `main` ブランチへのプッシュ（ステージング）
-- リリース公開時（プロダクション）
+### 4. CodeQL (`codeql.yml`)
 
-**ジョブ構成:**
+**トリガー**: `main` / `develop` へのプッシュ、`main` 向けプルリクエスト、毎週日曜の定期実行
 
-#### deploy-staging ジョブ
-- **実行条件**: main ブランチへのプッシュ
-- **環境**: staging
-- **実行内容**:
-  - テスト実行
-  - ビルド
-  - Vercelステージング環境へのデプロイ
+`security-extended` と `security-and-quality` のクエリセットで静的解析を行います。
 
-#### deploy-production ジョブ
-- **実行条件**: リリース公開時
-- **環境**: production
-- **実行内容**:
-  - フルテストスイート実行
-  - ビルド
-  - Vercelプロダクション環境へのデプロイ
-  - デプロイステータスの更新
+### 5. Deploy to GitHub Pages (`nextjs.yml`)
 
-### 3. CodeQL ワークフロー (`codeql.yml`)
+**トリガー**: `main` へのプッシュ、または手動実行（`workflow_dispatch`）
 
-**トリガー条件:**
-- `main`, `develop` ブランチへのプッシュ
-- `main` ブランチへのプルリクエスト
-- 毎週日曜日の定期実行
+Next.js をビルドして `out/` を GitHub Pages へデプロイします。
 
-**実行内容:**
-- GitHubのCodeQL分析
-- セキュリティ・品質の両方の観点からコード分析
-- 脆弱性の自動検出
+### 6. Dependabot (`../dependabot.yml`)
 
-### 4. Dependabot 設定 (`dependabot.yml`)
+npm パッケージと GitHub Actions の依存を毎週更新します。
 
-**更新スケジュール:**
-- 毎週月曜日 09:00 UTC
-- npm パッケージの依存関係更新
-- GitHub Actions の依存関係更新
+## ローカルでの事前確認
 
-**設定詳細:**
-- 同時オープンPR数: 最大5件
-- 自動アサイン・レビュー設定
-- 適切なラベル付け
+PR を出す前に、Quality ワークフローと同じチェックをローカルで実行できます。
 
-## 必要なシークレット設定
-
-### Vercel デプロイ用
+```bash
+npm run lint
+npm run format     # 差分があれば失敗。npm run lint:fix で自動修正
+npm run typecheck
+npm run build
+npm run test
 ```
-VERCEL_TOKEN          # Vercelアクセストークン
-VERCEL_ORG_ID         # Vercel組織ID
-VERCEL_PROJECT_ID     # VercelプロジェクトID
-```
-
-### コードカバレッジ用
-```
-CODECOV_TOKEN         # Codecovアップロード用トークン
-```
-
-### Lighthouse CI用（オプション）
-```
-LHCI_GITHUB_APP_TOKEN # Lighthouse CI GitHub Appトークン
-```
-
-## パフォーマンス基準
-
-### Lighthouse スコア閾値
-- **パフォーマンス**: 80点以上（警告）
-- **アクセシビリティ**: 90点以上（エラー）
-- **ベストプラクティス**: 80点以上（警告）
-- **SEO**: 80点以上（警告）
-- **PWA**: 無効
-
-### テストカバレッジ基準
-- **ユニットテスト**: 80%以上
-- **統合テスト**: 主要機能100%
-- **E2Eテスト**: クリティカルパス100%
 
 ## トラブルシューティング
 
-### よくある問題
-
-1. **E2Eテストの失敗**
-   - Playwright レポートをアーティファクトからダウンロード
-   - ブラウザの互換性問題を確認
-
-2. **ビルドエラー**
-   - TypeScript型エラーの確認
-   - 依存関係の不整合をチェック
-
-3. **デプロイ失敗**
-   - Vercelシークレット設定の確認
-   - ビルド成果物の確認
-
-### ログとアーティファクト
-
-- テスト結果: `playwright-results` アーティファクト
-- テストレポート: `playwright-report` アーティファクト（失敗時）
-- ビルド成果物: `build-files` アーティファクト
-- コードカバレッジ: Codecov ダッシュボード
-
-## メンテナンス
-
-### 定期的な確認事項
-- 依存関係の更新（Dependabot PR）
-- セキュリティアラートの対応
-- パフォーマンス指標の監視
-- テスト実行時間の最適化
-
-### ワークフロー更新時の注意点
-- 本番環境への影響を最小限に
-- テスト環境での事前検証
-- ロールバック手順の準備
+- **E2E テストの失敗**: 失敗時のみスクリーンショット・トレース・動画が保存されます（`playwright.config.ts`）。
+- **Quality の「データ再生成」ステップの失敗**: `public/*.csv` を更新した際に `npm run convert` を実行し忘れています。ローカルで実行して差分をコミットしてください。
+- **ビルドエラー**: まず `npm run typecheck` で型エラーを切り分けてください。

@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { BOOKS_RENDERED_EVENT, STORAGE_KEYS } from "@/constants/books";
-import { buildStorageKey, readSessionStorage, writeSessionStorage } from "@/utils/storage";
+import {
+  buildStorageKey,
+  readSessionStorage,
+  writeSessionStorage,
+} from "@/utils/storage";
 
 const FALLBACK_DELAY_MS = 300;
 const MAX_ATTEMPTS = 5;

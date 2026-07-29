@@ -11,7 +11,7 @@ import {
   ITEMS_PER_PAGE,
   STORAGE_KEYS,
 } from "@/constants/books";
-import { BookSummary } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 import {
   buildStorageKey,
   readSessionStorage,
@@ -120,6 +120,7 @@ export function useInfiniteScroll<T extends BookSummary>(
     writeSessionStorage(itemCountStorageKey, String(displayedBooks.length));
   }, [displayedBooks.length, itemCountStorageKey]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 描画済み件数が変わるたびに通知する必要があるため意図的な依存
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.dispatchEvent(new Event(BOOKS_RENDERED_EVENT));

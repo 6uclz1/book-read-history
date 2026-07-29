@@ -13,7 +13,7 @@ export default function YearFilter({
   availableYears,
 }: YearFilterProps) {
   return (
-    <div className="flex flex-1" role="region" aria-label="年度フィルター">
+    <section className="flex flex-1" aria-label="年度フィルター">
       <div
         className="mb-2 flex flex-wrap justify-center gap-4"
         role="tablist"
@@ -22,7 +22,9 @@ export default function YearFilter({
         {availableYears.map((year) => {
           const isSelected = year === selectedYear;
           const label =
-            year === ALL_YEARS_LABEL ? "すべての年の本を表示" : `${year}年の本を表示`;
+            year === ALL_YEARS_LABEL
+              ? "すべての年の本を表示"
+              : `${year}年の本を表示`;
 
           return (
             <Button
@@ -38,6 +40,6 @@ export default function YearFilter({
           );
         })}
       </div>
-    </div>
+    </section>
   );
 }

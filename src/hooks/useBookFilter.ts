@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { ALL_YEARS_LABEL, STORAGE_KEYS } from "@/constants/books";
-import { BookSummary } from "@/types/book";
+import type { BookSummary } from "@/types/book";
 import { deriveAvailableYears, filterBooksByYear } from "@/utils/books";
 import { readSessionStorage, writeSessionStorage } from "@/utils/storage";
 

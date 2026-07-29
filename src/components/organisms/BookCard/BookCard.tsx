@@ -1,4 +1,4 @@
-import { type KeyboardEvent, type MouseEvent } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -36,6 +36,7 @@ export default function BookCard({
   };
 
   return (
+    // biome-ignore lint/a11y/useSemanticElements: カード全体を <Link> 化する対応（ISBNリンクの入れ子解消を含む）は別途行う
     <div
       className={cardClassName}
       onClick={() => onCardClick(book.id)}

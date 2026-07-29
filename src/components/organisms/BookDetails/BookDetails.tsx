@@ -26,7 +26,9 @@ export default function BookDetails({ book }: BookDetailsProps) {
         />
       </div>
       <div className="flex w-full flex-col justify-center">
-        <h2 className="mb-4 text-[2rem] font-bold leading-[1.15]">{book.title}</h2>
+        <h2 className="mb-4 text-[2rem] font-bold leading-[1.15]">
+          {book.title}
+        </h2>
         <div className="my-6 border-b border-[#222]" />
         <DetailProperty
           icon={faUser}
