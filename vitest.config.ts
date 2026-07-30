@@ -17,10 +17,14 @@ export default defineConfig({
       reportsDirectory: "coverage",
       include: ["src/utils/**/*.ts"],
       all: true,
-      lines: 100,
-      functions: 100,
-      statements: 100,
-      branches: 100,
+      // 閾値は coverage.thresholds に置かないと読まれない。
+      // 直下に書いていた間は 100% 未満でも CI が緑になっていた。
+      thresholds: {
+        lines: 100,
+        functions: 100,
+        statements: 100,
+        branches: 100,
+      },
     },
   },
   resolve: {

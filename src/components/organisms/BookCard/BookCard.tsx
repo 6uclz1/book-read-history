@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookCover, DetailProperty } from "@/components";
+import { BookCover, DetailProperty, IsbnLink } from "@/components";
 import type { BookSummary } from "@/types/book";
 
 interface BookCardProps {
@@ -43,15 +43,7 @@ export default function BookCard({ book }: BookCardProps) {
         </DetailProperty>
         <DetailProperty icon="barcode" label="ISBN">
           {/* stretched link の擬似要素より前面に出さないとクリックできない */}
-          <Link
-            href={`https://www.books.or.jp/book-details/${book.isbn}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`ISBN ${book.isbn} を books.or.jp で開く（新しいタブ）`}
-            className="relative z-10 text-app-accent hover:underline"
-          >
-            {book.isbn}
-          </Link>
+          <IsbnLink isbn={book.isbn} className="relative z-10" />
         </DetailProperty>
         <DetailProperty icon="calendar" label="読了日">
           {book.readDate}

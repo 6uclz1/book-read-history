@@ -32,7 +32,14 @@ export function useInfiniteScroll<T extends BookSummary>(
   filteredBooks: T[],
   scope: string = "",
 ): UseInfiniteScrollReturn<T> {
-  const [displayedBooks, setDisplayedBooks] = useState<T[]>([]);
+  // 初期値を空にすると、静的 HTML にカードが 1 枚も含まれない状態で
+  // 配信され、JS 実行後に初めて一覧が現れる（LCP がスクリプト依存になり、
+  // JS を切った環境やクローラには空の一覧が見える）。
+  // サーバーとクライアントで同じ 1 ページ目を描き、
+  // sessionStorage からの件数復元はマウント後に上書きする。
+  const [displayedBooks, setDisplayedBooks] = useState<T[]>(() =>
+    filteredBooks.slice(0, ITEMS_PER_PAGE),
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const observerTarget = useRef<HTMLDivElement | null>(null);
   const loadTimeoutRef = useRef<number | undefined>(undefined);

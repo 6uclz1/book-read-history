@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { ALL_YEARS_LABEL } from "@/constants/books";
 import type { Book } from "@/types/book";
-import { deriveAvailableYears, filterBooksByYear } from "@/utils/books";
+import {
+  buildIsbnUrl,
+  deriveAvailableYears,
+  filterBooksByYear,
+} from "@/utils/books";
 
 const baseBooks: Book[] = [
   {
@@ -48,6 +52,11 @@ describe("deriveAvailableYears", () => {
   it("handles empty book lists", () => {
     expect(deriveAvailableYears([])).toEqual([ALL_YEARS_LABEL]);
   });
+
+  it("skips books whose read date is missing", () => {
+    const years = deriveAvailableYears([{ ...baseBooks[0], readDate: "" }]);
+    expect(years).toEqual([ALL_YEARS_LABEL]);
+  });
 });
 
 describe("filterBooksByYear", () => {
@@ -66,5 +75,26 @@ describe("filterBooksByYear", () => {
   it("returns an empty array when no books match the year", () => {
     const filtered = filterBooksByYear(baseBooks, "2020");
     expect(filtered).toHaveLength(0);
+  });
+});
+
+describe("buildIsbnUrl", () => {
+  it("builds the books.or.jp detail URL", () => {
+    expect(buildIsbnUrl("9780000000001")).toBe(
+      "https://www.books.or.jp/book-details/9780000000001",
+    );
+  });
+
+  it("returns null for missing or blank ISBNs", () => {
+    expect(buildIsbnUrl("")).toBeNull();
+    expect(buildIsbnUrl("   ")).toBeNull();
+    expect(buildIsbnUrl(null)).toBeNull();
+    expect(buildIsbnUrl(undefined)).toBeNull();
+  });
+
+  it("encodes unexpected characters instead of injecting them into the path", () => {
+    expect(buildIsbnUrl("978/../evil")).toBe(
+      "https://www.books.or.jp/book-details/978%2F..%2Fevil",
+    );
   });
 });

@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { BookCover, DetailProperty } from "@/components";
+import { BookCover, DetailProperty, IsbnLink } from "@/components";
 import type { Book } from "@/types/book";
 
 interface BookDetailsProps {
@@ -39,15 +38,7 @@ export default function BookDetails({ book }: BookDetailsProps) {
             label="ISBN"
             labelClassName="font-bold"
           >
-            <Link
-              href={`https://www.books.or.jp/book-details/${book.isbn}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`ISBN ${book.isbn} を books.or.jp で開く（新しいタブ）`}
-              className="text-app-accent hover:underline"
-            >
-              {book.isbn}
-            </Link>
+            <IsbnLink isbn={book.isbn} />
           </DetailProperty>
           <DetailProperty
             icon="calendar"
