@@ -1,5 +1,4 @@
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icon } from "@/components";
 import type { Highlight } from "@/types/book";
 
 interface BookHighlightsProps {
@@ -39,7 +38,7 @@ export default function BookHighlights({
               >
                 Location. {highlight.location}
                 <span className="ml-[6px]">
-                  <FontAwesomeIcon icon={faExternalLinkAlt} aria-hidden />
+                  <Icon name="externalLink" />
                 </span>
               </a>
             )}

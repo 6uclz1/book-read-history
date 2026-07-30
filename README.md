@@ -13,7 +13,7 @@
 - **フレームワーク**: Next.js 15.x（Pages Router）
 - **言語**: TypeScript 5.9（strict モード）
 - **UI**: Tailwind CSS v4（CSS ファースト設定。配色は `src/styles/globals.css` の `--app-*` トークンに集約し、`prefers-color-scheme` でライト/ダークを切り替え）
-- **アイコン**: Font Awesome（`src/fontawesome.ts` で全 Solid アイコンを登録）
+- **アイコン**: 自前の SVG アイコン（`src/components/atoms/Icon` に必要なものだけを定義）
 - **リンター/フォーマッター**: Biome（`lint` / `lint:fix` / `format`）
 - **データ変換**: Node.js スクリプト `convert.js`（CSV→型安全な TS + JSON 出力）
 
@@ -83,7 +83,7 @@ npm run books:update # convert のエイリアス（慣用コマンド）
 - 年選択・表示冊数・スクロール位置は `sessionStorage` に保持し、`storage` ユーティリティで安全に読み書きしています。
 - 無限スクロールは Intersection Observer + 遅延ロードで負荷を抑え、`books-rendered` イベントでスクロール復元と連携しています。
 - 詳細画面の Kindle リンクは ASIN が生成できる ISBN のみ deeplink を表示し、未対応の本でも一覧からの遷移は阻害しません。
-- Font Awesome の Solid アイコンをグローバル登録し、アイコン読み込みを 1 か所に集約しています。
+- アイコンは `Icon` コンポーネントの `name` で指定します。新しいアイコンは `src/components/atoms/Icon/Icon.tsx` の `paths` に 24x24 の SVG として追加してください。
 - 配色は `--app-*` トークン経由でのみ参照します。`bg-black` や `#222` のような直値を足すと、片方のカラースキームで文字や境界線が消えるため避けてください。
 - カードは stretched link パターン（擬似要素をカード全面に広げる）で全体をクリック可能にしています。カード内に別のリンクを足す場合は `relative z-10` で前面に出してください。
 

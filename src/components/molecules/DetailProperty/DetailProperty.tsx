@@ -1,9 +1,8 @@
-import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactNode } from "react";
+import Icon, { type IconName } from "../../atoms/Icon/Icon";
 
 interface DetailPropertyProps {
-  icon: IconDefinition;
+  icon: IconName;
   label: string;
   children: ReactNode;
   className?: string;
@@ -34,7 +33,7 @@ export default function DetailProperty({
   return (
     <div className={containerClasses}>
       <dt className={labelClasses}>
-        <FontAwesomeIcon icon={icon} className="mr-[0.45rem]" aria-hidden />
+        <Icon name={icon} className="mr-[0.45rem]" />
         {label}
       </dt>
       <dd className="m-0 break-words">{children}</dd>

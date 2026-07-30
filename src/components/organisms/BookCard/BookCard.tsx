@@ -1,9 +1,3 @@
-import {
-  faBarcode,
-  faBookmark,
-  faCalendarAlt,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { BookCover, DetailProperty } from "@/components";
 import type { BookSummary } from "@/types/book";
@@ -41,13 +35,13 @@ export default function BookCard({ book }: BookCardProps) {
         </Link>
       </h2>
       <dl className="m-0">
-        <DetailProperty icon={faUser} label="著者">
+        <DetailProperty icon="user" label="著者">
           {book.author}
         </DetailProperty>
-        <DetailProperty icon={faBookmark} label="出版社">
+        <DetailProperty icon="bookmark" label="出版社">
           {book.publisher}
         </DetailProperty>
-        <DetailProperty icon={faBarcode} label="ISBN">
+        <DetailProperty icon="barcode" label="ISBN">
           {/* stretched link の擬似要素より前面に出さないとクリックできない */}
           <Link
             href={`https://www.books.or.jp/book-details/${book.isbn}`}
@@ -59,7 +53,7 @@ export default function BookCard({ book }: BookCardProps) {
             {book.isbn}
           </Link>
         </DetailProperty>
-        <DetailProperty icon={faCalendarAlt} label="読了日">
+        <DetailProperty icon="calendar" label="読了日">
           {book.readDate}
         </DetailProperty>
       </dl>
