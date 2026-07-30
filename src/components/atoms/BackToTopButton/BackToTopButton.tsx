@@ -1,6 +1,5 @@
-import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import Icon from "../Icon/Icon";
 
 const SHOW_THRESHOLD_PX = 600;
 
@@ -40,7 +39,7 @@ export default function BackToTopButton() {
       aria-label="ページの先頭に戻る"
       className="fixed right-4 bottom-4 z-40 flex size-12 cursor-pointer items-center justify-center rounded-full border border-app-border-strong bg-app-surface text-app-fg shadow-lg transition-colors hover:border-app-accent hover:text-app-accent"
     >
-      <FontAwesomeIcon icon={faArrowUp} aria-hidden />
+      <Icon name="arrowUp" width="1.25em" height="1.25em" />
     </button>
   );
 }

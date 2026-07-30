@@ -1,7 +1,5 @@
-import { faBookOpen } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { forwardRef } from "react";
-import { BookCard } from "@/components";
+import { BookCard, Icon } from "@/components";
 import type { BookSummary } from "@/types/book";
 
 interface BookGridProps {
@@ -17,7 +15,7 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
     if (totalCount === 0) {
       return (
         <div className="flex flex-col items-center gap-3 py-16 text-app-muted">
-          <FontAwesomeIcon icon={faBookOpen} size="2x" aria-hidden />
+          <Icon name="bookOpen" width="2em" height="2em" />
           <p>この条件で読んだ本はまだありません。</p>
         </div>
       );

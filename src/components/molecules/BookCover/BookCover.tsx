@@ -1,7 +1,6 @@
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { useState } from "react";
+import Icon from "../../atoms/Icon/Icon";
 
 interface BookCoverProps {
   src: string;
@@ -41,7 +40,7 @@ export default function BookCover({
     return (
       <div className={[frameClasses, fallbackFrameClass].join(" ")}>
         <span className="flex flex-col items-center gap-2 text-app-muted">
-          <FontAwesomeIcon icon={faBook} size="2x" aria-hidden />
+          <Icon name="book" width="2em" height="2em" />
           <span className="text-xs">表紙画像なし</span>
         </span>
       </div>

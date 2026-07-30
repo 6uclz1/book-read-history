@@ -1,9 +1,3 @@
-import {
-  faBarcode,
-  faBookmark,
-  faCalendarAlt,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { BookCover, DetailProperty } from "@/components";
 import type { Book } from "@/types/book";
@@ -30,18 +24,18 @@ export default function BookDetails({ book }: BookDetailsProps) {
         </h1>
         <div className="my-6 border-b border-app-border" />
         <dl className="m-0">
-          <DetailProperty icon={faUser} label="著者" labelClassName="font-bold">
+          <DetailProperty icon="user" label="著者" labelClassName="font-bold">
             {book.author}
           </DetailProperty>
           <DetailProperty
-            icon={faBookmark}
+            icon="bookmark"
             label="出版社"
             labelClassName="font-bold"
           >
             {book.publisher}
           </DetailProperty>
           <DetailProperty
-            icon={faBarcode}
+            icon="barcode"
             label="ISBN"
             labelClassName="font-bold"
           >
@@ -56,7 +50,7 @@ export default function BookDetails({ book }: BookDetailsProps) {
             </Link>
           </DetailProperty>
           <DetailProperty
-            icon={faCalendarAlt}
+            icon="calendar"
             label="読了日"
             labelClassName="font-bold"
           >
