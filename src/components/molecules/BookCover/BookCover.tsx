@@ -36,7 +36,10 @@ export default function BookCover({
     .filter(Boolean)
     .join(" ");
 
-  if (hasError) {
+  // src が空文字列の本が実データに存在する。next/image は空 src を
+  // 読み込み失敗として扱わない（onError も発火しない）ため、
+  // ここで先に弾かないとコンソールエラーのまま何も表示されなくなる。
+  if (!src || hasError) {
     return (
       <div className={[frameClasses, fallbackFrameClass].join(" ")}>
         <span className="flex flex-col items-center gap-2 text-app-muted">

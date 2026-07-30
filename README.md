@@ -10,8 +10,8 @@
 - **スクロール位置の復元**: 独自イベントと sessionStorage を組み合わせ、一覧↔詳細遷移後も最後に見ていたカード位置まで自動で戻す挙動を実装。
 
 ## 技術スタック
-- **フレームワーク**: Next.js 15.x（Pages Router）
-- **言語**: TypeScript 5.9（strict モード）
+- **フレームワーク**: Next.js 16.x（Pages Router）
+- **言語**: TypeScript 6.x（strict モード）
 - **UI**: Tailwind CSS v4（CSS ファースト設定。配色は `src/styles/globals.css` の `--app-*` トークンに集約し、`prefers-color-scheme` でライト/ダークを切り替え）
 - **アイコン**: 自前の SVG アイコン（`src/components/atoms/Icon` に必要なものだけを定義）
 - **リンター/フォーマッター**: Biome（`lint` / `lint:fix` / `format`）
@@ -20,7 +20,7 @@
 ## セットアップ
 
 ### 前提条件
-- Node.js 18 以上
+- Node.js 20.9 以上（Next.js 16 の要件。CI は Node 20 で実行）
 - npm
 
 ### インストールと開発開始
@@ -40,6 +40,7 @@ npm start            # 生成済みビルドをローカルで起動
 npm run lint         # Biome での静的解析
 npm run lint:fix     # Lint 違反の自動修正（biome check --write）
 npm run format       # Biome のフォーマッタのみ実行
+npm run typecheck    # tsc --noEmit による型検査
 npm run test         # Vitest によるユニットテストを実行
 npm run test:e2e     # Playwright で E2E テスト（自動で dev サーバー起動）
 npm run convert      # CSV から books.ts / export.json を再生成
@@ -85,13 +86,17 @@ npm run books:update # convert のエイリアス（慣用コマンド）
 - 詳細画面の Kindle リンクは ASIN が生成できる ISBN のみ deeplink を表示し、未対応の本でも一覧からの遷移は阻害しません。
 - アイコンは `Icon` コンポーネントの `name` で指定します。新しいアイコンは `src/components/atoms/Icon/Icon.tsx` の `paths` に 24x24 の SVG として追加してください。
 - 配色は `--app-*` トークン経由でのみ参照します。`bg-black` や `#222` のような直値を足すと、片方のカラースキームで文字や境界線が消えるため避けてください。
+- 一覧の 1 ページ目（48 冊）は SSR/SSG 時点で描画します。`useInfiniteScroll` の初期値を空にすると静的 HTML が空の一覧になるため、初期スライスはサーバー側と揃えてください。
+- 年フィルタの `sessionStorage` 復元はマウント後に行います。`useState` の初期化子で読むとハイドレーション不一致になります。
+- 書影 URL が空、または読み込みに失敗した本は `BookCover` がプレースホルダへ差し替えます。
+- ISBN を持たない本はリンクにせずプレーンテキストで表示します（`IsbnLink`）。
 - カードは stretched link パターン（擬似要素をカード全面に広げる）で全体をクリック可能にしています。カード内に別のリンクを足す場合は `relative z-10` で前面に出してください。
 
 ## コントリビューション
 [AGENTS.md](./AGENTS.md) にコーディング規約・レビュー手順などの詳細があります。Pull Request 作成前に `npm run lint` と `npm run build` を通過させてください。UI 変更がある場合はスクリーンショットの添付も推奨です。
 
 ## デプロイ
-[Vercel](https://vercel.com/) へのデプロイを推奨しています。GitHub リポジトリを接続すると自動ビルドとプレビューが利用できます。詳細は [Next.js Deployment ドキュメント](https://nextjs.org/docs/deployment) を参照してください。
+`main` への push で `.github/workflows/nextjs.yml` が実行され、GitHub Pages へ静的サイトとして公開されます。手動実行（`workflow_dispatch`）にも対応しています。
 
 ## ライセンス
 © 2024 読書管理. All rights reserved.

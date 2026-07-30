@@ -22,4 +22,4 @@ Vitest lives in `tests/utils` today; place new unit specs alongside features or 
 Follow Conventional Commits (`feat:`, `fix:`, `chore:`, etc.). Each PR should summarize scope, link relevant issues, and include before/after screenshots for UI changes. Note any data regeneration commands executed (`npm run books:update`). Keep branches rebased on `main`, ensure lint/build/test suites are green, and flag known gaps or TODOs in the description.
 
 ## Environment & Configuration
-Use Node.js 18+ to match Next.js expectations. Store secrets in `.env.local` only. Restart the dev server after running conversion scripts so regenerated book data loads. When debugging Playwright locally, export `PLAYWRIGHT_BASE_URL` to point at an existing server to skip auto-start.
+Use Node.js 20.9+ to match Next.js 16 expectations (CI runs Node 20). Store secrets in `.env.local` only. Restart the dev server after running conversion scripts so regenerated book data loads. When debugging Playwright locally, export `PLAYWRIGHT_BASE_URL` to point at an existing server to skip auto-start.
