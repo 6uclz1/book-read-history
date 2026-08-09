@@ -23,7 +23,7 @@ const BookGrid = forwardRef<HTMLDivElement, BookGridProps>(
 
     return (
       <div className="w-full">
-        <ul className="mx-auto grid w-full max-w-[1400px] list-none grid-cols-1 justify-items-center gap-6 p-0 sm:grid-cols-2 xl:grid-cols-3">
+        <ul className="mx-auto grid w-full max-w-[1400px] list-none grid-cols-2 justify-items-center gap-3 p-0 sm:gap-6 xl:grid-cols-3">
           {books.map((book) => (
             <li key={book.id} className="w-full max-w-[400px]">
               <BookCard book={book} />
