@@ -7,7 +7,9 @@ export type IconName =
   | "bookOpen"
   | "bookmark"
   | "calendar"
+  | "close"
   | "externalLink"
+  | "search"
   | "user";
 
 // 24x24 のグリッドで線幅を揃えた自前のアイコン。
@@ -55,11 +57,23 @@ const paths: Record<IconName, ReactElement> = {
       <path d="M15.5 3v4" />
     </>
   ),
+  close: (
+    <>
+      <path d="M5 5l14 14" />
+      <path d="M19 5 5 19" />
+    </>
+  ),
   externalLink: (
     <>
       <path d="M14 4h6v6" />
       <path d="M20 4l-8.5 8.5" />
       <path d="M18 14v4.25A1.75 1.75 0 0 1 16.25 20H5.75A1.75 1.75 0 0 1 4 18.25V7.75A1.75 1.75 0 0 1 5.75 6H10" />
+    </>
+  ),
+  search: (
+    <>
+      <circle cx="10.5" cy="10.5" r="6.5" />
+      <path d="m15.5 15.5 4.5 4.5" />
     </>
   ),
   user: (
