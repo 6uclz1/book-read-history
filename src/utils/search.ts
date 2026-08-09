@@ -54,10 +54,8 @@ export function getHighlightRanges(
   const offsets: HighlightRange[] = [];
 
   for (let start = 0; start < text.length; ) {
-    const codePoint = text.codePointAt(start);
-    if (codePoint === undefined) {
-      break;
-    }
+    // start < text.length の間だけ反復するため codePointAt は必ず値を返す。
+    const codePoint = text.codePointAt(start) as number;
     const character = String.fromCodePoint(codePoint);
     const end = start + character.length;
     const normalizedCharacter = normalizeSearchText(character);
@@ -76,11 +74,10 @@ export function getHighlightRanges(
       if (hit < 0) {
         break;
       }
-      const firstOffset = offsets[hit];
-      const lastOffset = offsets[hit + term.length - 1];
-      if (firstOffset && lastOffset) {
-        ranges.push({ start: firstOffset.start, end: lastOffset.end });
-      }
+      // normalizedText と offsets は同じループで構築するため添字は必ず存在する。
+      const firstOffset = offsets[hit] as HighlightRange;
+      const lastOffset = offsets[hit + term.length - 1] as HighlightRange;
+      ranges.push({ start: firstOffset.start, end: lastOffset.end });
       searchFrom = hit + Math.max(term.length, 1);
     }
   });

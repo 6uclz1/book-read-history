@@ -26,7 +26,7 @@ const books: Book[] = [
     author: "Kent Beck",
     publisher: "オーム社",
     isbn: "9784274217883",
-    asin: "4274217884",
+    asin: null,
     readDate: "2023/12/01",
     thumbnailImage: "",
     highlights: [],
@@ -46,11 +46,29 @@ describe("book search", () => {
     ]);
   });
 
+  it("merges overlapping highlight ranges", () => {
+    expect(getHighlightRanges("testing", ["test", "testing"])).toEqual([
+      { start: 0, end: 7 },
+    ]);
+  });
+
   it("searches across different fields and requires every term", () => {
     expect(
       searchBooks(books, "劉 宇宙").map((result) => result.book.id),
     ).toEqual(["1"]);
     expect(searchBooks(books, "早川 オーム社")).toEqual([]);
+  });
+
+  it("returns no results for an empty query", () => {
+    expect(searchBooks(books, "   ")).toEqual([]);
+  });
+
+  it("ranks exact and multiple book matches", () => {
+    expect(searchBooks(books, "三体")[0].book.id).toBe("1");
+    expect(searchBooks(books, "202").map((result) => result.book.id)).toEqual([
+      "1",
+      "2",
+    ]);
   });
 
   it("returns one result per book with matching snippets", () => {
@@ -71,5 +89,9 @@ describe("book search", () => {
     expect(snippet.startsWith("…")).toBe(true);
     expect(snippet.endsWith("…")).toBe(true);
     expect(snippet.length).toBeLessThanOrEqual(182);
+  });
+
+  it("uses the beginning when no snippet term matches", () => {
+    expect(createSearchSnippet("short text", ["missing"])).toBe("short text");
   });
 });
