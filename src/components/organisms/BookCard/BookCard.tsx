@@ -21,6 +21,7 @@ export default function BookCard({ book }: BookCardProps) {
         src={book.thumbnailImage}
         width={350}
         height={466}
+        fitFrame
         sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
         imageClassName="transition-transform duration-500 ease-in-out group-hover:scale-105 motion-reduce:transform-none dark:brightness-90"
       />
