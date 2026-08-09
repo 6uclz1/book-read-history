@@ -37,13 +37,17 @@ export default function BookCover({
 
   const frameClasses = [
     baseFrameClass,
-    fitFrame ? "aspect-3/4 bg-app-surface-subtle" : undefined,
+    fitFrame
+      ? "flex aspect-3/4 items-center justify-center bg-app-surface-subtle"
+      : undefined,
     frameClassName,
   ]
     .filter(Boolean)
     .join(" ");
   const imageClasses = [
-    fitFrame ? "h-full w-full object-contain" : "h-auto w-full",
+    fitFrame
+      ? "h-auto max-h-full w-auto max-w-full rounded-lg object-contain"
+      : "h-auto w-full",
     imageClassName,
   ]
     .filter(Boolean)
