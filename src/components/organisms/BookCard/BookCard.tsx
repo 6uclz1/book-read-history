@@ -36,17 +36,17 @@ export default function BookCard({ book }: BookCardProps) {
         </Link>
       </h2>
       <dl className="m-0">
-        <DetailProperty icon="user" label="著者">
+        <DetailProperty icon="user" label="著者" className="text-xs">
           {book.author}
         </DetailProperty>
-        <DetailProperty icon="bookmark" label="出版社">
+        <DetailProperty icon="bookmark" label="出版社" className="text-xs">
           {book.publisher}
         </DetailProperty>
-        <DetailProperty icon="barcode" label="ISBN">
+        <DetailProperty icon="barcode" label="ISBN" className="text-xs">
           {/* stretched link の擬似要素より前面に出さないとクリックできない */}
           <IsbnLink isbn={book.isbn} className="relative z-10" />
         </DetailProperty>
-        <DetailProperty icon="calendar" label="読了日">
+        <DetailProperty icon="calendar" label="読了日" className="text-xs">
           {book.readDate}
         </DetailProperty>
       </dl>
