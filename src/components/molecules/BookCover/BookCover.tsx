@@ -7,6 +7,8 @@ interface BookCoverProps {
   width: number;
   height: number;
   sizes?: string;
+  /** 書影を3:4の枠内に収め、周囲のカードと高さを揃える。 */
+  fitFrame?: boolean;
   /** 書影を収める枠のクラス。幅の制御はこちらで行う。 */
   frameClassName?: string;
   imageClassName?: string;
@@ -27,12 +29,23 @@ export default function BookCover({
   width,
   height,
   sizes,
+  fitFrame = false,
   frameClassName,
   imageClassName,
 }: BookCoverProps) {
   const [hasError, setHasError] = useState(false);
 
-  const frameClasses = [baseFrameClass, frameClassName]
+  const frameClasses = [
+    baseFrameClass,
+    fitFrame ? "aspect-3/4 bg-app-surface-subtle" : undefined,
+    frameClassName,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const imageClasses = [
+    fitFrame ? "h-full w-full object-contain" : "h-auto w-full",
+    imageClassName,
+  ]
     .filter(Boolean)
     .join(" ");
 
@@ -52,11 +65,6 @@ export default function BookCover({
 
   return (
     <div className={frameClasses}>
-      {/*
-       * 高さを固定して object-contain で収めると、書影の比率が枠と違うぶん
-       * 余白が出てしまう。枠の高さは指定せず、書影の実寸比率のまま
-       * 幅いっぱいに表示する（切り抜きも余白も発生しない）。
-       */}
       <Image
         src={src}
         alt=""
@@ -64,7 +72,7 @@ export default function BookCover({
         height={height}
         sizes={sizes}
         onError={() => setHasError(true)}
-        className={`h-auto w-full ${imageClassName ?? ""}`.trim()}
+        className={imageClasses}
       />
     </div>
   );
